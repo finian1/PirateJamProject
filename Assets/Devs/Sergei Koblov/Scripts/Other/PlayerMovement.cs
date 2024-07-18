@@ -3,26 +3,26 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 
-    [SerializeField] private float horizontal;
-    [SerializeField] private float currentSpeed = 8f;
-    [SerializeField] private float originalSpeed = 8f;
-    [SerializeField] private float jumpingPower = 16f;
-    [SerializeField] private bool isFacingRight = true;
-    [SerializeField] private bool isAirborne = false;
-    [SerializeField] private bool hasJumped = false;
+    public float horizontal;
+    public float currentSpeed = 8f;
+    public float originalSpeed = 8f;
+    public float jumpingPower = 16f;
+    public bool isFacingRight = true;
+    public bool isAirborne = false;
+    public bool hasJumped = false;
 
-    [SerializeField] private int jumpCount;
-    [SerializeField] private int maxJumpCount;
+    public int jumpCount;
+    public int maxJumpCount;
 
-    [SerializeField] private bool isCrouching = false;
-    [SerializeField] private Vector3 crouchScale;
-    [SerializeField] private Vector3 originalScale;
+    public bool isCrouching = false;
+    public Vector3 crouchScale;
+    public Vector3 originalScale;
 
-    [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private Transform groundCheck;
-    [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private float groundDistance = 0.4f;
-    [SerializeField] private bool isGrounded;
+    public Rigidbody2D rb;
+    public Transform groundCheck;
+    public LayerMask groundLayer;
+    public float groundDistance = 0.4f;
+    public bool isGrounded;
 
     private void Start()
     {
