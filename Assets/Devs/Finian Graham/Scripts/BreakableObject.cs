@@ -12,12 +12,6 @@ public class BreakableObject : MonoBehaviour, IInteractionEvents
 
     private float prevVelocityMagnitude;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        //ExecuteEvents.Execute<IInteractionEvents>(this.gameObject, null, (x, y) => x.Damage(10.0f));
-    }
-
     void FixedUpdate()
     {
         prevVelocityMagnitude = gameObject.GetComponent<Rigidbody2D>().velocity.magnitude;
@@ -25,7 +19,6 @@ public class BreakableObject : MonoBehaviour, IInteractionEvents
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log(prevVelocityMagnitude);
         Damage(prevVelocityMagnitude * impactDamageSensitivity);
     }
 
