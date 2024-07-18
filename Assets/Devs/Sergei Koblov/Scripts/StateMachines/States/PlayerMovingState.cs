@@ -50,17 +50,17 @@ public class PlayerMovingState : PlayerBaseState
 
         if (player.horizontalMovement == 0)
         {
-            player.SwitchState(player.IdleState);
+            player.SwitchState(PlayerState.IDLE);
         }
 
         if(Input.GetButton("Jump"))
         {
-            player.SwitchState(player.JumpingState);
+            player.SwitchState(PlayerState.JUMPING);
         }
 
         if (Input.GetButton("Crouch"))
         {
-            player.SwitchState(player.CrouchingState);
+            player.SwitchState(PlayerState.CROUCHING);
         }
     }
 

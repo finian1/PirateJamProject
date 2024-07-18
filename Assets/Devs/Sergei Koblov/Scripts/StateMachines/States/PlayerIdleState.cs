@@ -34,17 +34,17 @@ public class PlayerIdleState : PlayerBaseState
 
         if (player.horizontalMovement > 0f || player.horizontalMovement < 0f)
         {
-            player.SwitchState(player.MovingState);
+            player.SwitchState(PlayerState.MOVING);
         }
 
         if(Input.GetButton("Jump"))
         {
-            player.SwitchState(player.JumpingState);
+            player.SwitchState(PlayerState.JUMPING);
         }
 
         if(Input.GetButton("Crouch"))
         {
-            player.SwitchState(player.CrouchingState);
+            player.SwitchState(PlayerState.CROUCHING);
         }
     }
 }

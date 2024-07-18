@@ -14,7 +14,7 @@ public class PlayerJumpingState : PlayerBaseState
     {
         if(player.isGrounded)
         {
-            player.SwitchState(player.IdleState);
+            player.SwitchState(PlayerState.IDLE);
         }
     }
 }

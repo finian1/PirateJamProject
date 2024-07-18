@@ -44,17 +44,17 @@ public class PlayerCrouchMovingState : PlayerBaseState
 
         if (!Input.GetButton("Crouch") && player.horizontalMovement == 0)
         {
-            player.SwitchState(player.IdleState);
+            player.SwitchState(PlayerState.IDLE);
         }
 
         if(!Input.GetButton("Crouch") && player.horizontalMovement != 0)
         {
-            player.SwitchState(player.MovingState);
+            player.SwitchState(PlayerState.MOVING);
         }
 
         if(Input.GetButton("Crouch") && player.horizontalMovement == 0)
         {
-            player.SwitchState(player.CrouchingState);
+            player.SwitchState(PlayerState.CROUCHING);
         }
     }
 }

@@ -4,6 +4,15 @@ using System.Collections.Generic;
 using System.ComponentModel.Design.Serialization;
 using UnityEngine;
 
+public enum PlayerState
+{
+    IDLE,
+    MOVING,
+    JUMPING,
+    CROUCHING,
+    CROUCHMOVING,
+}
+
 public class PlayerStateManager : MonoBehaviour
 {
     //--------------VARIABLES-----------------
@@ -49,17 +58,18 @@ public class PlayerStateManager : MonoBehaviour
 
     PlayerBaseState currentState;
 
-    public PlayerIdleState IdleState = new PlayerIdleState();
-    public PlayerMovingState MovingState = new PlayerMovingState();
-    public PlayerJumpingState JumpingState = new PlayerJumpingState();
-    public PlayerCrouchingState CrouchingState = new PlayerCrouchingState();
-    public PlayerCrouchMovingState CrouchMovingState = new PlayerCrouchMovingState();
-
-
+    public Dictionary<PlayerState, PlayerBaseState> PlayerStates = new Dictionary<PlayerState, PlayerBaseState>()
+    {
+        {PlayerState.IDLE, new PlayerIdleState()},
+        {PlayerState.MOVING, new PlayerMovingState()},
+        {PlayerState.JUMPING, new PlayerJumpingState()},
+        {PlayerState.CROUCHING, new PlayerCrouchingState()},
+        {PlayerState.CROUCHMOVING, new PlayerCrouchMovingState()},
+    };
 
     void Start()
     {
-        currentState = IdleState;
+        currentState = PlayerStates[PlayerState.IDLE];
 
         currentState.EnterState(this);
 
@@ -92,10 +102,10 @@ public class PlayerStateManager : MonoBehaviour
         //Crouch();
     }
 
-    public void SwitchState(PlayerBaseState state)
+    public void SwitchState(PlayerState state)
     {
-        currentState = state;
-        state.EnterState(this);
+        currentState = PlayerStates[state];
+        PlayerStates[state].EnterState(this);
     }
 
     //void Flip()
