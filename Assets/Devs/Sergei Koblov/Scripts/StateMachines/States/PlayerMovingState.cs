@@ -39,9 +39,6 @@ public class PlayerMovingState : PlayerBaseState
 
         if (player.isFacingRight && player.horizontalMovement < 0f || !player.isFacingRight && player.horizontalMovement > 0f)
         {
-            //player.currentMovementSpeed = 8f;
-            //player.rb.velocity = new Vector2(player.horizontalMovement * player.currentMovementSpeed, player.rb.velocity.y);
-
             player.isFacingRight = !player.isFacingRight;
             Vector3 localScale = player.currentScale;
             localScale.x *= -1f;
@@ -61,17 +58,6 @@ public class PlayerMovingState : PlayerBaseState
         if (Input.GetButton("Crouch"))
         {
             player.SwitchState(player.CrouchingState);
-        }
-    }
-
-    void Flip(PlayerStateManager player)
-    {
-        if (player.isFacingRight && player.horizontalMovement < 0f || !player.isFacingRight && player.horizontalMovement > 0f)
-        {
-            player.isFacingRight = !player.isFacingRight;
-            Vector3 localScale = player.originalScale;
-            localScale.x *= -1f;
-            player.originalScale = localScale;
         }
     }
 

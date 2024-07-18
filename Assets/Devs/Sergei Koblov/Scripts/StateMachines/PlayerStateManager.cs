@@ -83,13 +83,9 @@ public class PlayerStateManager : MonoBehaviour
     {
         currentState.UpdateState(this);
 
-        //horizontalMovement = Input.GetAxisRaw("Horizontal");
         isGrounded = Physics2D.OverlapCircle(groundCheck.transform.position, groundDistance, groundLayer);
 
         transform.localScale = currentScale;
-
-        //Flip();
-        //Crouch();
     }
 
     public void SwitchState(PlayerBaseState state)
@@ -97,67 +93,6 @@ public class PlayerStateManager : MonoBehaviour
         currentState = state;
         state.EnterState(this);
     }
-
-    //void Flip()
-    //{
-    //    if (isFacingRight && horizontalMovement < 0f || !isFacingRight && horizontalMovement > 0f)
-    //    {
-    //        isFacingRight = !isFacingRight;
-    //        Vector3 localScale = originalScale;
-    //        localScale.x *= -1f;
-    //        originalScale = localScale;
-    //    }
-    //}
-
-    //void Crouch()
-    //{
-    //    if (Input.GetButton("Crouch"))
-    //    {
-    //        if (!isCrouching)
-    //        {
-    //            isCrouching = true;
-    //            float heightDifference = currentScale.y - crouchScale.y;
-    //            transform.position = new Vector3(transform.position.x, transform.position.y - heightDifference * 0.8f, transform.position.z);
-
-    //            if (isFacingRight)
-    //            {
-    //                currentScale = crouchScale;
-    //            }
-
-    //            else if (!isFacingRight)
-    //            {
-    //                Vector3 customScale = crouchScale;
-    //                customScale.x *= -1f;
-    //                currentScale = customScale;
-    //            }
-    //        }
-
-    //        //currentmove = originalSpeed * 0.5f;
-
-    //    }
-
-    //    else if (isCrouching)
-    //    {
-    //        isCrouching = false;
-    //        float heightDifference = currentScale.y - crouchScale.y;
-    //        transform.position = new Vector3(transform.position.x, transform.position.y + heightDifference * 0.8f, transform.position.z);
-
-    //        if (isFacingRight)
-    //        {
-    //            currentScale = originalScale;
-    //        }
-
-    //        else if (!isFacingRight)
-    //        {
-    //            Vector3 customScale = originalScale;
-    //            customScale.x *= -1f;
-    //            currentScale = customScale;
-    //        }
-
-    //        //currentSpeed = originalSpeed;
-
-    //    }
-    //}
 
     public void OnDrawGizmos()
     {
