@@ -39,7 +39,7 @@ public class BreakableObject : MonoBehaviour, IInteractionEvents
     private void DestroyObject()
     {
         //Start destruction animation here.
-        //Animation should call "Destroy(this)" when done.
+        //Animation should call "Destroy(this object)" when done.
         Destroy(gameObject);
     }
 }
