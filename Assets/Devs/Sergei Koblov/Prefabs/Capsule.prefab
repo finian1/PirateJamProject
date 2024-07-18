@@ -135,9 +135,9 @@ GameObject:
   - component: {fileID: 8779611507089814084}
   - component: {fileID: 3383933602855686793}
   - component: {fileID: 1710396278887160827}
-  - component: {fileID: 1980604751175315643}
+  - component: {fileID: 1948934677720293085}
   - component: {fileID: 8785665207714175216}
-  - component: {fileID: 9008563657113390063}
+  - component: {fileID: 3706299189148115771}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -215,13 +215,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &1980604751175315643
-CapsuleCollider:
+--- !u!70 &1948934677720293085
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8943338922206492670}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -230,14 +233,25 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
   m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 1, y: 2}
+  m_Direction: 0
 --- !u!114 &8785665207714175216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,46 +265,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   horizontal: 0
-  speed: 8
+  currentSpeed: 8
+  originalSpeed: 8
   jumpingPower: 16
   isFacingRight: 1
+  isAirborne: 0
+  hasJumped: 0
   jumpCount: 0
-  maxJumpCount: 2
-  fallingVelocity: 0
-  rb: {fileID: 9008563657113390063}
+  maxJumpCount: 1
+  isCrouching: 0
+  crouchScale: {x: 0, y: 0, z: 0}
+  originalScale: {x: 0, y: 0, z: 0}
+  rb: {fileID: 3706299189148115771}
   groundCheck: {fileID: 6721753176724454887}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  goundDistance: 0.4
+  groundDistance: 0.4
   isGrounded: 0
---- !u!54 &9008563657113390063
-Rigidbody:
+--- !u!50 &3706299189148115771
+Rigidbody2D:
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8943338922206492670}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 5
+  m_LinearDrag: 1
   m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 72
+  m_SleepingMode: 1
   m_CollisionDetection: 1
+  m_Constraints: 4
 --- !u!1 &9177348416548240165
 GameObject:
   m_ObjectHideFlags: 0
