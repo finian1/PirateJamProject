@@ -136,8 +136,8 @@ GameObject:
   - component: {fileID: 3383933602855686793}
   - component: {fileID: 1710396278887160827}
   - component: {fileID: 1948934677720293085}
-  - component: {fileID: 8785665207714175216}
   - component: {fileID: 3706299189148115771}
+  - component: {fileID: 6906801404291831758}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -252,37 +252,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 2}
   m_Direction: 0
---- !u!114 &8785665207714175216
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8943338922206492670}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5125d39d196fb9f418a458ccaa39ab23, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  horizontal: 0
-  currentSpeed: 8
-  originalSpeed: 8
-  jumpingPower: 16
-  isFacingRight: 1
-  isAirborne: 0
-  hasJumped: 0
-  jumpCount: 0
-  maxJumpCount: 1
-  isCrouching: 0
-  crouchScale: {x: 0, y: 0, z: 0}
-  originalScale: {x: 0, y: 0, z: 0}
-  rb: {fileID: 3706299189148115771}
-  groundCheck: {fileID: 6721753176724454887}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  groundDistance: 0.4
-  isGrounded: 0
 --- !u!50 &3706299189148115771
 Rigidbody2D:
   serializedVersion: 4
@@ -295,10 +264,10 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 5
+  m_Mass: 1
   m_LinearDrag: 1
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 4.5
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -310,6 +279,37 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &6906801404291831758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8943338922206492670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05df49354be61dd49b4c71d711d7a94c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentMovementSpeed: 0
+  originalMovementSpeed: 0
+  crouchingMovementSpeed: 0
+  horizontalMovement: 0
+  jumpCount: 0
+  jumpingPower: 0
+  groundDistance: 0
+  currentScale: {x: 0, y: 0, z: 0}
+  originalScale: {x: 0, y: 0, z: 0}
+  crouchScale: {x: 0, y: 0, z: 0}
+  isGrounded: 0
+  isFacingRight: 0
+  isCrouching: 0
+  hasCrouchFlipReset: 0
+  rb: {fileID: 3706299189148115771}
+  groundCheck: {fileID: 4818907005343581740}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &9177348416548240165
 GameObject:
   m_ObjectHideFlags: 0
