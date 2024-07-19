@@ -5,9 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
-// script by Oliver Lancashire
-//sid 1901981
-// script reference  - https://www.youtube.com/watch?v=XUK4OkqtnBo - skillcap games
+
 
 
 public class LevelManager : MonoBehaviour
