@@ -10,6 +10,8 @@ public class BreakableObject : MonoBehaviour, IInteractionEvents
     //If object is fragile, it will instantly break if damage received is above the minimum threshold.
     public bool isFragile = false;
 
+    public float launchForceAmplifier = 10.0f;
+
     private float prevVelocityMagnitude;
 
     void FixedUpdate()
@@ -19,11 +21,18 @@ public class BreakableObject : MonoBehaviour, IInteractionEvents
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Damage(prevVelocityMagnitude * impactDamageSensitivity);
+        Damage(prevVelocityMagnitude * impactDamageSensitivity, null);
     }
 
-    public void Damage(float amount)
+    public void Damage(float amount, GameObject origin)
     {
+        if (origin != null)
+        {
+            Vector2 forceDirection = transform.position - origin.transform.position;
+            forceDirection.Normalize();
+            gameObject.GetComponent<Rigidbody2D>().AddForce(forceDirection * amount * launchForceAmplifier);
+        }
+
         if (amount < minimumDamageThreshold)
         {
             return;

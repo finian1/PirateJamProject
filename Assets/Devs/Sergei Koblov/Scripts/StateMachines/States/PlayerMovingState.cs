@@ -59,6 +59,12 @@ public class PlayerMovingState : PlayerBaseState
         {
             player.SwitchState(PlayerState.CROUCHING);
         }
+
+        if (Input.GetButtonDown("Attack1"))
+        {
+            Debug.Log("Attacking");
+            player.weapon.Attack(0);
+        }
     }
 
 }

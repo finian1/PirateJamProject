@@ -16,5 +16,11 @@ public class PlayerJumpingState : PlayerBaseState
         {
             player.SwitchState(PlayerState.IDLE);
         }
+
+        if (Input.GetButtonDown("Attack1"))
+        {
+            Debug.Log("Attacking");
+            player.weapon.Attack(0);
+        }
     }
 }
