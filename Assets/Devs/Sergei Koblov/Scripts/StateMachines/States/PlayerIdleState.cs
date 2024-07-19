@@ -57,5 +57,10 @@ public class PlayerIdleState : PlayerBaseState
             Debug.Log("Attacking");
             player.weapon.Attack(0);
         }
+        if (Input.GetButtonDown("Attack2"))
+        {
+            Debug.Log("Attacking");
+            player.weapon.Attack(1);
+        }
     }
 }

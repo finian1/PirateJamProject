@@ -13,14 +13,20 @@ public class BaseAttack : MonoBehaviour
 
 
     protected float cooldownTimer = 0.0f;
+    public BaseWeapon weapon;
 
     private void Update()
     {
         cooldownTimer += Time.deltaTime;
     }
 
-    public virtual void Attack()
+    public virtual bool Attack()
     {
+        if(cooldownTimer < cooldownTime)
+        {
+            return false;
+        }
         cooldownTimer = 0.0f;
+        return true;
     }
 }

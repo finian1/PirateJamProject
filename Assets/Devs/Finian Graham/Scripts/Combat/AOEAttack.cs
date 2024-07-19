@@ -14,14 +14,13 @@ public class AOEAttack : BaseAttack
         areaOfEffect = GetComponent<PolygonCollider2D>();
     }
 
-    public override void Attack()
+    public override bool Attack()
     {
-        if(cooldownTimer < cooldownTime)
+        if (!base.Attack())
         {
-            return;
+            return false;
         }
 
-        base.Attack();
         List<Collider2D> objectsToAttack = new List<Collider2D>();
         areaOfEffect.Overlap(objectsToAttack);
         
@@ -29,5 +28,6 @@ public class AOEAttack : BaseAttack
         {
             ExecuteEvents.Execute<IInteractionEvents>(target.gameObject, null, (message, data) => message.Damage(attackDamage, gameObject));
         }
+        return true;
     }
 }

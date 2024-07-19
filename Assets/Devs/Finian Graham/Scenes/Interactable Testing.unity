@@ -355,6 +355,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 819997765235383159, guid: e34c7a81e88a4b14aa9becbaab29e758, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 1362364157740298971, guid: e34c7a81e88a4b14aa9becbaab29e758, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4011237909382074499, guid: e34c7a81e88a4b14aa9becbaab29e758, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4818907005343581740, guid: e34c7a81e88a4b14aa9becbaab29e758, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4971300808649786530, guid: e34c7a81e88a4b14aa9becbaab29e758, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932849656006344074, guid: e34c7a81e88a4b14aa9becbaab29e758, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 6906801404291831758, guid: e34c7a81e88a4b14aa9becbaab29e758, type: 3}
       propertyPath: weapon
       value: 
@@ -406,6 +430,14 @@ PrefabInstance:
     - target: {fileID: 8943338922206492670, guid: e34c7a81e88a4b14aa9becbaab29e758, type: 3}
       propertyPath: m_Name
       value: Capsule
+      objectReference: {fileID: 0}
+    - target: {fileID: 8943338922206492670, guid: e34c7a81e88a4b14aa9becbaab29e758, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 9177348416548240165, guid: e34c7a81e88a4b14aa9becbaab29e758, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

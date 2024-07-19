@@ -11,7 +11,10 @@ public class BaseWeapon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        foreach(BaseAttack attack in attacks)
+        {
+            attack.weapon = this;
+        }
     }
 
     public void Attack(int index)
