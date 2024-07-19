@@ -48,6 +48,7 @@ public class PlayerStateManager : MonoBehaviour
 
     [Header("GameObjects")]
     public GameObject groundCheck;
+    public BaseWeapon weapon;
 
 
     [Header("Layers")]

@@ -32,6 +32,11 @@ public class PlayerIdleState : PlayerBaseState
     {
         player.horizontalMovement = Input.GetAxisRaw("Horizontal");
 
+        if(player.horizontalMovement == 0f)
+        {
+            player.rb.velocity = new Vector2(0.0f, player.rb.velocity.y);
+        }
+
         if (player.horizontalMovement > 0f || player.horizontalMovement < 0f)
         {
             player.SwitchState(PlayerState.MOVING);
@@ -45,6 +50,17 @@ public class PlayerIdleState : PlayerBaseState
         if(Input.GetButton("Crouch"))
         {
             player.SwitchState(PlayerState.CROUCHING);
+        }
+
+        if (Input.GetButtonDown("Attack1"))
+        {
+            Debug.Log("Attacking");
+            player.weapon.Attack(0);
+        }
+        if (Input.GetButtonDown("Attack2"))
+        {
+            Debug.Log("Attacking");
+            player.weapon.Attack(1);
         }
     }
 }
