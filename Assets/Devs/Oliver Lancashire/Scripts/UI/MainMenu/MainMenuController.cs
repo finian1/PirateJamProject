@@ -4,15 +4,42 @@ using UnityEngine;
 
 public class MainMenuController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public menuScreens menuScreens;
+    
+public void screenSwitch()
+{
+    
+//switch (menuScreens)
+//{
+    //case menuScreens.main:
+    //Debug.Log(m_screens);
+    //break;
+    //case menuScreens.settings:
+    // Debug.Log(m_screens);
+    //break;
+    //case menuScreens.controls:
+    //Debug.Log(m_screens);
+    //break;
+    //case menuScreens.credits:
+   //  Debug.Log(m_screens);
+   // break;
+
+
+
+//}
+
+
+
+}
+}
+
+
+public enum menuScreens
+{
+    main,
+    settings,
+    controls,
+
+    credits
 }
