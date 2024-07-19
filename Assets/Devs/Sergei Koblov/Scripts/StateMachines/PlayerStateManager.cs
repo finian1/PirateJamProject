@@ -97,6 +97,8 @@ public class PlayerStateManager : MonoBehaviour
         isGrounded = Physics2D.OverlapCircle(groundCheck.transform.position, groundDistance, groundLayer);
 
         transform.localScale = currentScale;
+
+        Debug.Log(rb.velocity);
     }
 
     public void SwitchState(PlayerState state)

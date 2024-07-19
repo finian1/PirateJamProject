@@ -32,6 +32,11 @@ public class PlayerIdleState : PlayerBaseState
     {
         player.horizontalMovement = Input.GetAxisRaw("Horizontal");
 
+        if(player.horizontalMovement == 0f)
+        {
+            player.rb.velocity = new Vector2(0.0f, player.rb.velocity.y);
+        }
+
         if (player.horizontalMovement > 0f || player.horizontalMovement < 0f)
         {
             player.SwitchState(PlayerState.MOVING);

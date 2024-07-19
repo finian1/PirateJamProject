@@ -12,7 +12,28 @@ public class PlayerJumpingState : PlayerBaseState
 
     public override void UpdateState(PlayerStateManager player)
     {
-        if(player.isGrounded)
+        player.horizontalMovement = Input.GetAxisRaw("Horizontal");
+
+        if (player.horizontalMovement == 0f)
+        {
+            player.rb.velocity = new Vector2(0.0f, player.rb.velocity.y);
+        }
+
+        if (player.horizontalMovement != 0)
+        {
+            player.currentMovementSpeed = 8f;
+            player.rb.velocity = new Vector2(player.horizontalMovement * player.currentMovementSpeed, player.rb.velocity.y);
+        }
+
+        if (player.isFacingRight && player.horizontalMovement < 0f || !player.isFacingRight && player.horizontalMovement > 0f)
+        {
+            player.isFacingRight = !player.isFacingRight;
+            Vector3 localScale = player.currentScale;
+            localScale.x *= -1f;
+            player.currentScale = localScale;
+        }
+
+        if (player.isGrounded)
         {
             player.SwitchState(PlayerState.IDLE);
         }
