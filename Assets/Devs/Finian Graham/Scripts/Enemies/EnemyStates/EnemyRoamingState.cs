@@ -22,11 +22,11 @@ public class EnemyRoamingState : EnemyBaseState
         {
             finalSpeed = -finalSpeed;
 
-            enemy.transform.localScale = new Vector3(-0.5f, 0.5f, 0.5f);
+            enemy.transform.localScale = new Vector3(enemy.initialScale.x * -1.0f, enemy.initialScale.x * 1.0f, enemy.initialScale.x * 1.0f);
         }
         else
         {
-            enemy.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            enemy.transform.localScale = enemy.initialScale;
         }
 
         enemy.GetComponent<Rigidbody2D>().MovePosition(enemy.transform.position + new Vector3(finalSpeed * Time.deltaTime, 0.0f, 0.0f));

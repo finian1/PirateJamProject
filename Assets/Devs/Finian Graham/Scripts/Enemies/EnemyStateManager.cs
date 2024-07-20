@@ -22,6 +22,8 @@ public class EnemyStateManager : MonoBehaviour
 
     public bool movingRight = false;
 
+    public Vector3 initialScale;
+
 
     public Dictionary<EnemyState, EnemyBaseState> EnemyStates = new Dictionary<EnemyState, EnemyBaseState>()
     {
@@ -32,6 +34,7 @@ public class EnemyStateManager : MonoBehaviour
 
     private void Start()
     {
+        initialScale = transform.localScale;
         SwitchState(EnemyState.ROAMING);
     }
 

@@ -25,14 +25,14 @@ public class EnemyAggroState : EnemyBaseState
         if (!enemy.movingRight)
         {
             forwardVector = -forwardVector;
-            enemy.transform.localScale = new Vector3(-0.5f, 0.5f, 0.5f);
+            enemy.transform.localScale = new Vector3(enemy.initialScale.x * -1.0f, enemy.initialScale.x * 1.0f, enemy.initialScale.x * 1.0f);
         }
         else
         {
-            enemy.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            enemy.transform.localScale = enemy.initialScale;
         }
 
-        if(!enemy.vision.IsPlayerInFront(forwardVector))
+        if (!enemy.vision.IsPlayerInFront(forwardVector))
         {
             enemy.movingRight = !enemy.movingRight;
         }
