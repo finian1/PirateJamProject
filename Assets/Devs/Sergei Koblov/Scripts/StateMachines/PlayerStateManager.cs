@@ -44,6 +44,7 @@ public class PlayerStateManager : MonoBehaviour
 
     [Header("Components")]
     public Rigidbody2D rb;
+    public Animator animator;
 
 
     [Header("GameObjects")]
@@ -87,6 +88,7 @@ public class PlayerStateManager : MonoBehaviour
         originalScale = transform.localScale;
         currentScale = transform.localScale;
         crouchScale = new Vector3(originalScale.x, originalScale.y * 0.5f, originalScale.z);
+        animator = GetComponent<Animator>();
 
     }
 
