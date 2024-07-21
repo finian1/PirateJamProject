@@ -10,12 +10,10 @@ public class PlayerCrouchMovingState : PlayerBaseState
 
     public override void UpdateState(PlayerStateManager player)
     {
-        player.horizontalMovement = Input.GetAxisRaw("Horizontal");
-
-        if (player.horizontalMovement != 0)
+        if (player.moveDirection.x != 0)
         {
             player.currentMovementSpeed = player.crouchingMovementSpeed;
-            player.rb.velocity = new Vector2(player.horizontalMovement * player.currentMovementSpeed, player.rb.velocity.y);
+            player.rb.velocity = new Vector2(player.moveDirection.x * player.currentMovementSpeed, player.rb.velocity.y);
         }
 
         float heightDifference = player.currentScale.y - player.crouchScale.y;
@@ -34,7 +32,7 @@ public class PlayerCrouchMovingState : PlayerBaseState
             player.currentScale = currentScale;
         }
 
-        if (player.isFacingRight && player.horizontalMovement < 0f || !player.isFacingRight && player.horizontalMovement > 0f)
+        if (player.isFacingRight && player.moveDirection.x < 0f || !player.isFacingRight && player.moveDirection.x > 0f)
         {
             player.isFacingRight = !player.isFacingRight;
             Vector3 localScale = player.currentScale;
@@ -42,17 +40,17 @@ public class PlayerCrouchMovingState : PlayerBaseState
             player.currentScale = localScale;
         }
 
-        if (!Input.GetButton("Crouch") && player.horizontalMovement == 0)
+        if (!player.crouchButtonPressed && player.moveDirection.x == 0)
         {
             player.SwitchState(PlayerState.IDLE);
         }
 
-        if(!Input.GetButton("Crouch") && player.horizontalMovement != 0)
+        if(!player.crouchButtonPressed && player.moveDirection.x != 0)
         {
             player.SwitchState(PlayerState.MOVING);
         }
 
-        if(Input.GetButton("Crouch") && player.horizontalMovement == 0)
+        if(player.crouchButtonPressed && player.moveDirection.x == 0)
         {
             player.SwitchState(PlayerState.CROUCHING);
         }

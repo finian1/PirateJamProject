@@ -1,4 +1,5 @@
 using Microsoft.Win32.SafeHandles;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Design.Serialization;
@@ -30,6 +31,7 @@ public class PlayerStateManager : MonoBehaviour
 
 
     [Header("Vectors")]
+    public Vector2 moveDirection;
     public Vector3 currentScale;
     public Vector3 originalScale;
     public Vector3 crouchScale;
@@ -42,8 +44,16 @@ public class PlayerStateManager : MonoBehaviour
     public bool hasCrouchFlipReset;
 
 
+    [Header("Input Buttons Booleans")]
+    public bool crouchButtonPressed;
+    public bool jumpButtonPressed;
+    public bool fireButtonPressed1;
+    public bool fireButtonPressed2;
+
+
     [Header("Components")]
     public Rigidbody2D rb;
+    private PlayerInputSystem _playerInputSystem;
 
 
     [Header("GameObjects")]
@@ -53,6 +63,11 @@ public class PlayerStateManager : MonoBehaviour
 
     [Header("Layers")]
     public LayerMask groundLayer;
+
+
+    //[Header("Input Actions")]
+    //public InputActionReference move;
+    //public InputActionReference crouch;
 
 
     // ---------------STATES-------------------
@@ -68,9 +83,13 @@ public class PlayerStateManager : MonoBehaviour
         {PlayerState.CROUCHMOVING, new PlayerCrouchMovingState()},
     };
 
+
+
     void Start()
     {
         currentState = PlayerStates[PlayerState.IDLE];
+
+        _playerInputSystem = GetComponent<PlayerInputSystem>();
 
         currentState.EnterState(this);
 
@@ -78,10 +97,11 @@ public class PlayerStateManager : MonoBehaviour
         crouchingMovementSpeed = originalMovementSpeed * 0.5f;
 
         jumpCount = 1;
-        groundDistance = 0.4f;
+        groundDistance = 0.2f;
 
         isFacingRight = true;
         isCrouching = false;
+        crouchButtonPressed = false;
         hasCrouchFlipReset = true;
 
         originalScale = transform.localScale;
@@ -97,6 +117,14 @@ public class PlayerStateManager : MonoBehaviour
         isGrounded = Physics2D.OverlapCircle(groundCheck.transform.position, groundDistance, groundLayer);
 
         transform.localScale = currentScale;
+
+        //moveDirection = move.action.ReadValue<Vector2>();
+        moveDirection = _playerInputSystem.move.action.ReadValue<Vector2>();
+
+        jumpButtonPressed = _playerInputSystem.jumpButton;
+        crouchButtonPressed = _playerInputSystem.crouchButton;
+        fireButtonPressed1 = _playerInputSystem.fireButton1;
+        fireButtonPressed2 = _playerInputSystem.fireButton2;
     }
 
     public void SwitchState(PlayerState state)

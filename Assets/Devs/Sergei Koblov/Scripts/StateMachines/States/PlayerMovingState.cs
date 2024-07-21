@@ -29,15 +29,13 @@ public class PlayerMovingState : PlayerBaseState
 
     public override void UpdateState(PlayerStateManager player)
     {
-        player.horizontalMovement = Input.GetAxisRaw("Horizontal");
-
-        if (player.horizontalMovement != 0)
+        if (player.moveDirection.x != 0)
         {
             player.currentMovementSpeed = 8f;
-            player.rb.velocity = new Vector2(player.horizontalMovement * player.currentMovementSpeed, player.rb.velocity.y);
+            player.rb.velocity = new Vector2(player.moveDirection.x * player.currentMovementSpeed, player.rb.velocity.y);
         }
 
-        if (player.isFacingRight && player.horizontalMovement < 0f || !player.isFacingRight && player.horizontalMovement > 0f)
+        if (player.isFacingRight && player.moveDirection.x < 0f || !player.isFacingRight && player.moveDirection.x > 0f)
         {
             player.isFacingRight = !player.isFacingRight;
             Vector3 localScale = player.currentScale;
@@ -45,27 +43,27 @@ public class PlayerMovingState : PlayerBaseState
             player.currentScale = localScale;
         }
 
-        if (player.horizontalMovement == 0)
+        if (player.moveDirection.x == 0)
         {
             player.SwitchState(PlayerState.IDLE);
         }
 
-        if(Input.GetButton("Jump"))
+        if (player.jumpButtonPressed)
         {
             player.SwitchState(PlayerState.JUMPING);
         }
 
-        if (Input.GetButton("Crouch"))
+        if (player.crouchButtonPressed)
         {
             player.SwitchState(PlayerState.CROUCHING);
         }
 
-        if (Input.GetButtonDown("Attack1"))
+        if (player.fireButtonPressed1)
         {
             Debug.Log("Attacking");
             player.weapon.Attack(0);
         }
-        if (Input.GetButtonDown("Attack2"))
+        if (player.fireButtonPressed2)
         {
             Debug.Log("Attacking");
             player.weapon.Attack(1);
