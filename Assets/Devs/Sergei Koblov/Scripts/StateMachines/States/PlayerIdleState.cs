@@ -7,7 +7,7 @@ public class PlayerIdleState : PlayerBaseState
     {
         Debug.Log("Player is idle.");
 
-        if(!player.hasCrouchFlipReset)
+        if (!player.hasCrouchFlipReset)
         {
             float heightDifference = player.originalScale.y - player.crouchScale.y;
             player.transform.position = new Vector3(player.transform.position.x, player.transform.position.y + heightDifference * 0.8f, player.transform.position.z);
@@ -30,7 +30,7 @@ public class PlayerIdleState : PlayerBaseState
 
     public override void UpdateState(PlayerStateManager player)
     {
-        if(player.moveDirection.x == 0f)
+        if (player.moveDirection.x == 0f)
         {
             player.rb.velocity = new Vector2(0.0f, player.rb.velocity.y);
         }
@@ -40,25 +40,32 @@ public class PlayerIdleState : PlayerBaseState
             player.SwitchState(PlayerState.MOVING);
         }
 
-        if(player.jumpButtonPressed)
+        if (player._playerInputSystem.jumpHold)
         {
+            //player.groundCheck.SetActive(false);
             player.SwitchState(PlayerState.JUMPING);
         }
 
-        if (player.crouchButtonPressed)
+        if (player.crouchPress)
         {
             player.SwitchState(PlayerState.CROUCHING);
         }
 
-        if (player.fireButtonPressed1)
+        if (player.fire1Press)
         {
             Debug.Log("Attacking");
             player.weapon.Attack(0);
         }
-        if (player.fireButtonPressed2)
+
+        if (player.fire2Press)
         {
             Debug.Log("Attacking");
             player.weapon.Attack(1);
+        }
+
+        if (player.dashPress && player.currentDashCounter > player.minDashCounter)
+        {
+            player.SwitchState(PlayerState.DASHING);
         }
     }
 }

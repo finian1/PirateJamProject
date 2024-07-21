@@ -36,12 +36,12 @@ public class PlayerCrouchingState : PlayerBaseState
             player.currentScale = localScale;
         }
 
-        if (!player.crouchButtonPressed)
+        if (!player._playerInputSystem.crouchHold)
         {
             player.SwitchState(PlayerState.IDLE);
         }
 
-        if(player.crouchButtonPressed && player.moveDirection.x != 0f)
+        if (player._playerInputSystem.crouchHold && player.moveDirection.x != 0f)
         {
             player.SwitchState(PlayerState.CROUCHMOVING);
         }

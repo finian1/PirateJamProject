@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerCrouchMovingState : PlayerBaseState
@@ -10,6 +9,11 @@ public class PlayerCrouchMovingState : PlayerBaseState
 
     public override void UpdateState(PlayerStateManager player)
     {
+        if (player.moveDirection.x == 0f)
+        {
+            player.rb.velocity = new Vector2(0.0f, player.rb.velocity.y);
+        }
+
         if (player.moveDirection.x != 0)
         {
             player.currentMovementSpeed = player.crouchingMovementSpeed;
@@ -40,17 +44,17 @@ public class PlayerCrouchMovingState : PlayerBaseState
             player.currentScale = localScale;
         }
 
-        if (!player.crouchButtonPressed && player.moveDirection.x == 0)
+        if (!player._playerInputSystem.crouchHold && player.moveDirection.x == 0)
         {
             player.SwitchState(PlayerState.IDLE);
         }
 
-        if(!player.crouchButtonPressed && player.moveDirection.x != 0)
+        if (!player._playerInputSystem.crouchHold && player.moveDirection.x != 0)
         {
             player.SwitchState(PlayerState.MOVING);
         }
 
-        if(player.crouchButtonPressed && player.moveDirection.x == 0)
+        if( player._playerInputSystem.crouchHold && player.moveDirection.x == 0)
         {
             player.SwitchState(PlayerState.CROUCHING);
         }

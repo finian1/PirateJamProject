@@ -31,7 +31,7 @@ public class PlayerMovingState : PlayerBaseState
     {
         if (player.moveDirection.x != 0)
         {
-            player.currentMovementSpeed = 8f;
+            player.currentMovementSpeed = player.originalMovementSpeed;
             player.rb.velocity = new Vector2(player.moveDirection.x * player.currentMovementSpeed, player.rb.velocity.y);
         }
 
@@ -48,25 +48,32 @@ public class PlayerMovingState : PlayerBaseState
             player.SwitchState(PlayerState.IDLE);
         }
 
-        if (player.jumpButtonPressed)
+        if (player._playerInputSystem.jumpHold)
         {
+            //player.groundCheck.SetActive(false);
             player.SwitchState(PlayerState.JUMPING);
         }
 
-        if (player.crouchButtonPressed)
+        if (player.crouchPress)
         {
             player.SwitchState(PlayerState.CROUCHING);
         }
 
-        if (player.fireButtonPressed1)
+        if (player.fire1Press)
         {
             Debug.Log("Attacking");
             player.weapon.Attack(0);
         }
-        if (player.fireButtonPressed2)
+
+        if (player.fire2Press)
         {
             Debug.Log("Attacking");
             player.weapon.Attack(1);
+        }
+
+        if (player.dashPress && player.currentDashCounter > player.minDashCounter)
+        {
+            player.SwitchState(PlayerState.DASHING);
         }
     }
 
