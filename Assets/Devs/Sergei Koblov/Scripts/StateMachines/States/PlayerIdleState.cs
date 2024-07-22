@@ -7,7 +7,7 @@ public class PlayerIdleState : PlayerBaseState
     {
         Debug.Log("Player is idle.");
 
-        if (!player.hasCrouchFlipReset)
+        if(!player.hasCrouchFlipReset)
         {
             float heightDifference = player.originalScale.y - player.crouchScale.y;
             player.transform.position = new Vector3(player.transform.position.x, player.transform.position.y + heightDifference * 0.8f, player.transform.position.z);
@@ -32,42 +32,37 @@ public class PlayerIdleState : PlayerBaseState
 
     public override void UpdateState(PlayerStateManager player)
     {
-        if (player.moveDirection.x == 0f)
+        player.horizontalMovement = Input.GetAxisRaw("Horizontal");
+
+        if(player.horizontalMovement == 0f)
         {
             player.rb.velocity = new Vector2(0.0f, player.rb.velocity.y);
         }
 
-        if (player.moveDirection.x > 0f || player.moveDirection.x < 0f)
+        if (player.horizontalMovement > 0f || player.horizontalMovement < 0f)
         {
             player.SwitchState(PlayerState.MOVING);
         }
 
-        if (player._playerInputSystem.jumpHold)
+        if(Input.GetButton("Jump"))
         {
-            //player.groundCheck.SetActive(false);
             player.SwitchState(PlayerState.JUMPING);
         }
 
-        if (player.crouchPress)
+        if(Input.GetButton("Crouch"))
         {
             player.SwitchState(PlayerState.CROUCHING);
         }
 
-        if (player.fire1Press)
+        if (Input.GetButtonDown("Attack1"))
         {
             Debug.Log("Attacking");
             player.weapon.Attack(0);
         }
-
-        if (player.fire2Press)
+        if (Input.GetButtonDown("Attack2"))
         {
             Debug.Log("Attacking");
             player.weapon.Attack(1);
-        }
-
-        if (player.dashPress && player.currentDashCounter > player.minDashCounter)
-        {
-            player.SwitchState(PlayerState.DASHING);
         }
     }
 }

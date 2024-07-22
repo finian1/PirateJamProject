@@ -31,13 +31,15 @@ public class PlayerMovingState : PlayerBaseState
 
     public override void UpdateState(PlayerStateManager player)
     {
-        if (player.moveDirection.x != 0)
+        player.horizontalMovement = Input.GetAxisRaw("Horizontal");
+
+        if (player.horizontalMovement != 0)
         {
-            player.currentMovementSpeed = player.originalMovementSpeed;
-            player.rb.velocity = new Vector2(player.moveDirection.x * player.currentMovementSpeed, player.rb.velocity.y);
+            player.currentMovementSpeed = 8f;
+            player.rb.velocity = new Vector2(player.horizontalMovement * player.currentMovementSpeed, player.rb.velocity.y);
         }
 
-        if (player.isFacingRight && player.moveDirection.x < 0f || !player.isFacingRight && player.moveDirection.x > 0f)
+        if (player.isFacingRight && player.horizontalMovement < 0f || !player.isFacingRight && player.horizontalMovement > 0f)
         {
             player.isFacingRight = !player.isFacingRight;
             Vector3 localScale = player.currentScale;
@@ -45,37 +47,30 @@ public class PlayerMovingState : PlayerBaseState
             player.currentScale = localScale;
         }
 
-        if (player.moveDirection.x == 0)
+        if (player.horizontalMovement == 0)
         {
             player.SwitchState(PlayerState.IDLE);
         }
 
-        if (player._playerInputSystem.jumpHold)
+        if(Input.GetButton("Jump"))
         {
-            //player.groundCheck.SetActive(false);
             player.SwitchState(PlayerState.JUMPING);
         }
 
-        if (player.crouchPress)
+        if (Input.GetButton("Crouch"))
         {
             player.SwitchState(PlayerState.CROUCHING);
         }
 
-        if (player.fire1Press)
+        if (Input.GetButtonDown("Attack1"))
         {
             Debug.Log("Attacking");
             player.weapon.Attack(0);
         }
-
-        if (player.fire2Press)
+        if (Input.GetButtonDown("Attack2"))
         {
             Debug.Log("Attacking");
             player.weapon.Attack(1);
-        }
-
-        if (player.dashPress && player.currentDashCounter > player.minDashCounter)
-        {
-            player.SwitchState(PlayerState.DASHING);
         }
     }
 
