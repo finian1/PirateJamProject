@@ -8,6 +8,7 @@ public class VisionScript : MonoBehaviour
     public bool canSeePlayer = false;
 
     public GameObject playerObject;
+    public GameObject visionLight;
     public EnemyStateManager enemyStateManager;
 
     public int numOfRays = 50;
@@ -57,6 +58,7 @@ public class VisionScript : MonoBehaviour
         Vector2 currentDirectionalVector;
         //Hit everything but enemies
         int layerMask = ~LayerMask.GetMask("Enemy");
+
         for(int i = 0; i < numOfRays; i++)
         {
             float dirVectorX = Mathf.Cos(currentAngle) * forwardVector.x - Mathf.Sin(currentAngle) * forwardVector.y;
