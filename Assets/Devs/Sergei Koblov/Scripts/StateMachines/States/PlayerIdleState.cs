@@ -26,6 +26,9 @@ public class PlayerIdleState : PlayerBaseState
             player.currentMovementSpeed = player.originalMovementSpeed;
             player.hasCrouchFlipReset = true;
         }
+
+        player.anim.SetBool("IsRunning", false);
+
     }
 
     public override void UpdateState(PlayerStateManager player)

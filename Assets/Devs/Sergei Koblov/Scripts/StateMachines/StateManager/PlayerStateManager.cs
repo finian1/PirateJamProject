@@ -63,7 +63,7 @@ public class PlayerStateManager : MonoBehaviour
 
     [Header("Components")]
     public Rigidbody2D rb;
-
+    public Animator anim;
 
     [Header("GameObjects")]
     public GameObject groundCheck;

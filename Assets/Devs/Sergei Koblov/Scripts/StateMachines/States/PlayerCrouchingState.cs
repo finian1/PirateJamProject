@@ -6,6 +6,7 @@ public class PlayerCrouchingState : PlayerBaseState
     {
         Debug.Log("Player is crouching.");
         player.hasCrouchFlipReset = false;
+        player.anim.SetBool("IsRunning", false);
     }
 
     public override void UpdateState(PlayerStateManager player)

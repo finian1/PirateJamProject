@@ -5,6 +5,7 @@ public class PlayerCrouchMovingState : PlayerBaseState
     public override void EnterState(PlayerStateManager player)
     {
         Debug.Log("Player is crouch moving.");
+        player.anim.SetBool("IsRunning", true);
     }
 
     public override void UpdateState(PlayerStateManager player)

@@ -12,7 +12,7 @@ public class PlayerDashingState : PlayerBaseState
         //player.rb.velocity = new Vector2(player.rb.velocity.x, 0.0f);
         player.justDashed = true;
         player.dashCooldownTimer = 0f;
-        player.dashPower = 60f;
+        player.dashPower = 80f;
 
         player.initialDashCounter = player.currentDashCounter;
 
