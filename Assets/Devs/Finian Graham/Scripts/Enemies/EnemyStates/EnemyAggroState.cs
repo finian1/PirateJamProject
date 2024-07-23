@@ -32,9 +32,15 @@ public class EnemyAggroState : EnemyBaseState
             enemy.transform.localScale = enemy.initialScale;
         }
 
-        if (!enemy.vision.IsPlayerInFront(forwardVector))
+        //If player is behind enemy, turn around.
+        if(enemy.vision.canSeePlayer)
         {
-            enemy.movingRight = !enemy.movingRight;
+            Vector3 playerDirection = enemy.vision.playerObject.transform.position - enemy.transform.position;
+            playerDirection.Normalize();
+            if(Vector3.Dot(forwardVector, playerDirection) < 0)
+            {
+                enemy.movingRight = !enemy.movingRight;
+            }
         }
 
         if (!enemy.vision.canSeePlayer)

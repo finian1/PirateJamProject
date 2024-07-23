@@ -8,61 +8,83 @@ public class VisionScript : MonoBehaviour
     public bool canSeePlayer = false;
 
     public GameObject playerObject;
-    private bool isPlayerPresent;
+    public EnemyStateManager enemyStateManager;
+
+    public int numOfRays = 50;
+    public float fieldOfView = 90.0f;
+    public float visionDistance = 20.0f;
+
+    private float angleStep;
+
+    private void Start()
+    {
+        fieldOfView *= Mathf.Deg2Rad;
+        angleStep = fieldOfView / numOfRays;
+    }
 
     private void FixedUpdate()
     {
-        if (isPlayerPresent)
+        Vector2 currentForwardVector;
+
+        if(canSeePlayer)
         {
-            Vector2 targetOffset = playerObject.transform.position - transform.position;
-            RaycastHit2D visionCheckHit;
-            int layerMask = 1 << 3;
-            if (visionCheckHit = Physics2D.Raycast(gameObject.transform.position, targetOffset.normalized, targetOffset.magnitude, layerMask))
+            currentForwardVector = playerObject.transform.position - transform.position;
+            currentForwardVector.Normalize();
+        }
+        else
+        {
+            if (enemyStateManager.movingRight)
             {
-                canSeePlayer = false;
+                currentForwardVector = transform.right;
             }
             else
             {
-                canSeePlayer = true;
+                currentForwardVector = -transform.right;
             }
         }
-    }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.gameObject.tag == "Player")
+        UpdateVision(currentForwardVector);
+        if(!canSeePlayer)
         {
-            isPlayerPresent = true;
-            playerObject = collision.gameObject;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            isPlayerPresent = false;
-            canSeePlayer = false;
             playerObject = null;
         }
     }
 
-    public bool IsPlayerInFront(Vector3 forwardVector)
+    public void UpdateVision(Vector2 forwardVector)
     {
-        if(playerObject == null)
+        canSeePlayer = false;
+        float currentAngle = -fieldOfView / 2.0f;
+        Vector2 currentDirectionalVector;
+        //Hit everything but enemies
+        int layerMask = ~LayerMask.GetMask("Enemy");
+        for(int i = 0; i < numOfRays; i++)
         {
-            return false;
-        }
+            float dirVectorX = Mathf.Cos(currentAngle) * forwardVector.x - Mathf.Sin(currentAngle) * forwardVector.y;
+            float dirVectorY = Mathf.Sin(currentAngle) * forwardVector.x + Mathf.Cos(currentAngle) * forwardVector.y;
+            currentDirectionalVector = new Vector2(dirVectorX, dirVectorY);
 
-        Vector3 targetOffset = playerObject.transform.position - transform.position;
-        targetOffset.Normalize();
-        if(Vector3.Dot(forwardVector, targetOffset) > 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
+            RaycastHit2D hit;
+            hit = Physics2D.Raycast(transform.position, currentDirectionalVector, visionDistance, layerMask);
+            if(hit)
+            {
+                if (hit.collider.gameObject.CompareTag("Player"))
+                {
+                    canSeePlayer = true;
+                    playerObject = hit.collider.gameObject;
+                    Debug.DrawLine(transform.position, hit.point, Color.red);
+                }
+                else
+                {
+                    Debug.DrawLine(transform.position, hit.point);
+                }
+            }
+            else
+            {
+                Debug.DrawLine(transform.position, new Vector2(transform.position.x, transform.position.y) + currentDirectionalVector * visionDistance);
+            }
+
+
+            currentAngle += angleStep;
         }
     }
 
