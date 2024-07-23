@@ -197,6 +197,11 @@ public class PlayerStateManager : MonoBehaviour
 
     void UpdateDashUI()
     {
+        if (dash1 == null || dash2 == null || dash3 == null)
+        {
+            return;
+        }
+
         GameObject[] dashes = { dash1, dash2, dash3 };
 
         for (int i = 0; i < dashes.Length; i++)

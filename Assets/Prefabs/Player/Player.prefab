@@ -205,20 +205,40 @@ MonoBehaviour:
   originalMovementSpeed: 0
   crouchingMovementSpeed: 0
   horizontalMovement: 0
-  jumpCount: 0
+  velocityY: 0
+  velocityX: 0
   jumpingPower: 0
+  originalJumpingPower: 0
+  currentJumpCount: 0
+  maxJumpCount: 0
+  initialDashCounter: 0
+  currentDashCounter: 0
+  minDashCounter: 0
+  maxDashCounter: 0
+  dashPower: 0
+  dashResetTimer: 0
+  originalDashCooldownTimer: 0
+  dashCooldownTimer: 0
   groundDistance: 0
+  groundedTimer: 0
+  moveDirection: {x: 0, y: 0}
   currentScale: {x: 0, y: 0, z: 0}
   originalScale: {x: 0, y: 0, z: 0}
   crouchScale: {x: 0, y: 0, z: 0}
   isGrounded: 0
+  startGroundedTimer: 0
+  canDoubleJump: 0
   isFacingRight: 0
   isCrouching: 0
   hasCrouchFlipReset: 0
+  justDashed: 0
   rb: {fileID: 5190523944246186681}
-  animator: {fileID: 5217609674137775356}
+  anim: {fileID: 5217609674137775356}
   groundCheck: {fileID: 6702462590585189025}
   weapon: {fileID: 0}
+  dash1: {fileID: 0}
+  dash2: {fileID: 0}
+  dash3: {fileID: 0}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
