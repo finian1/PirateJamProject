@@ -38,7 +38,7 @@ public class EnemyStateManager : MonoBehaviour
         SwitchState(EnemyState.ROAMING);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         currentEnemyState.UpdateState(this);
     }

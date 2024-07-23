@@ -102,6 +102,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c527116f93cb9ef48a1483c29486e8c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vision: {fileID: 0}
+  groundCheck: {fileID: 0}
+  wallCheck: {fileID: 0}
+  movementSpeed: 7
+  aggroSpeed: 15
+  movingRight: 0
+  initialScale: {x: 0, y: 0, z: 0}
 --- !u!50 &7292908392642479349
 Rigidbody2D:
   serializedVersion: 4
@@ -247,3 +254,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canSeePlayer: 0
+  playerObject: {fileID: 0}
+  enemyStateManager: {fileID: 0}
+  numOfRays: 50
+  fieldOfView: 90
+  visionDistance: 20
