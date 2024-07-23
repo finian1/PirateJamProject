@@ -48,30 +48,30 @@ public class PlayerMovingState : PlayerBaseState
             player.SwitchState(PlayerState.IDLE);
         }
 
-        if (player._playerInputSystem.jumpHold)
+        if (Input.GetKey(KeyCode.Space))
         {
             //player.groundCheck.SetActive(false);
             player.SwitchState(PlayerState.JUMPING);
         }
 
-        if (player.crouchPress)
+        if (Input.GetKey(KeyCode.LeftControl))
         {
             player.SwitchState(PlayerState.CROUCHING);
         }
 
-        if (player.fire1Press)
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             Debug.Log("Attacking");
             player.weapon.Attack(0);
         }
 
-        if (player.fire2Press)
+        if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             Debug.Log("Attacking");
             player.weapon.Attack(1);
         }
 
-        if (player.dashPress && player.currentDashCounter > player.minDashCounter)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && player.currentDashCounter > player.minDashCounter)
         {
             player.SwitchState(PlayerState.DASHING);
         }

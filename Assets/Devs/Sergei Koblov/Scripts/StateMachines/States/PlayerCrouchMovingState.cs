@@ -44,17 +44,17 @@ public class PlayerCrouchMovingState : PlayerBaseState
             player.currentScale = localScale;
         }
 
-        if (!player._playerInputSystem.crouchHold && player.moveDirection.x == 0)
+        if (!Input.GetKey(KeyCode.LeftControl) && player.moveDirection.x == 0)
         {
             player.SwitchState(PlayerState.IDLE);
         }
 
-        if (!player._playerInputSystem.crouchHold && player.moveDirection.x != 0)
+        if (!Input.GetKey(KeyCode.LeftControl) && player.moveDirection.x != 0)
         {
             player.SwitchState(PlayerState.MOVING);
         }
 
-        if( player._playerInputSystem.crouchHold && player.moveDirection.x == 0)
+        if(Input.GetKey(KeyCode.LeftControl) && player.moveDirection.x == 0)
         {
             player.SwitchState(PlayerState.CROUCHING);
         }

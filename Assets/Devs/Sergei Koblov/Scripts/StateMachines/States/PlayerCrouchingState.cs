@@ -36,12 +36,12 @@ public class PlayerCrouchingState : PlayerBaseState
             player.currentScale = localScale;
         }
 
-        if (!player._playerInputSystem.crouchHold)
+        if (!Input.GetKey(KeyCode.LeftControl))
         {
             player.SwitchState(PlayerState.IDLE);
         }
 
-        if (player._playerInputSystem.crouchHold && player.moveDirection.x != 0f)
+        if (Input.GetKey(KeyCode.LeftControl) && player.moveDirection.x != 0f)
         {
             player.SwitchState(PlayerState.CROUCHMOVING);
         }

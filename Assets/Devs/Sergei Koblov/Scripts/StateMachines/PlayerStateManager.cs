@@ -15,20 +15,21 @@ public class PlayerStateManager : MonoBehaviour
 {
     //--------------VARIABLES-----------------
 
-    [Header("Player variables")]
-    //Moving
+    [Header("Movement variables")]
     public float currentMovementSpeed;
     public float originalMovementSpeed;
     public float crouchingMovementSpeed;
     public float horizontalMovement;
 
-    //Jumping
+    [Header("Jumping variables")]
+    public float velocityY;
+    public float velocityX;
     public float jumpingPower;
     public float originalJumpingPower;
     public int currentJumpCount;
     public int maxJumpCount;
 
-    //Dashing (wow this was really hard for some reason holy moly)
+    [Header("Dashing variables")]
     public int initialDashCounter;
     public int currentDashCounter;
     public int minDashCounter;
@@ -38,6 +39,7 @@ public class PlayerStateManager : MonoBehaviour
     public float originalDashCooldownTimer;
     public float dashCooldownTimer;
 
+    [Header("Other variables")]
     public float groundDistance;
     public float groundedTimer;
 
@@ -59,8 +61,7 @@ public class PlayerStateManager : MonoBehaviour
     public bool justDashed;
 
 
-    //[Header("Input Buttons Booleans")]
-
+    //Input Buttons Booleans, not used anymore because new input system died :^)
     [HideInInspector] public bool jumpPress;
     [HideInInspector] public bool crouchPress;
     [HideInInspector] public bool fire1Press;
@@ -70,17 +71,21 @@ public class PlayerStateManager : MonoBehaviour
 
     [Header("Components")]
     public Rigidbody2D rb;
-    public PlayerInputSystem _playerInputSystem;
-
 
     [Header("GameObjects")]
     public GameObject groundCheck;
     public BaseWeapon weapon;
 
+    public GameObject dash1;
+    public GameObject dash2;
+    public GameObject dash3;
+
 
     [Header("Layers")]
     public LayerMask groundLayer;
 
+    [Header("Input System")]
+    public PlayerInputSystem inputHandler;
 
     // ---------------STATES-------------------
 
@@ -96,7 +101,10 @@ public class PlayerStateManager : MonoBehaviour
         {PlayerState.DASHING, new PlayerDashingState()},
     };
 
-
+    private void Awake()
+    {
+        inputHandler = GetComponent<PlayerInputSystem>();
+    }
 
     void Start()
     {
@@ -104,7 +112,6 @@ public class PlayerStateManager : MonoBehaviour
 
         currentState.EnterState(this);
 
-        _playerInputSystem = GetComponent<PlayerInputSystem>();
 
         //Movespeed
         originalMovementSpeed = 12f;
@@ -115,7 +122,7 @@ public class PlayerStateManager : MonoBehaviour
         minDashCounter = 0;
         maxDashCounter = 3;
         dashResetTimer = 0f;
-        originalDashCooldownTimer = 0.2f;
+        originalDashCooldownTimer = 0.1f;
         justDashed = false;
 
         //Jumping
@@ -129,8 +136,7 @@ public class PlayerStateManager : MonoBehaviour
 
         //Other
         isFacingRight = true;
-
-        groundDistance = 0.01f;
+        groundDistance = 0.02f;
 
         originalScale = transform.localScale;
         currentScale = transform.localScale;
@@ -162,10 +168,15 @@ public class PlayerStateManager : MonoBehaviour
         }
 
 
+        velocityX = rb.velocity.x;
+        velocityY = rb.velocity.y;
+
 
         transform.localScale = currentScale;
 
-        moveDirection = _playerInputSystem.move.action.ReadValue<Vector2>();
+
+        //moveDirection = _playerInputSystem.move.action.ReadValue<Vector2>();
+        moveDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
 
         if (jumpPress)
@@ -195,6 +206,34 @@ public class PlayerStateManager : MonoBehaviour
 
         currentDashCounter = Mathf.Clamp(currentDashCounter, minDashCounter, maxDashCounter);
 
+        if(currentDashCounter == 3)
+        {
+            dash1.SetActive(true);
+            dash2.SetActive(true);
+            dash3.SetActive(true);
+        }
+
+        if (currentDashCounter == 2)
+        {
+            dash1.SetActive(true);
+            dash2.SetActive(true);
+            dash3.SetActive(false);
+        }
+
+        if (currentDashCounter == 1)
+        {
+            dash1.SetActive(true);
+            dash2.SetActive(false);
+            dash3.SetActive(false);
+        }
+
+        if (currentDashCounter == 0)
+        {
+            dash1.SetActive(false);
+            dash2.SetActive(false);
+            dash3.SetActive(false);
+        }
+
         DashReset();
 
     }
@@ -204,6 +243,7 @@ public class PlayerStateManager : MonoBehaviour
         currentState = PlayerStates[state];
         PlayerStates[state].EnterState(this);
     }
+
 
     public void DashReset()
     {
