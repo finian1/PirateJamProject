@@ -160,40 +160,9 @@ public class PlayerStateManager : MonoBehaviour
 
         transform.localScale = currentScale;
 
-
-        //moveDirection = _playerInputSystem.move.action.ReadValue<Vector2>();
-        //moveDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-
-
         currentDashCounter = Mathf.Clamp(currentDashCounter, minDashCounter, maxDashCounter);
 
-        if(currentDashCounter == 3)
-        {
-            dash1.SetActive(true);
-            dash2.SetActive(true);
-            dash3.SetActive(true);
-        }
-
-        if (currentDashCounter == 2)
-        {
-            dash1.SetActive(true);
-            dash2.SetActive(true);
-            dash3.SetActive(false);
-        }
-
-        if (currentDashCounter == 1)
-        {
-            dash1.SetActive(true);
-            dash2.SetActive(false);
-            dash3.SetActive(false);
-        }
-
-        if (currentDashCounter == 0)
-        {
-            dash1.SetActive(false);
-            dash2.SetActive(false);
-            dash3.SetActive(false);
-        }
+        UpdateDashUI();
 
         DashReset();
 
@@ -210,7 +179,6 @@ public class PlayerStateManager : MonoBehaviour
         PlayerStates[state].EnterState(this);
     }
 
-
     public void DashReset()
     {
         dashCooldownTimer += Time.deltaTime;
@@ -224,6 +192,16 @@ public class PlayerStateManager : MonoBehaviour
                 currentDashCounter++;
                 dashResetTimer = 0f;
             }
+        }
+    }
+
+    void UpdateDashUI()
+    {
+        GameObject[] dashes = { dash1, dash2, dash3 };
+
+        for (int i = 0; i < dashes.Length; i++)
+        {
+            dashes[i].SetActive(i < currentDashCounter);
         }
     }
 

@@ -1,98 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4011237909382074499
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6512438389625811487}
-  - component: {fileID: 7112628639896923725}
-  m_Layer: 0
-  m_Name: Light
-  m_TagString: Player
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6512438389625811487
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4011237909382074499}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8779611507089814084}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!108 &7112628639896923725
-Light:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4011237909382074499}
-  m_Enabled: 1
-  serializedVersion: 11
-  m_Type: 2
-  m_Color: {r: 0, g: 0.99659014, b: 1, a: 1}
-  m_Intensity: 4
-  m_Range: 10
-  m_SpotAngle: 30
-  m_InnerSpotAngle: 21.80208
-  m_CookieSize: 10
-  m_Shadows:
-    m_Type: 0
-    m_Resolution: -1
-    m_CustomResolution: -1
-    m_Strength: 1
-    m_Bias: 0.05
-    m_NormalBias: 0.4
-    m_NearPlane: 0.2
-    m_CullingMatrixOverride:
-      e00: 1
-      e01: 0
-      e02: 0
-      e03: 0
-      e10: 0
-      e11: 1
-      e12: 0
-      e13: 0
-      e20: 0
-      e21: 0
-      e22: 1
-      e23: 0
-      e30: 0
-      e31: 0
-      e32: 0
-      e33: 1
-    m_UseCullingMatrixOverride: 0
-  m_Cookie: {fileID: 0}
-  m_DrawHalo: 0
-  m_Flare: {fileID: 0}
-  m_RenderMode: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingLayerMask: 1
-  m_Lightmapping: 4
-  m_LightShadowCasterMode: 0
-  m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
-  m_ColorTemperature: 6570
-  m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
-  m_UseBoundingSphereOverride: 0
-  m_UseViewFrustumForShadowCasterCull: 1
-  m_ShadowRadius: 0
-  m_ShadowAngle: 0
 --- !u!1 &4818907005343581740
 GameObject:
   m_ObjectHideFlags: 0
@@ -170,8 +77,6 @@ GameObject:
   - component: {fileID: 1948934677720293085}
   - component: {fileID: 3706299189148115771}
   - component: {fileID: 6906801404291831758}
-  - component: {fileID: 2656790262552400151}
-  - component: {fileID: 1562129644874739148}
   - component: {fileID: 9030952131793873417}
   m_Layer: 0
   m_Name: Capsule
@@ -194,7 +99,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6721753176724454887}
-  - {fileID: 6512438389625811487}
   - {fileID: 4700609546251581655}
   - {fileID: 4352304290323566163}
   m_Father: {fileID: 0}
@@ -331,6 +235,8 @@ MonoBehaviour:
   originalMovementSpeed: 0
   crouchingMovementSpeed: 0
   horizontalMovement: 0
+  velocityY: 0
+  velocityX: 0
   jumpingPower: 0
   originalJumpingPower: 0
   currentJumpCount: 0
@@ -344,166 +250,27 @@ MonoBehaviour:
   originalDashCooldownTimer: 0
   dashCooldownTimer: 0
   groundDistance: 0
+  groundedTimer: 0
   moveDirection: {x: 0, y: 0}
   currentScale: {x: 0, y: 0, z: 0}
   originalScale: {x: 0, y: 0, z: 0}
   crouchScale: {x: 0, y: 0, z: 0}
   isGrounded: 0
+  startGroundedTimer: 0
   canDoubleJump: 0
   isFacingRight: 0
   isCrouching: 0
   hasCrouchFlipReset: 0
   justDashed: 0
-  jumpPress: 0
-  crouchPress: 0
-  fire1Press: 0
-  fire2Press: 0
-  dashPress: 0
   rb: {fileID: 3706299189148115771}
-  _playerInputSystem: {fileID: 2656790262552400151}
   groundCheck: {fileID: 4818907005343581740}
   weapon: {fileID: 8161041828539356259}
+  dash1: {fileID: 0}
+  dash2: {fileID: 0}
+  dash3: {fileID: 0}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
---- !u!114 &2656790262552400151
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8943338922206492670}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a976ae83686b5145a9b79052bdb0e47, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  move: {fileID: 6955221242214176999, guid: 4e24bfb2560208e4795a62f7f67bcf27, type: 3}
-  jumpHold: 0
-  jumpRelease: 0
-  crouchHold: 0
-  crouchRelease: 0
-  fire1Hold: 0
-  fire1Release: 0
-  fire2Hold: 0
-  fire2Release: 0
-  dashHold: 0
-  dashRelease: 0
-  player: {fileID: 6906801404291831758}
---- !u!114 &1562129644874739148
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8943338922206492670}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 4e24bfb2560208e4795a62f7f67bcf27, type: 3}
-  m_NotificationBehavior: 2
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents:
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 6709dae3-7837-4964-b48e-9434d2b7c66e
-    m_ActionName: 'Gameplay/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]'
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2656790262552400151}
-        m_TargetAssemblyTypeName: PlayerInputSystem, Assembly-CSharp
-        m_MethodName: OnCrouch
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 7eb840c5-f64b-4386-a689-6d27abcaa603
-    m_ActionName: 'Gameplay/Crouch[/Keyboard/leftCtrl]'
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2656790262552400151}
-        m_TargetAssemblyTypeName: PlayerInputSystem, Assembly-CSharp
-        m_MethodName: OnJump
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 16816134-34e0-4392-98e5-4f45dc017b56
-    m_ActionName: Gameplay/New action
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2656790262552400151}
-        m_TargetAssemblyTypeName: PlayerInputSystem, Assembly-CSharp
-        m_MethodName: OnAttack1
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 94da66e3-b1cb-4b61-ae10-852c0be08954
-    m_ActionName: 'Gameplay/Fire[/Mouse/leftButton]'
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2656790262552400151}
-        m_TargetAssemblyTypeName: PlayerInputSystem, Assembly-CSharp
-        m_MethodName: OnAttack2
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: f1d51f98-6116-4c8c-a530-f594ecc28241
-    m_ActionName: 'Gameplay/Attack2[/Mouse/rightButton]'
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2656790262552400151}
-        m_TargetAssemblyTypeName: PlayerInputSystem, Assembly-CSharp
-        m_MethodName: OnDash
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: ec623918-3344-4d48-92ee-cf5f4e35753a
-    m_ActionName: 'Gameplay/Dash[/Keyboard/shift,/DualSenseGamepadHID/buttonEast]'
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: AllControls
-  m_DefaultActionMap: Gameplay
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!96 &9030952131793873417
 TrailRenderer:
   serializedVersion: 3
