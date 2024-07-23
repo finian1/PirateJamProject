@@ -61,21 +61,13 @@ public class PlayerStateManager : MonoBehaviour
     public bool justDashed;
 
 
-    //Input Buttons Booleans, not used anymore because new input system died :^)
-    [HideInInspector] public bool jumpPress;
-    [HideInInspector] public bool crouchPress;
-    [HideInInspector] public bool fire1Press;
-    [HideInInspector] public bool fire2Press;
-    [HideInInspector] public bool dashPress;
-
-
     [Header("Components")]
     public Rigidbody2D rb;
+
 
     [Header("GameObjects")]
     public GameObject groundCheck;
     public BaseWeapon weapon;
-
     public GameObject dash1;
     public GameObject dash2;
     public GameObject dash3;
@@ -84,8 +76,6 @@ public class PlayerStateManager : MonoBehaviour
     [Header("Layers")]
     public LayerMask groundLayer;
 
-    [Header("Input System")]
-    public PlayerInputSystem inputHandler;
 
     // ---------------STATES-------------------
 
@@ -101,10 +91,6 @@ public class PlayerStateManager : MonoBehaviour
         {PlayerState.DASHING, new PlayerDashingState()},
     };
 
-    private void Awake()
-    {
-        inputHandler = GetComponent<PlayerInputSystem>();
-    }
 
     void Start()
     {
@@ -176,33 +162,8 @@ public class PlayerStateManager : MonoBehaviour
 
 
         //moveDirection = _playerInputSystem.move.action.ReadValue<Vector2>();
-        moveDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        //moveDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
-
-        if (jumpPress)
-        {
-            jumpPress = false;
-        }
-
-        if (crouchPress)
-        {
-            crouchPress = false;
-        }
-
-        if (fire1Press)
-        {
-            fire1Press = false;
-        }
-
-        if (fire2Press)
-        {
-            fire2Press = false;
-        }
-
-        if (dashPress)
-        {
-            dashPress = false;
-        }
 
         currentDashCounter = Mathf.Clamp(currentDashCounter, minDashCounter, maxDashCounter);
 
@@ -236,6 +197,11 @@ public class PlayerStateManager : MonoBehaviour
 
         DashReset();
 
+    }
+
+    private void FixedUpdate()
+    {
+        moveDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
     }
 
     public void SwitchState(PlayerState state)
