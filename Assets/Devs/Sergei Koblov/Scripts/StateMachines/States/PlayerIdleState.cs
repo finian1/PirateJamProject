@@ -7,7 +7,7 @@ public class PlayerIdleState : PlayerBaseState
     {
         Debug.Log("Player is idle.");
 
-        if(!player.hasCrouchFlipReset)
+        if (!player.hasCrouchFlipReset)
         {
             float heightDifference = player.originalScale.y - player.crouchScale.y;
             player.transform.position = new Vector3(player.transform.position.x, player.transform.position.y + heightDifference * 0.8f, player.transform.position.z);
@@ -26,43 +26,46 @@ public class PlayerIdleState : PlayerBaseState
             player.currentMovementSpeed = player.originalMovementSpeed;
             player.hasCrouchFlipReset = true;
         }
-
-        player.animator.SetBool("IsRunning", false);
     }
 
     public override void UpdateState(PlayerStateManager player)
     {
-        player.horizontalMovement = Input.GetAxisRaw("Horizontal");
-
-        if(player.horizontalMovement == 0f)
+        if (player.moveDirection.x == 0f)
         {
             player.rb.velocity = new Vector2(0.0f, player.rb.velocity.y);
         }
 
-        if (player.horizontalMovement > 0f || player.horizontalMovement < 0f)
+        if (player.moveDirection.x > 0f || player.moveDirection.x < 0f)
         {
             player.SwitchState(PlayerState.MOVING);
         }
 
-        if(Input.GetButton("Jump"))
+        if (Input.GetKey(KeyCode.Space))
         {
+            //player.groundCheck.SetActive(false);
             player.SwitchState(PlayerState.JUMPING);
         }
 
-        if(Input.GetButton("Crouch"))
+        if (Input.GetKey(KeyCode.LeftControl))
         {
             player.SwitchState(PlayerState.CROUCHING);
         }
 
-        if (Input.GetButtonDown("Attack1"))
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             Debug.Log("Attacking");
             player.weapon.Attack(0);
         }
-        if (Input.GetButtonDown("Attack2"))
+
+        if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             Debug.Log("Attacking");
             player.weapon.Attack(1);
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftShift) && player.currentDashCounter > player.minDashCounter)
+        {
+            player.SwitchState(PlayerState.DASHING);
         }
     }
 }
