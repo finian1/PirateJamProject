@@ -25,21 +25,17 @@ public class PlayerMovingState : PlayerBaseState
             player.currentMovementSpeed = player.originalMovementSpeed;
             player.hasCrouchFlipReset = true;
         }
-
-        player.animator.SetBool("IsRunning", true);
     }
 
     public override void UpdateState(PlayerStateManager player)
     {
-        player.horizontalMovement = Input.GetAxisRaw("Horizontal");
-
-        if (player.horizontalMovement != 0)
+        if (player.moveDirection.x != 0)
         {
-            player.currentMovementSpeed = 8f;
-            player.rb.velocity = new Vector2(player.horizontalMovement * player.currentMovementSpeed, player.rb.velocity.y);
+            player.currentMovementSpeed = player.originalMovementSpeed;
+            player.rb.velocity = new Vector2(player.moveDirection.x * player.currentMovementSpeed, player.rb.velocity.y);
         }
 
-        if (player.isFacingRight && player.horizontalMovement < 0f || !player.isFacingRight && player.horizontalMovement > 0f)
+        if (player.isFacingRight && player.moveDirection.x < 0f || !player.isFacingRight && player.moveDirection.x > 0f)
         {
             player.isFacingRight = !player.isFacingRight;
             Vector3 localScale = player.currentScale;
@@ -47,30 +43,37 @@ public class PlayerMovingState : PlayerBaseState
             player.currentScale = localScale;
         }
 
-        if (player.horizontalMovement == 0)
+        if (player.moveDirection.x == 0)
         {
             player.SwitchState(PlayerState.IDLE);
         }
 
-        if(Input.GetButton("Jump"))
+        if (Input.GetKey(KeyCode.Space))
         {
+            //player.groundCheck.SetActive(false);
             player.SwitchState(PlayerState.JUMPING);
         }
 
-        if (Input.GetButton("Crouch"))
+        if (Input.GetKey(KeyCode.LeftControl))
         {
             player.SwitchState(PlayerState.CROUCHING);
         }
 
-        if (Input.GetButtonDown("Attack1"))
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             Debug.Log("Attacking");
             player.weapon.Attack(0);
         }
-        if (Input.GetButtonDown("Attack2"))
+
+        if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             Debug.Log("Attacking");
             player.weapon.Attack(1);
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftShift) && player.currentDashCounter > player.minDashCounter)
+        {
+            player.SwitchState(PlayerState.DASHING);
         }
     }
 

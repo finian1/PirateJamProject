@@ -1,7 +1,4 @@
-using Microsoft.Win32.SafeHandles;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel.Design.Serialization;
 using UnityEngine;
 
 public enum PlayerState
@@ -11,25 +8,44 @@ public enum PlayerState
     JUMPING,
     CROUCHING,
     CROUCHMOVING,
+    DASHING,
 }
 
 public class PlayerStateManager : MonoBehaviour
 {
     //--------------VARIABLES-----------------
 
-    [Header("Player variables")]
+    [Header("Movement variables")]
     public float currentMovementSpeed;
     public float originalMovementSpeed;
     public float crouchingMovementSpeed;
     public float horizontalMovement;
 
-    public int jumpCount;
+    [Header("Jumping variables")]
+    public float velocityY;
+    public float velocityX;
     public float jumpingPower;
+    public float originalJumpingPower;
+    public int currentJumpCount;
+    public int maxJumpCount;
 
+    [Header("Dashing variables")]
+    public int initialDashCounter;
+    public int currentDashCounter;
+    public int minDashCounter;
+    public int maxDashCounter;
+    public float dashPower;
+    public float dashResetTimer;
+    public float originalDashCooldownTimer;
+    public float dashCooldownTimer;
+
+    [Header("Other variables")]
     public float groundDistance;
+    public float groundedTimer;
 
 
     [Header("Vectors")]
+    public Vector2 moveDirection;
     public Vector3 currentScale;
     public Vector3 originalScale;
     public Vector3 crouchScale;
@@ -37,19 +53,24 @@ public class PlayerStateManager : MonoBehaviour
 
     [Header("Booleans")]
     public bool isGrounded;
+    public bool startGroundedTimer;
+    public bool canDoubleJump;
     public bool isFacingRight;
     public bool isCrouching;
     public bool hasCrouchFlipReset;
+    public bool justDashed;
 
 
     [Header("Components")]
     public Rigidbody2D rb;
-    public Animator animator;
 
 
     [Header("GameObjects")]
     public GameObject groundCheck;
     public BaseWeapon weapon;
+    public GameObject dash1;
+    public GameObject dash2;
+    public GameObject dash3;
 
 
     [Header("Layers")]
@@ -67,7 +88,9 @@ public class PlayerStateManager : MonoBehaviour
         {PlayerState.JUMPING, new PlayerJumpingState()},
         {PlayerState.CROUCHING, new PlayerCrouchingState()},
         {PlayerState.CROUCHMOVING, new PlayerCrouchMovingState()},
+        {PlayerState.DASHING, new PlayerDashingState()},
     };
+
 
     void Start()
     {
@@ -75,20 +98,35 @@ public class PlayerStateManager : MonoBehaviour
 
         currentState.EnterState(this);
 
-        originalMovementSpeed = 8f;
+
+        //Movespeed
+        originalMovementSpeed = 12f;
         crouchingMovementSpeed = originalMovementSpeed * 0.5f;
 
-        jumpCount = 1;
-        groundDistance = 0.4f;
+        //Dashing
+        currentDashCounter = 3;
+        minDashCounter = 0;
+        maxDashCounter = 3;
+        dashResetTimer = 0f;
+        originalDashCooldownTimer = 0.1f;
+        justDashed = false;
 
-        isFacingRight = true;
-        isCrouching = false;
+        //Jumping
+        originalJumpingPower = 25f;
+        currentJumpCount = 0;
+        maxJumpCount = 2;
+
+        //Crouching
         hasCrouchFlipReset = true;
+        isCrouching = false;
+
+        //Other
+        isFacingRight = true;
+        groundDistance = 0.02f;
 
         originalScale = transform.localScale;
         currentScale = transform.localScale;
         crouchScale = new Vector3(originalScale.x, originalScale.y * 0.5f, originalScale.z);
-        animator = GetComponent<Animator>();
 
     }
 
@@ -96,9 +134,43 @@ public class PlayerStateManager : MonoBehaviour
     {
         currentState.UpdateState(this);
 
-        isGrounded = Physics2D.OverlapCircle(groundCheck.transform.position, groundDistance, groundLayer);
+        if(startGroundedTimer)
+        {
+            isGrounded = false;
+
+            groundedTimer += Time.deltaTime;
+
+            if(groundedTimer > 0.1f)
+            {
+                isGrounded = Physics2D.OverlapCircle(groundCheck.transform.position, groundDistance, groundLayer);
+                groundedTimer = 0f;
+                startGroundedTimer = false;
+            }
+        }
+
+        if(!startGroundedTimer)
+        {
+            isGrounded = Physics2D.OverlapCircle(groundCheck.transform.position, groundDistance, groundLayer);
+        }
+
+
+        velocityX = rb.velocity.x;
+        velocityY = rb.velocity.y;
+
 
         transform.localScale = currentScale;
+
+        currentDashCounter = Mathf.Clamp(currentDashCounter, minDashCounter, maxDashCounter);
+
+        UpdateDashUI();
+
+        DashReset();
+
+    }
+
+    private void FixedUpdate()
+    {
+        moveDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
     }
 
     public void SwitchState(PlayerState state)
@@ -107,8 +179,35 @@ public class PlayerStateManager : MonoBehaviour
         PlayerStates[state].EnterState(this);
     }
 
+    public void DashReset()
+    {
+        dashCooldownTimer += Time.deltaTime;
+
+        if (currentDashCounter != maxDashCounter)
+        {
+            dashResetTimer += Time.deltaTime;
+
+            if (dashResetTimer >= 1f)
+            {
+                currentDashCounter++;
+                dashResetTimer = 0f;
+            }
+        }
+    }
+
+    void UpdateDashUI()
+    {
+        GameObject[] dashes = { dash1, dash2, dash3 };
+
+        for (int i = 0; i < dashes.Length; i++)
+        {
+            dashes[i].SetActive(i < currentDashCounter);
+        }
+    }
+
     public void OnDrawGizmos()
     {
+        //Groundcheck gameobject visual circle
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(groundCheck.transform.position, groundDistance);
     }
