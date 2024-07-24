@@ -20,10 +20,13 @@ public class VisionScript : MonoBehaviour
 
     private void Start()
     {
-        visionLight.pointLightInnerAngle = fieldOfView;
-        visionLight.pointLightOuterAngle = fieldOfView + 5.0f;
-        visionLight.pointLightInnerRadius = visionDistance / 2.0f;
-        visionLight.pointLightOuterRadius = visionDistance;
+        if (visionLight != null)
+        {
+            visionLight.pointLightInnerAngle = fieldOfView;
+            visionLight.pointLightOuterAngle = fieldOfView + 5.0f;
+            visionLight.pointLightInnerRadius = visionDistance / 2.0f;
+            visionLight.pointLightOuterRadius = visionDistance;
+        }
 
         fieldOfView *= Mathf.Deg2Rad;
         angleStep = fieldOfView / numOfRays;

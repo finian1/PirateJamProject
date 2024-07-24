@@ -22,7 +22,7 @@ public class EnemyRoamingState : EnemyBaseState
         {
             finalSpeed = -finalSpeed;
 
-            enemy.transform.localScale = new Vector3(enemy.initialScale.x * -1.0f, enemy.initialScale.x * 1.0f, enemy.initialScale.x * 1.0f);
+            enemy.transform.localScale = new Vector3(enemy.initialScale.x * -1.0f, enemy.initialScale.y * 1.0f, enemy.initialScale.z * 1.0f);
         }
         else
         {

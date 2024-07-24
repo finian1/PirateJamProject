@@ -25,7 +25,7 @@ public class EnemyAggroState : EnemyBaseState
         if (!enemy.movingRight)
         {
             forwardVector = -forwardVector;
-            enemy.transform.localScale = new Vector3(enemy.initialScale.x * -1.0f, enemy.initialScale.x * 1.0f, enemy.initialScale.x * 1.0f);
+            enemy.transform.localScale = new Vector3(enemy.initialScale.x * -1.0f, enemy.initialScale.y * 1.0f, enemy.initialScale.z * 1.0f);
         }
         else
         {
@@ -36,10 +36,15 @@ public class EnemyAggroState : EnemyBaseState
         if(enemy.vision.canSeePlayer)
         {
             Vector3 playerDirection = enemy.vision.playerObject.transform.position - enemy.transform.position;
+            float playerDist = playerDirection.magnitude;
             playerDirection.Normalize();
             if(Vector3.Dot(forwardVector, playerDirection) < 0)
             {
                 enemy.movingRight = !enemy.movingRight;
+            }
+            if(playerDist < enemy.attackRange)
+            {
+                enemy.SwitchState(EnemyState.ATTACKING);
             }
         }
 
