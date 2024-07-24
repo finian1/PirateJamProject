@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class VisionScript : MonoBehaviour
 {
     public bool canSeePlayer = false;
 
     public GameObject playerObject;
-    public GameObject visionLight;
+    public Light2D visionLight;
     public EnemyStateManager enemyStateManager;
 
     public int numOfRays = 50;
@@ -19,6 +20,11 @@ public class VisionScript : MonoBehaviour
 
     private void Start()
     {
+        visionLight.pointLightInnerAngle = fieldOfView;
+        visionLight.pointLightOuterAngle = fieldOfView + 5.0f;
+        visionLight.pointLightInnerRadius = visionDistance / 2.0f;
+        visionLight.pointLightOuterRadius = visionDistance;
+
         fieldOfView *= Mathf.Deg2Rad;
         angleStep = fieldOfView / numOfRays;
     }
