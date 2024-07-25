@@ -12,7 +12,7 @@ public class EnemyRoamingState : EnemyBaseState
     public override void UpdateState(EnemyStateManager enemy)
     {
         
-        if(!enemy.groundCheck.IsGroundPresent() || enemy.wallCheck.IsGroundPresent())
+        if(!enemy.groundCheck.IsGroundPresent(enemy.tag) || enemy.wallCheck.IsGroundPresent(enemy.tag))
         {
             enemy.movingRight = !enemy.movingRight;
         }
