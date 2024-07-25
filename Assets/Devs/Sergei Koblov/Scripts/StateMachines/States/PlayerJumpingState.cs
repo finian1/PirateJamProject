@@ -2,20 +2,22 @@ using UnityEngine;
 
 public class PlayerJumpingState : PlayerBaseState
 {
+
+
     public override void EnterState(PlayerStateManager player)
     {
-        if (!player.justDashed)
-        {
+        if (player.coyoteTimeCounter > 0f && player.currentJumpCount < player.maxJumpCount && !player.justDashed)
+        {   
             Debug.Log("Player is jumping.");
-            //player.groundCheck.SetActive(false);
+            player.anim.SetBool("IsRunning", false);
+            player.isJumpBuffering = false;
             player.startGroundedTimer = true;
             player.jumpingPower = player.originalJumpingPower;
             player.currentJumpCount++;
             player.rb.velocity = new Vector2(player.rb.velocity.x, player.jumpingPower);
         }
-        else
+        if(player.justDashed == true)
         {
-            //player.rb.velocity = new Vector2(player.rb.velocity.x, 0.0f);
             player.justDashed = false;
             return;
         }
@@ -23,36 +25,50 @@ public class PlayerJumpingState : PlayerBaseState
 
     public override void UpdateState(PlayerStateManager player)
     {
-        //if (player.groundCheck)
-        //{
-        //    if (player.rb.velocity.y > 0)
-        //    {
-        //        player.groundCheck.SetActive(false);
-        //    }
-        //    if (player.rb.velocity.y < 0)
-        //    {
-        //        player.groundCheck.SetActive(true);
-        //    }
-        //}
-
-        //player.rb.velocity = new Vector2(player.rb.velocity.x, Mathf.Clamp(player.rb.velocity.y, 10f, -10f));
-
-        if(player.rb.velocity.y < 0)
+        if(player.rb.velocity.y > 0f)
         {
+            player.anim.SetBool("IsJumpRising", true);
+            player.anim.SetBool("IsJumpFalling", false);
+        }
+
+        if (player.rb.velocity.y < 0f)
+        {
+            player.anim.SetBool("IsJumpRising", false);
+            player.anim.SetBool("IsJumpFalling", true);
             player.rb.velocity = new Vector2(player.rb.velocity.x, player.rb.velocity.y * 1.005f);
         }
 
-        if(player.rb.velocity.y < -30f)
+        if(player.rb.velocity.y < -40f)
         {
-            player.rb.velocity = new Vector2(player.rb.velocity.x, -30f);
+            player.rb.velocity = new Vector2(player.rb.velocity.x, -40f);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && player.currentJumpCount < player.maxJumpCount)
+        if (Input.GetKeyDown(KeyCode.Space) && player.currentJumpCount == 0)
         {
-            Debug.Log("Player double jumped.");
+            Debug.Log("Player first jumped.");
+            //player.jumpBufferCounter = 0f;
             player.jumpingPower = player.originalJumpingPower;
             player.currentJumpCount++;
             player.rb.velocity = new Vector2(player.rb.velocity.x, player.jumpingPower);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && player.currentJumpCount == 1)
+        {
+            Debug.Log("Player double jumped.");
+            //player.jumpBufferCounter = 0f;
+            player.jumpingPower = player.originalJumpingPower;
+            player.currentJumpCount++;
+            player.rb.velocity = new Vector2(player.rb.velocity.x, player.jumpingPower);
+            player._playerDoubleJumpParticle.doubleJumpParticlesPlaying = true;
+        }
+
+        else if (player.currentJumpCount == 2 && player.jumpBufferCounter > 0f && player.isGrounded)
+        {
+            player.jumpingPower = player.originalJumpingPower;
+            player.rb.velocity = new Vector2(player.rb.velocity.x, player.jumpingPower);
+            player.currentJumpCount = 1;
+            //player.jumpBufferCounter = 0f;
+            //player.SwitchState(PlayerState.JUMPING);
         }
 
         if (!Input.GetKey(KeyCode.Space) && player.rb.velocity.y > 0)
@@ -63,11 +79,13 @@ public class PlayerJumpingState : PlayerBaseState
 
         if (player.moveDirection.x == 0f)
         {
+            player.anim.SetBool("IsMoving", false);
             player.rb.velocity = new Vector2(0.0f, player.rb.velocity.y);
         }
 
         if (player.moveDirection.x != 0)
         {
+            player.anim.SetBool("IsMoving", true);
             player.currentMovementSpeed = player.originalMovementSpeed;
             player.rb.velocity = new Vector2(player.moveDirection.x * player.currentMovementSpeed, player.rb.velocity.y);
         }
@@ -82,8 +100,7 @@ public class PlayerJumpingState : PlayerBaseState
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            Debug.Log("Attacking");
-            player.weapon.Attack(0);
+            player.SwitchState(PlayerState.LIGHTATTACKING);
         }
 
         if (Input.GetKeyDown(KeyCode.Mouse1))
@@ -97,10 +114,12 @@ public class PlayerJumpingState : PlayerBaseState
             player.SwitchState(PlayerState.DASHING);
         }
 
-        if (player.isGrounded)
+        if (player.isGrounded && !player.isJumpBuffering)
         {
+            Debug.Log("Going Idle.");
             player.currentJumpCount = 0;
             player.SwitchState(PlayerState.IDLE);
         }
+
     }
 }

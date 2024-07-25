@@ -9,8 +9,8 @@ public class PlayerDashingState : PlayerBaseState
     {
         Debug.Log("Player is dashing.");
 
-        //player.rb.velocity = new Vector2(player.rb.velocity.x, 0.0f);
-        player.justDashed = true;
+        //player.justDashed = true;
+        player._playerDashParticle.dashParticlesPlaying = true;
         player.dashCooldownTimer = 0f;
         player.dashPower = 80f;
 
@@ -20,6 +20,9 @@ public class PlayerDashingState : PlayerBaseState
         {
             player.currentDashCounter--;
         }
+
+        player.anim.SetBool("IsRunning", true);
+
     }
 
     public override void UpdateState(PlayerStateManager player)
@@ -43,6 +46,13 @@ public class PlayerDashingState : PlayerBaseState
                     player.dashPower = Mathf.MoveTowards(player.dashPower, 0f, Time.deltaTime * (player.dashPower * 8f));
                     player.rb.velocity = new Vector2(-player.dashPower, airDeceleration);
                 }
+
+                if (player.dashCooldownTimer >= player.originalDashCooldownTimer)
+                {
+                    player.anim.SetBool("IsRunning", false);
+                    player.SwitchState(PlayerState.IDLE);
+                }
+
             }
 
             if(!player.isGrounded)
@@ -72,13 +82,17 @@ public class PlayerDashingState : PlayerBaseState
                     player.dashPower = Mathf.MoveTowards(player.dashPower, 0f, Time.deltaTime * (player.dashPower * 8f));
                     player.rb.velocity = new Vector2(-player.dashPower, airDeceleration);
                 }
+
+                if (player.dashCooldownTimer >= player.originalDashCooldownTimer)
+                {
+                    player.justDashed = true;
+                    player.anim.SetBool("IsRunning", false);
+                    player.SwitchState(PlayerState.JUMPING);
+                }
             }
         }
 
-        if (player.dashCooldownTimer >= player.originalDashCooldownTimer)
-        {
-            player.SwitchState(PlayerState.IDLE);
-        }
+        
     }
 
 }

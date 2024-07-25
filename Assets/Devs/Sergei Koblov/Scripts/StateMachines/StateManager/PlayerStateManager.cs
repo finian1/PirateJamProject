@@ -9,6 +9,7 @@ public enum PlayerState
     CROUCHING,
     CROUCHMOVING,
     DASHING,
+    LIGHTATTACKING,
 }
 
 public class PlayerStateManager : MonoBehaviour
@@ -21,6 +22,10 @@ public class PlayerStateManager : MonoBehaviour
     public float crouchingMovementSpeed;
     public float horizontalMovement;
 
+    [Header("Attacking variables")]
+    public float lightAttackCooldown;
+    //public bool justLightAttacked;
+
     [Header("Jumping variables")]
     public float velocityY;
     public float velocityX;
@@ -28,6 +33,19 @@ public class PlayerStateManager : MonoBehaviour
     public float originalJumpingPower;
     public int currentJumpCount;
     public int maxJumpCount;
+
+    public float coyoteTime;
+    public float coyoteTimeCounter;
+    public float jumpBufferTime;
+    public float jumpBufferCounter;
+
+    [Header("Crouching variables")]
+    public float crouchFallingTime;
+    public float crouchRisingTime;
+    public bool isCrouchFalling;
+    public bool isCrouchRising;
+    public bool isCrouchMoving;
+
 
     [Header("Dashing variables")]
     public int initialDashCounter;
@@ -49,12 +67,14 @@ public class PlayerStateManager : MonoBehaviour
     public Vector3 currentScale;
     public Vector3 originalScale;
     public Vector3 crouchScale;
+    public Vector3 mousePosition;
 
 
     [Header("Booleans")]
     public bool isGrounded;
     public bool startGroundedTimer;
     public bool canDoubleJump;
+    public bool isJumpBuffering;
     public bool isFacingRight;
     public bool isCrouching;
     public bool hasCrouchFlipReset;
@@ -64,8 +84,11 @@ public class PlayerStateManager : MonoBehaviour
     [Header("Components")]
     public Rigidbody2D rb;
     public Animator anim;
+    public PlayerDoubleJumpParticle _playerDoubleJumpParticle;
+    public PlayerDashParticle _playerDashParticle;
 
     [Header("GameObjects")]
+    public Camera mainCamera;
     public GameObject groundCheck;
     public BaseWeapon weapon;
     public GameObject dash1;
@@ -79,6 +102,7 @@ public class PlayerStateManager : MonoBehaviour
 
     // ---------------STATES-------------------
 
+    
     PlayerBaseState currentState;
 
     public Dictionary<PlayerState, PlayerBaseState> PlayerStates = new Dictionary<PlayerState, PlayerBaseState>()
@@ -89,6 +113,7 @@ public class PlayerStateManager : MonoBehaviour
         {PlayerState.CROUCHING, new PlayerCrouchingState()},
         {PlayerState.CROUCHMOVING, new PlayerCrouchMovingState()},
         {PlayerState.DASHING, new PlayerDashingState()},
+        {PlayerState.LIGHTATTACKING, new PlayerLightAttackingState()},
     };
 
 
@@ -101,7 +126,10 @@ public class PlayerStateManager : MonoBehaviour
 
         //Movespeed
         originalMovementSpeed = 12f;
-        crouchingMovementSpeed = originalMovementSpeed * 0.5f;
+        crouchingMovementSpeed = originalMovementSpeed * 0.2f;
+
+        //Attacking
+        //justLightAttacked = false;
 
         //Dashing
         currentDashCounter = 3;
@@ -115,10 +143,14 @@ public class PlayerStateManager : MonoBehaviour
         originalJumpingPower = 25f;
         currentJumpCount = 0;
         maxJumpCount = 2;
+        coyoteTime = 0.2f;
+        jumpBufferTime = 0.2f;
+        isJumpBuffering = false;
 
         //Crouching
         hasCrouchFlipReset = true;
         isCrouching = false;
+        isCrouchRising = false;
 
         //Other
         isFacingRight = true;
@@ -126,7 +158,8 @@ public class PlayerStateManager : MonoBehaviour
 
         originalScale = transform.localScale;
         currentScale = transform.localScale;
-        crouchScale = new Vector3(originalScale.x, originalScale.y * 0.5f, originalScale.z);
+        //crouchScale = new Vector3(originalScale.x, originalScale.y * 0.5f, originalScale.z);
+        crouchScale = new Vector3(originalScale.x, originalScale.y, originalScale.z);
 
     }
 
@@ -134,13 +167,13 @@ public class PlayerStateManager : MonoBehaviour
     {
         currentState.UpdateState(this);
 
-        if(startGroundedTimer)
+        if (startGroundedTimer)
         {
             isGrounded = false;
 
             groundedTimer += Time.deltaTime;
 
-            if(groundedTimer > 0.1f)
+            if (groundedTimer > 0.1f)
             {
                 isGrounded = Physics2D.OverlapCircle(groundCheck.transform.position, groundDistance, groundLayer);
                 groundedTimer = 0f;
@@ -148,11 +181,105 @@ public class PlayerStateManager : MonoBehaviour
             }
         }
 
-        if(!startGroundedTimer)
+        mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+
+        if (!startGroundedTimer)
         {
             isGrounded = Physics2D.OverlapCircle(groundCheck.transform.position, groundDistance, groundLayer);
         }
 
+        if (isGrounded)
+        {
+            coyoteTimeCounter = coyoteTime;
+        }
+
+        else
+        {
+            coyoteTimeCounter -= Time.deltaTime;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            jumpBufferCounter = jumpBufferTime;
+            isJumpBuffering = true;
+        }
+
+        else
+        {
+            jumpBufferCounter -= Time.deltaTime;
+        }
+
+        if (jumpBufferCounter < 0f || Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            isJumpBuffering = false;
+        }
+
+        if (Input.GetKey(KeyCode.LeftControl) && moveDirection.x == 0 && isGrounded)
+        {
+            crouchRisingTime = 0f;
+
+            isCrouchMoving = false;
+
+            anim.SetBool("IsCrouchIdle", true);
+            anim.SetBool("IsRunning", false);
+            anim.SetBool("IsCrouchMoving", false);
+            anim.SetBool("hasCrouchFallingFinished", false);
+            anim.SetBool("IsCrouchFalling", true);
+            crouchFallingTime += Time.deltaTime;
+            isCrouchFalling = true;
+
+            if (crouchFallingTime > 0.1f)
+            {
+                anim.SetBool("hasCrouchFallingFinished", true);
+                anim.SetBool("IsCrouchFalling", false);
+                isCrouchFalling = false;
+            }
+        }
+
+        else if (Input.GetKey(KeyCode.LeftControl) && moveDirection.x != 0 && isGrounded)
+        {
+            anim.SetBool("IsCrouchIdle", true);
+            anim.SetBool("IsRunning", false);
+            anim.SetBool("IsCrouchMoving", true);
+            isCrouchMoving = true;
+        }
+
+        //else
+        //{
+        //    anim.SetBool("IsCrouchIdle", false);
+        //    anim.SetBool("IsCrouchMoving", false);
+        //    anim.SetBool("IsCrouchMoving", false);
+        //    anim.SetBool("hasCrouchFallingFinished", false);
+        //    anim.SetBool("IsCrouchFalling", false);
+        //}
+
+        if (!Input.GetKey(KeyCode.LeftControl) && isGrounded)
+        {
+            crouchFallingTime = 0f;
+
+            anim.SetBool("IsCrouchIdle", false);
+            anim.SetBool("hasCrouchRisingFinished", false);
+            anim.SetBool("IsCrouchRising", true);
+            crouchRisingTime += Time.deltaTime;
+            isCrouchRising = true;
+
+            if (crouchRisingTime > 0.1f)
+            {
+                anim.SetBool("hasCrouchRisingFinished", true);
+                anim.SetBool("IsCrouchRising", false);
+                isCrouchRising = false;
+            }
+        }
+
+        if (Input.GetKey(KeyCode.LeftControl) && isGrounded)
+        {
+            anim.SetBool("IsCrouchHeld", true);
+        }
+
+        else
+        {
+            anim.SetBool("IsCrouchHeld", false);
+        }
 
         velocityX = rb.velocity.x;
         velocityY = rb.velocity.y;
