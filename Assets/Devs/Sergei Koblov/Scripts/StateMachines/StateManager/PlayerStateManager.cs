@@ -12,7 +12,7 @@ public enum PlayerState
     LIGHTATTACKING,
 }
 
-public class PlayerStateManager : MonoBehaviour
+public class PlayerStateManager : MonoBehaviour, IDamageableObject
 {
     //--------------VARIABLES-----------------
 
@@ -98,6 +98,12 @@ public class PlayerStateManager : MonoBehaviour
 
     [Header("Layers")]
     public LayerMask groundLayer;
+
+    [Header("Player Stats")]
+    public float initialHealth = 100.0f;
+    public float currentHealth = 100.0f;
+
+    private float redFlash = 0.0f;
 
 
     // ---------------STATES-------------------
@@ -293,6 +299,10 @@ public class PlayerStateManager : MonoBehaviour
 
         DashReset();
 
+        GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f - redFlash, 1.0f - redFlash);
+        redFlash -= Time.deltaTime;
+        redFlash = Mathf.Clamp(redFlash, 0.0f, 1.0f);
+
     }
 
     private void FixedUpdate()
@@ -342,5 +352,11 @@ public class PlayerStateManager : MonoBehaviour
         //Groundcheck gameobject visual circle
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(groundCheck.transform.position, groundDistance);
+    }
+
+    public void Damage(float amount, GameObject source)
+    {
+        redFlash = 1.0f;
+        currentHealth -= amount;
     }
 }

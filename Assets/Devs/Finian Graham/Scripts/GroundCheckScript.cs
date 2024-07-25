@@ -6,15 +6,19 @@ public class GroundCheckScript : MonoBehaviour
 {
     public LayerMask groundLayer;
 
-    public bool IsGroundPresent()
+    public bool IsGroundPresent(string friendlyTag)
     {
-        if (Physics2D.OverlapCircle(transform.position, GetComponent<CircleCollider2D>().radius, groundLayer))
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, GetComponent<CircleCollider2D>().radius);
+
+        foreach(Collider2D collider in colliders)
         {
-            return true;
+            if (collider.gameObject.layer == LayerMask.NameToLayer("Ground") ||
+                collider.gameObject.tag == friendlyTag)
+            {
+                return true;
+            }
         }
-        else
-        {
-            return false;
-        }
+        return false;
+
     }
 }

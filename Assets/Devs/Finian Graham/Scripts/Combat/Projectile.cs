@@ -29,7 +29,7 @@ public class Projectile : MonoBehaviour
         {
             return;
         }
-        ExecuteEvents.Execute<IInteractionEvents>(collision.gameObject, null, (message, data) => message.Damage(damageToDeal, gameObject));
+        ExecuteEvents.Execute<IDamageableObject>(collision.gameObject, null, (message, data) => message.Damage(damageToDeal, gameObject));
         Destroy(gameObject);
     }
 }
