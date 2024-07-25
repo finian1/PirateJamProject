@@ -11,12 +11,14 @@ public enum EnemyState
     ATTACKING,
     SLEEPING,
     DISTRACTED,
-    INVESTIGATING
+    INVESTIGATING,
+    DAMAGED
 }
 
-public class EnemyStateManager : MonoBehaviour
+public class EnemyStateManager : MonoBehaviour, IInteractionEvents
 {
-    public EnemyBaseState currentEnemyState;
+    public EnemyState previousEnemyState;
+    public EnemyState currentEnemyState;
     //Variables
     public VisionScript vision;
     public GroundCheckScript groundCheck;
@@ -24,6 +26,9 @@ public class EnemyStateManager : MonoBehaviour
 
     public float movementSpeed = 10.0f;
     public float aggroSpeed = 15.0f;
+    public float initialEnemyHealth = 25.0f;
+    [NonSerialized]
+    public float currentEnemyHealth;
 
     [Header("Attack Variables")]
     public float attackSpeed = 2.5f;
@@ -44,18 +49,20 @@ public class EnemyStateManager : MonoBehaviour
         {EnemyState.IDLE, new EnemyIdleState() },
         {EnemyState.ROAMING, new EnemyRoamingState() },
         {EnemyState.AGGRO, new EnemyAggroState() },
-        {EnemyState.ATTACKING, new EnemyAttackingState() }
+        {EnemyState.ATTACKING, new EnemyAttackingState() },
+        {EnemyState.DAMAGED, new EnemyDamagedState() }
     };
 
-    private void Start()
+    public void Start()
     {
         initialScale = transform.localScale;
+        currentEnemyHealth = initialEnemyHealth;
         SwitchState(EnemyState.ROAMING);
     }
 
     private void FixedUpdate()
     {
-        currentEnemyState.UpdateState(this);
+        EnemyStates[currentEnemyState].UpdateState(this);
         if(movingRight)
         {
             forwardVector = transform.right;
@@ -68,7 +75,24 @@ public class EnemyStateManager : MonoBehaviour
 
     public void SwitchState(EnemyState state)
     {
-        currentEnemyState = EnemyStates[state];
-        currentEnemyState.EnterState(this);
+        previousEnemyState = currentEnemyState;
+        currentEnemyState = state;
+        EnemyStates[currentEnemyState].EnterState(this);
+    }
+
+    public void ReturnToPreviousState()
+    {
+        SwitchState(previousEnemyState);
+    }
+
+    public void Damage(float amount, GameObject origin)
+    {
+        currentEnemyHealth -= amount;
+        SwitchState(EnemyState.DAMAGED);
+    }
+
+    public void Die()
+    {
+        Destroy(gameObject);
     }
 }
