@@ -17,7 +17,7 @@ public class LevelManager : MonoBehaviour
     [Header("int")]
     public int targetScene;
     [Header("animations")]
-    public Animator mushroom;
+    //public Animator mushroom;
     public Animator Loading;
     [Header("floats")]
     public float MinLoadTime;
@@ -61,8 +61,8 @@ public class LevelManager : MonoBehaviour
 
 
         loadingPanel.SetActive(true);
-        mushroom.Play("Mushroom");
-        Loading.Play("Loading");
+        //mushroom.Play("Mushroom");
+        Loading.Play("Loadings");
 
         while (!Fade(0))
             yield return null;

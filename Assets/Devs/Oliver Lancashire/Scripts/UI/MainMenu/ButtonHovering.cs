@@ -11,7 +11,7 @@ public class ButtonHovering : MonoBehaviour
     void Start(){
 
                                           //   R    G   B   A
-    tm.faceColor =  new Color32(255, 255, 255, 50);
+    tm.faceColor =  new Color32(255, 255, 255, 4);
 
     }
 
@@ -25,7 +25,7 @@ public class ButtonHovering : MonoBehaviour
    public void offHover(TextMeshProUGUI meshProUGUI)
    {
                                      //   R    G   B   A
-    meshProUGUI.faceColor =  new Color32(255, 255, 255, 50);
+    meshProUGUI.faceColor =  new Color32(255, 255, 255, 4);
    }
 
    
