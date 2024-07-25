@@ -11,7 +11,7 @@ public class EnemyAggroState : EnemyBaseState
 
     public override void UpdateState(EnemyStateManager enemy)
     {
-        if (enemy.groundCheck.IsGroundPresent() && !enemy.wallCheck.IsGroundPresent())
+        if (enemy.groundCheck.IsGroundPresent(enemy.tag) && !enemy.wallCheck.IsGroundPresent(enemy.tag))
         {
             float finalSpeed = enemy.aggroSpeed;
             if (!enemy.movingRight)
@@ -25,7 +25,7 @@ public class EnemyAggroState : EnemyBaseState
         if (!enemy.movingRight)
         {
             forwardVector = -forwardVector;
-            enemy.transform.localScale = new Vector3(enemy.initialScale.x * -1.0f, enemy.initialScale.x * 1.0f, enemy.initialScale.x * 1.0f);
+            enemy.transform.localScale = new Vector3(enemy.initialScale.x * -1.0f, enemy.initialScale.y * 1.0f, enemy.initialScale.z * 1.0f);
         }
         else
         {
@@ -33,17 +33,22 @@ public class EnemyAggroState : EnemyBaseState
         }
 
         //If player is behind enemy, turn around.
-        if(enemy.vision.canSeePlayer)
+        if(enemy.vision.canSeeTarget)
         {
-            Vector3 playerDirection = enemy.vision.playerObject.transform.position - enemy.transform.position;
-            playerDirection.Normalize();
-            if(Vector3.Dot(forwardVector, playerDirection) < 0)
+            Vector3 targetDirection = enemy.vision.closestTarget.transform.position - enemy.transform.position;
+            float playerDist = targetDirection.magnitude;
+            targetDirection.Normalize();
+            if(Vector3.Dot(forwardVector, targetDirection) < 0)
             {
                 enemy.movingRight = !enemy.movingRight;
             }
+            if(playerDist < enemy.attackRange)
+            {
+                enemy.SwitchState(EnemyState.ATTACKING);
+            }
         }
 
-        if (!enemy.vision.canSeePlayer)
+        if (!enemy.vision.canSeeTarget)
         {
             enemy.SwitchState(EnemyState.ROAMING);
         }

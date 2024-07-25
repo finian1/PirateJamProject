@@ -12,7 +12,7 @@ public class EnemyRoamingState : EnemyBaseState
     public override void UpdateState(EnemyStateManager enemy)
     {
         
-        if(!enemy.groundCheck.IsGroundPresent() || enemy.wallCheck.IsGroundPresent())
+        if(!enemy.groundCheck.IsGroundPresent(enemy.tag) || enemy.wallCheck.IsGroundPresent(enemy.tag))
         {
             enemy.movingRight = !enemy.movingRight;
         }
@@ -22,7 +22,7 @@ public class EnemyRoamingState : EnemyBaseState
         {
             finalSpeed = -finalSpeed;
 
-            enemy.transform.localScale = new Vector3(enemy.initialScale.x * -1.0f, enemy.initialScale.x * 1.0f, enemy.initialScale.x * 1.0f);
+            enemy.transform.localScale = new Vector3(enemy.initialScale.x * -1.0f, enemy.initialScale.y * 1.0f, enemy.initialScale.z * 1.0f);
         }
         else
         {
@@ -37,7 +37,7 @@ public class EnemyRoamingState : EnemyBaseState
             forwardVector = -forwardVector;
         }
 
-        if(enemy.vision.canSeePlayer)
+        if(enemy.vision.canSeeTarget)
         {
             enemy.SwitchState(EnemyState.AGGRO);
         }

@@ -6,9 +6,16 @@ using UnityEngine.Rendering.Universal;
 
 public class VisionScript : MonoBehaviour
 {
-    public bool canSeePlayer = false;
+    public bool canSeeTarget = false;
 
     public GameObject playerObject;
+    public GameObject closestTarget;
+    private float closestTargetDistance = 999999.0f;
+    public List<GameObject> targets = new List<GameObject>();
+
+    public GameObject[] objectsToIgnore;
+
+
     public Light2D visionLight;
     public EnemyStateManager enemyStateManager;
 
@@ -20,10 +27,13 @@ public class VisionScript : MonoBehaviour
 
     private void Start()
     {
-        visionLight.pointLightInnerAngle = fieldOfView;
-        visionLight.pointLightOuterAngle = fieldOfView + 5.0f;
-        visionLight.pointLightInnerRadius = visionDistance / 2.0f;
-        visionLight.pointLightOuterRadius = visionDistance;
+        if (visionLight != null)
+        {
+            visionLight.pointLightInnerAngle = fieldOfView;
+            visionLight.pointLightOuterAngle = fieldOfView + 5.0f;
+            visionLight.pointLightInnerRadius = visionDistance / 2.0f;
+            visionLight.pointLightOuterRadius = visionDistance;
+        }
 
         fieldOfView *= Mathf.Deg2Rad;
         angleStep = fieldOfView / numOfRays;
@@ -33,9 +43,9 @@ public class VisionScript : MonoBehaviour
     {
         Vector2 currentForwardVector;
 
-        if(canSeePlayer)
+        if(canSeeTarget)
         {
-            currentForwardVector = playerObject.transform.position - transform.position;
+            currentForwardVector = closestTarget.transform.position - transform.position;
             currentForwardVector.Normalize();
         }
         else
@@ -51,19 +61,28 @@ public class VisionScript : MonoBehaviour
         }
 
         UpdateVision(currentForwardVector);
-        if(!canSeePlayer)
-        {
-            playerObject = null;
-        }
     }
 
     public void UpdateVision(Vector2 forwardVector)
     {
-        canSeePlayer = false;
+        closestTargetDistance = 999999.0f;
+        canSeeTarget = false;
+        targets.Clear();
+
         float currentAngle = -fieldOfView / 2.0f;
         Vector2 currentDirectionalVector;
         //Hit everything but enemies
         int layerMask = ~LayerMask.GetMask("Enemy");
+
+        //temporarily disable colliders on objects to ignore
+        foreach(GameObject ignoreTarget in objectsToIgnore )
+        {
+            Collider2D collider = ignoreTarget.GetComponent<Collider2D>();
+            if( collider != null )
+            {
+                collider.enabled = false;
+            }
+        }
 
         for(int i = 0; i < numOfRays; i++)
         {
@@ -72,13 +91,25 @@ public class VisionScript : MonoBehaviour
             currentDirectionalVector = new Vector2(dirVectorX, dirVectorY);
 
             RaycastHit2D hit;
-            hit = Physics2D.Raycast(transform.position, currentDirectionalVector, visionDistance, layerMask);
+            hit = Physics2D.Raycast(transform.position, currentDirectionalVector, visionDistance);
             if(hit)
             {
-                if (hit.collider.gameObject.CompareTag("Player"))
+                if (!hit.collider.gameObject.CompareTag(enemyStateManager.gameObject.tag) && 
+                    (
+                    hit.collider.gameObject.CompareTag("Player") ||
+                    hit.collider.gameObject.CompareTag("Shadow") ||
+                    hit.collider.gameObject.CompareTag("LightAlchemist")
+                    ))
                 {
-                    canSeePlayer = true;
-                    playerObject = hit.collider.gameObject;
+                    canSeeTarget = true;
+                    //playerObject = hit.collider.gameObject;
+                    float dist = (hit.collider.gameObject.transform.position - transform.position).magnitude;
+                    if(dist <= closestTargetDistance)
+                    {
+                        closestTargetDistance = dist;
+                        closestTarget = hit.collider.gameObject;
+                    }
+                    targets.Add(hit.collider.gameObject);
                     Debug.DrawLine(transform.position, hit.point, Color.red);
                 }
                 else
@@ -93,6 +124,15 @@ public class VisionScript : MonoBehaviour
 
 
             currentAngle += angleStep;
+        }
+
+        foreach (GameObject ignoreTarget in objectsToIgnore)
+        {
+            Collider2D collider = ignoreTarget.GetComponent<Collider2D>();
+            if (collider != null)
+            {
+                collider.enabled = true;
+            }
         }
     }
 

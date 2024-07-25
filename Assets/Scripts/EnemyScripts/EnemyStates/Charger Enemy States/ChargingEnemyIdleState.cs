@@ -11,7 +11,7 @@ public class ChargingEnemyIdleState : EnemyBaseState
 
     public override void UpdateState(EnemyStateManager enemy)
     {
-        if(enemy.vision.canSeePlayer)
+        if(enemy.vision.canSeeTarget)
         {
             enemy.SwitchState(EnemyState.AGGRO);
         }

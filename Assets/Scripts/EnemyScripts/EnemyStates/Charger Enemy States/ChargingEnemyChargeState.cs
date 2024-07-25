@@ -8,10 +8,10 @@ public class ChargingEnemyChargeState : EnemyBaseState
 
     public override void EnterState(EnemyStateManager enemy)
     {
-        Vector2 dirToPlayer = enemy.vision.playerObject.transform.position - enemy.gameObject.transform.position;
-        dirToPlayer.Normalize();
+        Vector2 dirToTarget = enemy.vision.closestTarget.transform.position - enemy.gameObject.transform.position;
+        dirToTarget.Normalize();
 
-        if(Vector2.Dot(dirToPlayer, enemy.gameObject.transform.right) > 0)
+        if(Vector2.Dot(dirToTarget, enemy.gameObject.transform.right) > 0)
         {
             chargingRight = true;
         }
