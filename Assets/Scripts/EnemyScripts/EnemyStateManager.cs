@@ -10,7 +10,8 @@ public enum EnemyState
     AGGRO,
     ATTACKING,
     SLEEPING,
-    DISTRACTED
+    DISTRACTED,
+    INVESTIGATING
 }
 
 public class EnemyStateManager : MonoBehaviour
