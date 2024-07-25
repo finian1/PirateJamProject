@@ -12,7 +12,8 @@ public enum EnemyState
     SLEEPING,
     DISTRACTED,
     INVESTIGATING,
-    DAMAGED
+    DAMAGED,
+    HIDING
 }
 
 public class EnemyStateManager : MonoBehaviour, IInteractionEvents
@@ -53,7 +54,7 @@ public class EnemyStateManager : MonoBehaviour, IInteractionEvents
         {EnemyState.DAMAGED, new EnemyDamagedState() }
     };
 
-    public void Start()
+    public virtual void Start()
     {
         initialScale = transform.localScale;
         currentEnemyHealth = initialEnemyHealth;
@@ -85,7 +86,7 @@ public class EnemyStateManager : MonoBehaviour, IInteractionEvents
         SwitchState(previousEnemyState);
     }
 
-    public void Damage(float amount, GameObject origin)
+    public virtual void Damage(float amount, GameObject origin)
     {
         currentEnemyHealth -= amount;
         SwitchState(EnemyState.DAMAGED);

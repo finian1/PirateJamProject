@@ -251,13 +251,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af41ed8e5b44f74408e925b5a8e8853a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  previousEnemyState: 0
+  currentEnemyState: 0
   vision: {fileID: 2534625665060851172}
   groundCheck: {fileID: 2375586798905470531}
   wallCheck: {fileID: 6559816813106543088}
   movementSpeed: 3
   aggroSpeed: 5
-  movingRight: 0
-  initialScale: {x: 0, y: 0, z: 0}
+  initialEnemyHealth: 25
+  attackSpeed: 2.5
+  attackDamage: 20
+  attackRange: 2
+  attackArea: {fileID: 0}
 --- !u!1 &1439344412677009870
 GameObject:
   m_ObjectHideFlags: 0
@@ -339,8 +344,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10203735416d9cb47bc43f665d575032, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canSeePlayer: 0
+  canSeeTarget: 0
   playerObject: {fileID: 0}
+  closestTarget: {fileID: 0}
+  targets: []
+  objectsToIgnore:
+  - {fileID: 1135404083607897903}
+  - {fileID: 938673435274751317}
+  - {fileID: 4647426588478617298}
+  visionLight: {fileID: 0}
   enemyStateManager: {fileID: 0}
   numOfRays: 50
   fieldOfView: 90

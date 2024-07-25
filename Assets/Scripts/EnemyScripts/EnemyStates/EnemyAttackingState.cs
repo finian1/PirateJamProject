@@ -19,11 +19,11 @@ public class EnemyAttackingState : EnemyBaseState
         {
             Attack(enemy);
             
-            if (enemy.vision.canSeePlayer)
+            if (enemy.vision.canSeeTarget)
             {
-                Vector3 playerDirection = enemy.vision.playerObject.transform.position - enemy.transform.position;
-                float playerDist = playerDirection.magnitude;
-                if (playerDist <= enemy.attackRange)
+                Vector3 targetDirection = enemy.vision.closestTarget.transform.position - enemy.transform.position;
+                float targetDist = targetDirection.magnitude;
+                if (targetDist <= enemy.attackRange)
                 {
                     enemy.SwitchState(EnemyState.ATTACKING);
                 }

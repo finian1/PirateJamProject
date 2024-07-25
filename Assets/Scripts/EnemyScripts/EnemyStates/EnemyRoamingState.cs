@@ -37,7 +37,7 @@ public class EnemyRoamingState : EnemyBaseState
             forwardVector = -forwardVector;
         }
 
-        if(enemy.vision.canSeePlayer)
+        if(enemy.vision.canSeeTarget)
         {
             enemy.SwitchState(EnemyState.AGGRO);
         }

@@ -32,7 +32,7 @@ public class SmallLightAlchemistInvestigatingState : EnemyBaseState
             visionFlipTimer = 0.0f;
         }
 
-        if(enemy.vision.canSeePlayer)
+        if(enemy.vision.canSeeTarget)
         {
             enemy.SwitchState(EnemyState.AGGRO);
         }

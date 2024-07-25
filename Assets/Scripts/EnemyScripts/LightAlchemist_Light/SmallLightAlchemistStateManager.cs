@@ -12,7 +12,7 @@ public class SmallLightAlchemistStateManager : EnemyStateManager
     public float timeBetweenViewFlips = 0.5f;
 
     // Start is called before the first frame update
-    public new void Start()
+    public override void Start()
     {
         EnemyStates[EnemyState.ROAMING] = new SmallLightAlchemistRoamingState();
         EnemyStates[EnemyState.INVESTIGATING] = new SmallLightAlchemistInvestigatingState();
