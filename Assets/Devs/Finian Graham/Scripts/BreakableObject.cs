@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BreakableObject : MonoBehaviour, IInteractionEvents
+public class BreakableObject : MonoBehaviour, IDamageableObject
 {
 
     public float HP = 10.0f;

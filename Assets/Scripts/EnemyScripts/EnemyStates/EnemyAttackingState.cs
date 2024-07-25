@@ -47,7 +47,7 @@ public class EnemyAttackingState : EnemyBaseState
 
         foreach (Collider2D target in targets)
         {
-            ExecuteEvents.Execute<IInteractionEvents>(target.gameObject, null, (message, data) => message.Damage(enemy.attackDamage, enemy.gameObject));
+            ExecuteEvents.Execute<IDamageableObject>(target.gameObject, null, (message, data) => message.Damage(enemy.attackDamage, enemy.gameObject));
         }
     }
 }

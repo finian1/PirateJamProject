@@ -26,7 +26,7 @@ public class AOEAttack : BaseAttack
         
         foreach(Collider2D target in objectsToAttack)
         {
-            ExecuteEvents.Execute<IInteractionEvents>(target.gameObject, null, (message, data) => message.Damage(attackDamage, gameObject));
+            ExecuteEvents.Execute<IDamageableObject>(target.gameObject, null, (message, data) => message.Damage(attackDamage, gameObject));
         }
         return true;
     }

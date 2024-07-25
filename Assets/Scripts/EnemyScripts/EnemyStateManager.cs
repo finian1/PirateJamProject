@@ -16,7 +16,7 @@ public enum EnemyState
     HIDING
 }
 
-public class EnemyStateManager : MonoBehaviour, IInteractionEvents
+public class EnemyStateManager : MonoBehaviour, IDamageableObject
 {
     public EnemyState previousEnemyState;
     public EnemyState currentEnemyState;

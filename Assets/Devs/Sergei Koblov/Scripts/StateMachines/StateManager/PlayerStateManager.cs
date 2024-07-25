@@ -11,7 +11,7 @@ public enum PlayerState
     DASHING,
 }
 
-public class PlayerStateManager : MonoBehaviour, IInteractionEvents
+public class PlayerStateManager : MonoBehaviour, IDamageableObject
 {
     //--------------VARIABLES-----------------
 
