@@ -7,6 +7,12 @@ public class PlayerIdleState : PlayerBaseState
     {
         Debug.Log("Player is idle.");
 
+        player.anim.SetBool("IsJumpRising", false);
+        player.anim.SetBool("IsJumpFalling", false);
+
+        player.anim.SetBool("IsCrouchIdle", false);
+        player.anim.SetBool("IsCrouchMoving", false);
+
         if (!player.hasCrouchFlipReset)
         {
             float heightDifference = player.originalScale.y - player.crouchScale.y;
@@ -26,38 +32,54 @@ public class PlayerIdleState : PlayerBaseState
             player.currentMovementSpeed = player.originalMovementSpeed;
             player.hasCrouchFlipReset = true;
         }
-
-        player.anim.SetBool("IsRunning", false);
-
     }
 
     public override void UpdateState(PlayerStateManager player)
     {
         if (player.moveDirection.x == 0f)
         {
+            player.anim.SetBool("IsJumpRising", false);
+            player.anim.SetBool("IsJumpFalling", false);
+            player.anim.SetBool("IsMoving", false);
+            player.anim.SetBool("IsRunning", false);
             player.rb.velocity = new Vector2(0.0f, player.rb.velocity.y);
         }
 
-        if (player.moveDirection.x > 0f || player.moveDirection.x < 0f)
+        if (player.moveDirection.x != 0f)
         {
+            player.anim.SetBool("IsMoving", true);
             player.SwitchState(PlayerState.MOVING);
         }
 
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            //player.groundCheck.SetActive(false);
             player.SwitchState(PlayerState.JUMPING);
         }
+            
+        //if (!Input.GetKey(KeyCode.LeftControl))
+        //{
+        //    player.anim.SetBool("hasCrouchRisingFinished", true);
+        //    player.anim.SetBool("hasCrouchFallingFinished", true);
 
-        if (Input.GetKey(KeyCode.LeftControl))
+        //}
+
+        if (player.rb.velocity.y < -1f)
+        {
+            player.anim.SetBool("IsJumpFalling", true);
+        }
+        else
+        {
+            player.anim.SetBool("IsJumpFalling", false);
+        }
+
+        if (Input.GetKey(KeyCode.LeftControl) && player.isGrounded)
         {
             player.SwitchState(PlayerState.CROUCHING);
         }
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            Debug.Log("Attacking");
-            player.weapon.Attack(0);
+            player.SwitchState(PlayerState.LIGHTATTACKING);
         }
 
         if (Input.GetKeyDown(KeyCode.Mouse1))
@@ -70,5 +92,7 @@ public class PlayerIdleState : PlayerBaseState
         {
             player.SwitchState(PlayerState.DASHING);
         }
+
+        
     }
 }

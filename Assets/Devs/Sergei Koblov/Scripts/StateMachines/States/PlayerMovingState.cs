@@ -6,6 +6,8 @@ public class PlayerMovingState : PlayerBaseState
     {
         Debug.Log("Player is moving.");
 
+        player.anim.SetBool("IsCrouchIdle", false);
+
         if (!player.hasCrouchFlipReset)
         {
             float heightDifference = player.originalScale.y - player.crouchScale.y;
@@ -26,14 +28,14 @@ public class PlayerMovingState : PlayerBaseState
             player.hasCrouchFlipReset = true;
         }
 
-        player.anim.SetBool("IsRunning", true);
-
     }
 
     public override void UpdateState(PlayerStateManager player)
     {
         if (player.moveDirection.x != 0)
         {
+            player.anim.SetBool("IsMoving", true);
+            player.anim.SetBool("IsRunning", true);
             player.currentMovementSpeed = player.originalMovementSpeed;
             player.rb.velocity = new Vector2(player.moveDirection.x * player.currentMovementSpeed, player.rb.velocity.y);
         }
@@ -48,24 +50,33 @@ public class PlayerMovingState : PlayerBaseState
 
         if (player.moveDirection.x == 0)
         {
+            player.anim.SetBool("IsMoving", false);
+            player.anim.SetBool("IsRunning", false);
             player.SwitchState(PlayerState.IDLE);
         }
 
-        if (Input.GetKey(KeyCode.Space))
+        if (player.rb.velocity.y < -0.02f)
         {
-            //player.groundCheck.SetActive(false);
+            player.anim.SetBool("IsJumpFalling", true);
+        }
+        else
+        {
+            player.anim.SetBool("IsJumpFalling", false);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
             player.SwitchState(PlayerState.JUMPING);
         }
 
-        if (Input.GetKey(KeyCode.LeftControl))
+        if (Input.GetKey(KeyCode.LeftControl) && player.isGrounded)
         {
             player.SwitchState(PlayerState.CROUCHING);
         }
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            Debug.Log("Attacking");
-            player.weapon.Attack(0);
+            player.SwitchState(PlayerState.LIGHTATTACKING);
         }
 
         if (Input.GetKeyDown(KeyCode.Mouse1))
@@ -79,5 +90,4 @@ public class PlayerMovingState : PlayerBaseState
             player.SwitchState(PlayerState.DASHING);
         }
     }
-
 }

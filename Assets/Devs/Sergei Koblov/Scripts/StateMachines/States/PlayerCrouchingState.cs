@@ -6,21 +6,49 @@ public class PlayerCrouchingState : PlayerBaseState
     {
         Debug.Log("Player is crouching.");
         player.hasCrouchFlipReset = false;
+
         player.anim.SetBool("IsRunning", false);
+
+        player.anim.SetBool("IsCrouchIdle", false);
     }
 
     public override void UpdateState(PlayerStateManager player)
     {
         player.currentMovementSpeed = 0f;
 
-        float heightDifference = player.currentScale.y - player.crouchScale.y;
-        player.transform.position = new Vector3(player.transform.position.x, player.transform.position.y - heightDifference * 0.8f, player.transform.position.z);
+        //float heightDifference = player.currentScale.y - player.crouchScale.y;
+        //player.transform.position = new Vector3(player.transform.position.x, player.transform.position.y - heightDifference * 0.8f, player.transform.position.z);
         player.currentMovementSpeed = player.originalMovementSpeed;
+
+        if(Input.GetKey(KeyCode.LeftControl) && player.moveDirection.x == 0)
+        {
+            player.anim.SetBool("IsMoving", false);
+            player.rb.velocity = new Vector2(0.0f, player.rb.velocity.y);
+            player.anim.SetBool("IsCrouchIdle", true);
+        }
 
         if (player.isFacingRight)
         {
             player.currentScale = player.crouchScale;
         }
+
+        if(player.isGrounded)
+        {
+            player.anim.SetBool("IsJumpFalling", false);
+        }
+
+        if(Input.GetKey(KeyCode.LeftControl) && !player.isGrounded)
+        {
+            player.anim.SetBool("IsJumpFalling", true);
+        }
+        
+        //if (player.isGrounded)
+        //{
+        //    player.anim.SetBool("IsJumpFalling", false);
+        //    player.anim.SetBool("IsRunning", false);
+
+        //    //player.anim.SetBool("IsCrouchIdle", false);
+        //}
 
         else if (!player.isFacingRight)
         {
@@ -36,10 +64,22 @@ public class PlayerCrouchingState : PlayerBaseState
             localScale.x *= -1f;
             player.currentScale = localScale;
         }
+            
+        if (!Input.GetKey(KeyCode.LeftControl) && player.isGrounded)
+        {
+            player.anim.SetBool("IsCrouchIdle", false);
 
-        if (!Input.GetKey(KeyCode.LeftControl))
+            player.SwitchState(PlayerState.IDLE);
+        }
+
+        if (!player.isGrounded && player.moveDirection.x == 0)
         {
             player.SwitchState(PlayerState.IDLE);
+        }
+
+        if (!player.isGrounded && player.moveDirection.x != 0)
+        {
+            player.SwitchState(PlayerState.MOVING);
         }
 
         if (Input.GetKey(KeyCode.LeftControl) && player.moveDirection.x != 0f)
