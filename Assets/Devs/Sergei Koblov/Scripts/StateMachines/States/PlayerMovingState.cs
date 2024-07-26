@@ -55,7 +55,7 @@ public class PlayerMovingState : PlayerBaseState
             player.SwitchState(PlayerState.IDLE);
         }
 
-        if (player.rb.velocity.y < -0.02f)
+        if (player.rb.velocity.y < -2.0f)
         {
             player.anim.SetBool("IsJumpFalling", true);
         }
