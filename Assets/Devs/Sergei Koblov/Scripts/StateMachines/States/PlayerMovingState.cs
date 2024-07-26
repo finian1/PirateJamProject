@@ -7,8 +7,6 @@ public class PlayerMovingState : PlayerBaseState
         Debug.Log("Player is moving.");
 
         player.anim.SetBool("IsCrouchIdle", false);
-        player.anim.SetBool("IsCrouchFalling", false);
-        //player.anim.SetBool("IsCrouchRising", false);
 
         if (!player.hasCrouchFlipReset)
         {
