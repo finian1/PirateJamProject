@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using static UnityEngine.GraphicsBuffer;
 
 public enum PlayerState
 {
@@ -10,6 +12,7 @@ public enum PlayerState
     CROUCHMOVING,
     DASHING,
     LIGHTATTACKING,
+    HIDDEN,
 }
 
 public class PlayerStateManager : MonoBehaviour, IDamageableObject
@@ -79,6 +82,8 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
     public bool isCrouching;
     public bool hasCrouchFlipReset;
     public bool justDashed;
+    public bool isHidden;
+    public bool unhiding;
 
 
     [Header("Components")]
@@ -120,6 +125,7 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
         {PlayerState.CROUCHMOVING, new PlayerCrouchMovingState()},
         {PlayerState.DASHING, new PlayerDashingState()},
         {PlayerState.LIGHTATTACKING, new PlayerLightAttackingState()},
+        {PlayerState.HIDDEN, new PlayerHiddenState()},
     };
 
 
@@ -271,10 +277,14 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
         {
             anim.SetBool("IsCrouchHeld", true);
         }
-
         else
         {
             anim.SetBool("IsCrouchHeld", false);
+        }
+
+        if (Input.GetKeyDown(KeyCode.E) && !unhiding)
+        {
+            AttemptInteraction();
         }
 
         velocityX = rb.velocity.x;
@@ -292,7 +302,7 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
         GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f - redFlash, 1.0f - redFlash);
         redFlash -= Time.deltaTime;
         redFlash = Mathf.Clamp(redFlash, 0.0f, 1.0f);
-
+        unhiding = false;
     }
 
     private void FixedUpdate()
@@ -353,5 +363,16 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
     public void Attack(int index)
     {
         weapon.Attack(index);
+    }
+
+    public void AttemptInteraction()
+    {
+        List<Collider2D> colliders = new List<Collider2D>();
+        GetComponent<Collider2D>().Overlap(colliders);
+
+        foreach( Collider2D collider in colliders)
+        {
+            ExecuteEvents.Execute<IInteractableObject>(collider.gameObject, null, (message, data) => message.Interact(this.gameObject));
+        }
     }
 }
