@@ -107,6 +107,8 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
     [Header("Player Stats")]
     public float initialHealth = 100.0f;
     public float currentHealth = 100.0f;
+    public float initialCorruption = 100.0f;
+    public float currentCorruption = 100.0f;
 
     private float redFlash = 0.0f;
 
