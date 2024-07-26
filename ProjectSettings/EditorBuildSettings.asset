@@ -6,13 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Devs/Oliver Lancashire/MainMenu.unity
+    path: Assets/Scenes/MainMenu.unity
     guid: 04b3d37c65564534ab5511c8ab42aa99
   - enabled: 1
     path: Assets/Devs/Sergei Koblov/Scenes/NewMovementPlayground.unity
     guid: 93ac94371291c86438bfb410ce281bff
   - enabled: 1
-    path: Assets/Devs/Oliver Lancashire/Scripts/UI/MainMenu/LoadScene/New Scene.unity
+    path: Assets/Scripts/UI/MainMenu/LoadScene/New Scene.unity
     guid: 95253aa536fd4c543a7f00c71d8b4219
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
