@@ -21,6 +21,7 @@ public class PlayerHiddenState : PlayerBaseState
             player.GetComponent<Rigidbody2D>().WakeUp();
             player.isHidden = false;
             player.unhiding = true;
+            player.currentHidingPlace.GetComponent<HideableObjectScript>().Unhide();
             player.SwitchState(PlayerState.IDLE);
         }
     }

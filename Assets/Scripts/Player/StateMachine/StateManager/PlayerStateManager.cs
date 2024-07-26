@@ -99,6 +99,7 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
     public GameObject dash1;
     public GameObject dash2;
     public GameObject dash3;
+    public GameObject currentHidingPlace;
 
 
     [Header("Layers")]
