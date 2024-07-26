@@ -229,15 +229,11 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
             anim.SetBool("IsCrouchIdle", true);
             anim.SetBool("IsRunning", false);
             anim.SetBool("IsCrouchMoving", false);
-            anim.SetBool("hasCrouchFallingFinished", false);
-            anim.SetBool("IsCrouchFalling", true);
             crouchFallingTime += Time.deltaTime;
             isCrouchFalling = true;
 
             if (crouchFallingTime > 0.1f)
             {
-                anim.SetBool("hasCrouchFallingFinished", true);
-                anim.SetBool("IsCrouchFalling", false);
                 isCrouchFalling = false;
             }
         }
@@ -255,8 +251,6 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
         //    anim.SetBool("IsCrouchIdle", false);
         //    anim.SetBool("IsCrouchMoving", false);
         //    anim.SetBool("IsCrouchMoving", false);
-        //    anim.SetBool("hasCrouchFallingFinished", false);
-        //    anim.SetBool("IsCrouchFalling", false);
         //}
 
         if (!Input.GetKey(KeyCode.LeftControl) && isGrounded)
@@ -264,15 +258,11 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
             crouchFallingTime = 0f;
 
             anim.SetBool("IsCrouchIdle", false);
-            anim.SetBool("hasCrouchRisingFinished", false);
-            anim.SetBool("IsCrouchRising", true);
             crouchRisingTime += Time.deltaTime;
             isCrouchRising = true;
 
             if (crouchRisingTime > 0.1f)
             {
-                anim.SetBool("hasCrouchRisingFinished", true);
-                anim.SetBool("IsCrouchRising", false);
                 isCrouchRising = false;
             }
         }
@@ -358,5 +348,10 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
     {
         redFlash = 1.0f;
         currentHealth -= amount;
+    }
+
+    public void Attack(int index)
+    {
+        weapon.Attack(index);
     }
 }

@@ -11,9 +11,7 @@ public class PlayerIdleState : PlayerBaseState
         player.anim.SetBool("IsJumpFalling", false);
 
         player.anim.SetBool("IsCrouchIdle", false);
-        player.anim.SetBool("IsCrouchFalling", false);
         player.anim.SetBool("IsCrouchMoving", false);
-        //player.anim.SetBool("IsCrouchRising", false);
 
         if (!player.hasCrouchFlipReset)
         {
@@ -58,12 +56,12 @@ public class PlayerIdleState : PlayerBaseState
             player.SwitchState(PlayerState.JUMPING);
         }
             
-        if (!Input.GetKey(KeyCode.LeftControl))
-        {
-            player.anim.SetBool("hasCrouchRisingFinished", true);
-            player.anim.SetBool("hasCrouchFallingFinished", true);
+        //if (!Input.GetKey(KeyCode.LeftControl))
+        //{
+        //    player.anim.SetBool("hasCrouchRisingFinished", true);
+        //    player.anim.SetBool("hasCrouchFallingFinished", true);
 
-        }
+        //}
 
         if (player.rb.velocity.y < -1f)
         {

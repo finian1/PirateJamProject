@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class EnemyFollowPlayer : MonoBehaviour
+public class EnemyFollowPlayer : MonoBehaviour, IDamageableObject
 {
     private Rigidbody2D rb;
     public GameObject mainPlayer;
@@ -33,13 +33,9 @@ public class EnemyFollowPlayer : MonoBehaviour
         rb.AddForce(moveDirection.normalized * followSpeed * Time.deltaTime);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void Damage(float amount, GameObject origin)
     {
-        if(collision.gameObject.CompareTag("LightAttack"))
-        {
-            Debug.Log("Force applied.");
-            rb.AddForce(-moveDirection * Time.deltaTime, ForceMode2D.Impulse);
-        }
+        Debug.Log("Force applied.");
+        rb.AddForce(-moveDirection * Time.deltaTime, ForceMode2D.Impulse);
     }
-
 }

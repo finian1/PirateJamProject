@@ -20,7 +20,6 @@ public class PlayerLightAttackingState : PlayerBaseState
             localScale.x *= -1f;
             player.currentScale = localScale;
         }
-
     }
 
     public override void UpdateState(PlayerStateManager player)
