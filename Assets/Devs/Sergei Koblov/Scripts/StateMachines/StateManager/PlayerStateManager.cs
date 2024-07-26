@@ -359,4 +359,9 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
         redFlash = 1.0f;
         currentHealth -= amount;
     }
+
+    public void Attack(int index)
+    {
+        weapon.Attack(index);
+    }
 }

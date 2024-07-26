@@ -21,6 +21,8 @@ public class AOEAttack : BaseAttack
             return false;
         }
 
+        areaOfEffect.enabled = true;
+
         List<Collider2D> objectsToAttack = new List<Collider2D>();
         areaOfEffect.Overlap(objectsToAttack);
         
@@ -28,6 +30,9 @@ public class AOEAttack : BaseAttack
         {
             ExecuteEvents.Execute<IDamageableObject>(target.gameObject, null, (message, data) => message.Damage(attackDamage, gameObject));
         }
+
+        areaOfEffect.enabled = false;
+
         return true;
     }
 }
