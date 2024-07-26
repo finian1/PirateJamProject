@@ -10,7 +10,6 @@ public class PlayerCrouchingState : PlayerBaseState
         player.anim.SetBool("IsRunning", false);
 
         player.anim.SetBool("IsCrouchIdle", false);
-        player.anim.SetBool("IsCrouchFalling", true);
     }
 
     public override void UpdateState(PlayerStateManager player)
@@ -26,7 +25,6 @@ public class PlayerCrouchingState : PlayerBaseState
             player.anim.SetBool("IsMoving", false);
             player.rb.velocity = new Vector2(0.0f, player.rb.velocity.y);
             player.anim.SetBool("IsCrouchIdle", true);
-            //player.anim.SetBool("IsCrouchFalling", false);
         }
 
         if (player.isFacingRight)
@@ -41,7 +39,6 @@ public class PlayerCrouchingState : PlayerBaseState
 
         if(Input.GetKey(KeyCode.LeftControl) && !player.isGrounded)
         {
-            player.anim.SetBool("IsCrouchFalling", false);
             player.anim.SetBool("IsJumpFalling", true);
         }
         
@@ -49,7 +46,6 @@ public class PlayerCrouchingState : PlayerBaseState
         //{
         //    player.anim.SetBool("IsJumpFalling", false);
         //    player.anim.SetBool("IsRunning", false);
-        //    player.anim.SetBool("IsCrouchFalling", true);
 
         //    //player.anim.SetBool("IsCrouchIdle", false);
         //}
@@ -72,7 +68,6 @@ public class PlayerCrouchingState : PlayerBaseState
         if (!Input.GetKey(KeyCode.LeftControl) && player.isGrounded)
         {
             player.anim.SetBool("IsCrouchIdle", false);
-            //player.anim.SetBool("IsCrouchFalling", false);
 
             player.SwitchState(PlayerState.IDLE);
         }
