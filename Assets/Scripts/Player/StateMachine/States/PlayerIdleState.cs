@@ -7,8 +7,11 @@ public class PlayerIdleState : PlayerBaseState
     {
         Debug.Log("Player is idle.");
 
-        player.anim.SetBool("IsJumpRising", false);
-        player.anim.SetBool("IsJumpFalling", false);
+        if(player.isGrounded)
+        {
+            player.anim.SetBool("IsJumpRising", false);
+            player.anim.SetBool("IsJumpFalling", false);
+        }
 
         player.anim.SetBool("IsCrouchIdle", false);
         player.anim.SetBool("IsCrouchMoving", false);
@@ -36,7 +39,7 @@ public class PlayerIdleState : PlayerBaseState
 
     public override void UpdateState(PlayerStateManager player)
     {
-        if (player.moveDirection.x == 0f)
+        if (player.moveDirection.x == 0f && player.isGrounded)
         {
             player.anim.SetBool("IsJumpRising", false);
             player.anim.SetBool("IsJumpFalling", false);
@@ -45,7 +48,7 @@ public class PlayerIdleState : PlayerBaseState
             player.rb.velocity = new Vector2(0.0f, player.rb.velocity.y);
         }
 
-        if (player.moveDirection.x != 0f)
+        if (player.moveDirection.x != 0f && player.isGrounded)
         {
             player.anim.SetBool("IsMoving", true);
             player.SwitchState(PlayerState.MOVING);
@@ -56,23 +59,46 @@ public class PlayerIdleState : PlayerBaseState
             player.SwitchState(PlayerState.JUMPING);
         }
             
-        //if (!Input.GetKey(KeyCode.LeftControl))
-        //{
-        //    player.anim.SetBool("hasCrouchRisingFinished", true);
-        //    player.anim.SetBool("hasCrouchFallingFinished", true);
+        if(!player.isGrounded)
+        {
 
+            player.rb.velocity = new Vector2(0.0f, player.rb.velocity.y);
+
+            if (player.rb.velocity.y > 0f)
+            {
+                player.anim.SetBool("IsJumpRising", true);
+                player.anim.SetBool("IsJumpFalling", false);
+            }
+
+            if (player.rb.velocity.y < 0f)
+            {
+                player.anim.SetBool("IsJumpRising", false);
+                player.anim.SetBool("IsJumpFalling", true);
+                player.rb.velocity = new Vector2(player.rb.velocity.x, player.rb.velocity.y * 1.005f);
+            }
+
+            if (player.moveDirection.x != 0f)
+            {
+                player.anim.SetBool("IsMoving", true);
+                player.SwitchState(PlayerState.MOVING);
+            }
+        }
+
+        //if (player.rb.velocity.y < -1f)
+        //{
+        //    player.anim.SetBool("IsJumpFalling", true);
+        //}
+        //else
+        //{
+        //    player.anim.SetBool("IsJumpFalling", false);
         //}
 
-        if (player.rb.velocity.y < -1f)
+        if (Input.GetKey(KeyCode.LeftControl) && player.isGrounded)
         {
-            player.anim.SetBool("IsJumpFalling", true);
-        }
-        else
-        {
-            player.anim.SetBool("IsJumpFalling", false);
+            player.SwitchState(PlayerState.CROUCHING);
         }
 
-        if (Input.GetKey(KeyCode.LeftControl) && player.isGrounded)
+        if (player.isUnderCeiling)
         {
             player.SwitchState(PlayerState.CROUCHING);
         }

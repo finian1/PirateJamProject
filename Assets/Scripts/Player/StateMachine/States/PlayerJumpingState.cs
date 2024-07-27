@@ -6,7 +6,7 @@ public class PlayerJumpingState : PlayerBaseState
 
     public override void EnterState(PlayerStateManager player)
     {
-        if (player.coyoteTimeCounter > 0f && player.currentJumpCount < player.maxJumpCount && !player.justDashed)
+        if (player.coyoteTimeCounter > 0f && player.currentJumpCount < player.maxJumpCount && !player.justDashed && !player.justLightAttacked)
         {   
             Debug.Log("Player is jumping.");
             player.anim.SetBool("IsRunning", false);
@@ -19,6 +19,11 @@ public class PlayerJumpingState : PlayerBaseState
         if(player.justDashed == true)
         {
             player.justDashed = false;
+            return;
+        }
+        if(player.justLightAttacked == true)
+        {
+            player.justLightAttacked = false;
             return;
         }
     }

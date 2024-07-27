@@ -27,9 +27,8 @@ public class UIController : MonoBehaviour
     public float minCorruption;
     [Range(0,100)]
     public float maxCorruption;
-
-       public Image corruptionFill;
-         [Range(0,100)]
+    public Image corruptionFill;
+     [Range(0,100)]
     public float bSpeed = 2;
 
 
@@ -56,7 +55,7 @@ public class UIController : MonoBehaviour
         healthFill.fillAmount = Mathf.Lerp(healthFill.fillAmount, fillAmount, Time.deltaTime * barSpeed);
 
         float fillAmount2 = Corruption / maxCorruption;
-        healthFill.fillAmount = Mathf.Lerp(corruptionFill.fillAmount, fillAmount, Time.deltaTime * bSpeed);
+        corruptionFill.fillAmount = Mathf.Lerp(corruptionFill.fillAmount, fillAmount2, Time.deltaTime * bSpeed);
     }
 
     public void TakeDamage(float damage)

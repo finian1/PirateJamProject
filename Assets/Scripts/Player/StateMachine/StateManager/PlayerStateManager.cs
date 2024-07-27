@@ -27,7 +27,7 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
 
     [Header("Attacking variables")]
     public float lightAttackCooldown;
-    //public bool justLightAttacked;
+    public bool justLightAttacked;
 
     [Header("Jumping variables")]
     public float velocityY;
@@ -45,9 +45,11 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
     [Header("Crouching variables")]
     public float crouchFallingTime;
     public float crouchRisingTime;
+    public float canCrouchMoveTimer;
     public bool isCrouchFalling;
     public bool isCrouchRising;
     public bool isCrouchMoving;
+    public bool hasPressedCrouch;
 
 
     [Header("Dashing variables")]
@@ -62,12 +64,14 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
 
     [Header("Other variables")]
     public float groundDistance;
+    //public float ceilingDistance;
     public float groundedTimer;
 
 
     [Header("Vectors")]
     public Vector2 moveDirection;
     public Vector3 currentScale;
+    public Vector3 ceilingCubeSize;
     public Vector3 originalScale;
     public Vector3 crouchScale;
     public Vector3 mousePosition;
@@ -76,12 +80,21 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
     [Header("Booleans")]
     public bool isGrounded;
     public bool startGroundedTimer;
+
     public bool canDoubleJump;
+
+    public bool isUnderCeiling;
+
     public bool isJumpBuffering;
+
     public bool isFacingRight;
+
     public bool isCrouching;
+    public bool canCrouchMove;
     public bool hasCrouchFlipReset;
+
     public bool justDashed;
+
     public bool isHidden;
     public bool unhiding;
 
@@ -95,6 +108,7 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
     [Header("GameObjects")]
     public Camera mainCamera;
     public GameObject groundCheck;
+    public GameObject ceilingCheck;
     public BaseWeapon weapon;
     public GameObject dash1;
     public GameObject dash2;
@@ -104,6 +118,7 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
 
     [Header("Layers")]
     public LayerMask groundLayer;
+    public Collider2D[] hits;
 
     [Header("Player Stats")]
     public float initialHealth = 100.0f;
@@ -144,7 +159,7 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
         crouchingMovementSpeed = originalMovementSpeed * 0.2f;
 
         //Attacking
-        //justLightAttacked = false;
+        justLightAttacked = false;
 
         //Dashing
         currentDashCounter = 3;
@@ -166,10 +181,16 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
         hasCrouchFlipReset = true;
         isCrouching = false;
         isCrouchRising = false;
+        canCrouchMove = true;
+        canCrouchMoveTimer = 0f;
+        hasPressedCrouch = false;
+        isUnderCeiling = false;
 
         //Other
         isFacingRight = true;
         groundDistance = 0.02f;
+        ceilingCubeSize = new Vector3(1.0f, 1.35f, 1.0f);
+        //ceilingDistance = 1f;
 
         originalScale = transform.localScale;
         currentScale = transform.localScale;
@@ -180,7 +201,10 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
 
     void Update()
     {
+
         currentState.UpdateState(this);
+
+        //------------------------
 
         if (startGroundedTimer)
         {
@@ -196,12 +220,59 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
             }
         }
 
+        //------------------------
+
         mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+
+        transform.localScale = currentScale;
+
+        velocityX = rb.velocity.x;
+        velocityY = rb.velocity.y;
+
+        currentDashCounter = Mathf.Clamp(currentDashCounter, minDashCounter, maxDashCounter);
+
+        //------------------------
+
+        hits = Physics2D.OverlapBoxAll(ceilingCheck.transform.position, ceilingCubeSize, 0f, groundLayer);
+
+        isUnderCeiling = false;
+
+        foreach (Collider2D hit in hits)
+        {
+            if (hit.gameObject.layer != LayerMask.NameToLayer("Player"))
+            {
+                isUnderCeiling = true;
+                break;
+            }
+        }
+
+        //------------------------
+
+        if (isUnderCeiling && moveDirection.x == 0f)
+        {
+            anim.SetBool("IsMoving", false);
+            anim.SetBool("CanStandUp", false);
+        }
+
+        if(isUnderCeiling && moveDirection.x != 0f)
+        {
+            anim.SetBool("IsMoving", true);
+            anim.SetBool("CanStandUp", false);
+        }
+
+        if(!isUnderCeiling)
+        {
+            anim.SetBool("CanStandUp", true);
+        }
+
+        //------------------------
 
         if (!startGroundedTimer)
         {
             isGrounded = Physics2D.OverlapCircle(groundCheck.transform.position, groundDistance, groundLayer);
         }
+
+        //------------------------
 
         if (isGrounded)
         {
@@ -229,6 +300,29 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
             isJumpBuffering = false;
         }
 
+        //------------------------
+
+        if (Input.GetKeyDown(KeyCode.LeftControl) && isGrounded)
+        {
+            canCrouchMoveTimer = 0f;
+            hasPressedCrouch = true;
+        }
+
+        if(hasPressedCrouch)
+        {
+            canCrouchMove = false;
+            canCrouchMoveTimer += Time.deltaTime;
+
+            if (canCrouchMoveTimer > 0.1f)
+            {
+                canCrouchMove = true;
+                canCrouchMoveTimer = 0f;
+                hasPressedCrouch = false;
+            }
+        }
+
+        //------------------------
+
         if (Input.GetKey(KeyCode.LeftControl) && moveDirection.x == 0 && isGrounded)
         {
             crouchRisingTime = 0f;
@@ -255,13 +349,6 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
             isCrouchMoving = true;
         }
 
-        //else
-        //{
-        //    anim.SetBool("IsCrouchIdle", false);
-        //    anim.SetBool("IsCrouchMoving", false);
-        //    anim.SetBool("IsCrouchMoving", false);
-        //}
-
         if (!Input.GetKey(KeyCode.LeftControl) && isGrounded)
         {
             crouchFallingTime = 0f;
@@ -285,22 +372,19 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
             anim.SetBool("IsCrouchHeld", false);
         }
 
+        //------------------------
+
         if (Input.GetKeyDown(KeyCode.E) && !unhiding)
         {
             AttemptInteraction();
         }
 
-        velocityX = rb.velocity.x;
-        velocityY = rb.velocity.y;
-
-
-        transform.localScale = currentScale;
-
-        currentDashCounter = Mathf.Clamp(currentDashCounter, minDashCounter, maxDashCounter);
+        //------------------------
 
         UpdateDashUI();
-
         DashReset();
+
+        //------------------------
 
         GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f - redFlash, 1.0f - redFlash);
         redFlash -= Time.deltaTime;
@@ -355,6 +439,7 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
         //Groundcheck gameobject visual circle
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(groundCheck.transform.position, groundDistance);
+        Gizmos.DrawWireCube(ceilingCheck.transform.position, ceilingCubeSize);
     }
 
     public void Damage(float amount, GameObject source)
