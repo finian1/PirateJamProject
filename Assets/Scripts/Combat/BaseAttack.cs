@@ -27,6 +27,8 @@ public class BaseAttack : MonoBehaviour
             return false;
         }
         cooldownTimer = 0.0f;
+
+        weapon.player.currentCorruption -= essenceCost;
         return true;
     }
 }
