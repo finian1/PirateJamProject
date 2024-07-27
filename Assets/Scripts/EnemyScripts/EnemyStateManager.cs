@@ -45,7 +45,6 @@ public class EnemyStateManager : MonoBehaviour, IDamageableObject
     public Vector3 initialScale;
     [NonSerialized]
     public Vector3 forwardVector;
-    [NonSerialized]
     public Animator animator;
     [NonSerialized]
     public float timeSinceLastAttack;
@@ -62,7 +61,10 @@ public class EnemyStateManager : MonoBehaviour, IDamageableObject
 
     public virtual void Start()
     {
-        animator = GetComponent<Animator>();
+        if(GetComponent<Animator>() != null)
+        {
+            animator = GetComponent<Animator>();
+        }
         initialScale = transform.localScale;
         currentEnemyHealth = initialEnemyHealth;
         SwitchState(EnemyState.ROAMING);
