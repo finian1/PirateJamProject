@@ -8,6 +8,7 @@ public class ChargingEnemyChargeState : EnemyBaseState
 
     public override void EnterState(EnemyStateManager enemy)
     {
+        enemy.animator.SetBool("Running", true);
         Vector2 dirToTarget = enemy.vision.closestTarget.transform.position - enemy.gameObject.transform.position;
         dirToTarget.Normalize();
 
@@ -19,6 +20,11 @@ public class ChargingEnemyChargeState : EnemyBaseState
         {
             chargingRight = false;
         }
+    }
+
+    public override void ExitState(EnemyStateManager enemy)
+    {
+        enemy.animator.SetBool("Running", false);
     }
 
     public override void UpdateState(EnemyStateManager enemy)

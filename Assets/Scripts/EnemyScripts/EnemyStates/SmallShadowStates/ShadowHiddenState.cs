@@ -12,6 +12,10 @@ public class ShadowHiddenState : EnemyBaseState
         enemy.GetComponent<SpriteRenderer>().enabled = false;
     }
 
+    public override void ExitState(EnemyStateManager enemy)
+    {
+    }
+
     public override void UpdateState(EnemyStateManager enemy)
     {
         if(enemy.vision.canSeeTarget)

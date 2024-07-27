@@ -13,7 +13,8 @@ public class GroundCheckScript : MonoBehaviour
         foreach(Collider2D collider in colliders)
         {
             if (collider.gameObject.layer == LayerMask.NameToLayer("Ground") ||
-                collider.gameObject.tag == friendlyTag)
+                collider.gameObject.CompareTag(friendlyTag) ||
+                collider.gameObject.CompareTag("Player"))
             {
                 return true;
             }

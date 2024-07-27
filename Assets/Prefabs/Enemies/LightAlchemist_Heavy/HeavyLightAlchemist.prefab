@@ -249,6 +249,7 @@ GameObject:
   - component: {fileID: 6065380192517743001}
   - component: {fileID: 7262285986549495293}
   - component: {fileID: 1581198695437502936}
+  - component: {fileID: -4390708850202347693}
   m_Layer: 7
   m_Name: HeavyLightAlchemist
   m_TagString: Untagged
@@ -427,7 +428,30 @@ MonoBehaviour:
   attackSpeed: 2
   attackDamage: 20
   attackRange: 2
+  attackAnimationLength: 1
   attackArea: {fileID: 0}
+--- !u!95 &-4390708850202347693
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4871894025673143493}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6225920765773439788
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,7 +6,12 @@ public class EnemyRoamingState : EnemyBaseState
 {
     public override void EnterState(EnemyStateManager enemy)
     {
-        
+        enemy.animator.SetBool("Walking", true);
+    }
+
+    public override void ExitState(EnemyStateManager enemy)
+    {
+        enemy.animator.SetBool("Walking", false);
     }
 
     public override void UpdateState(EnemyStateManager enemy)

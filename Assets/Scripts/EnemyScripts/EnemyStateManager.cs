@@ -33,8 +33,10 @@ public class EnemyStateManager : MonoBehaviour, IDamageableObject
 
     [Header("Attack Variables")]
     public float attackSpeed = 2.5f;
+    public float attackCooldown = 2.0f;
     public float attackDamage = 20.0f;
     public float attackRange = 2.0f;
+    public float attackAnimationLength = 1.0f;
     public Collider2D attackArea;
 
     [NonSerialized]
@@ -43,6 +45,10 @@ public class EnemyStateManager : MonoBehaviour, IDamageableObject
     public Vector3 initialScale;
     [NonSerialized]
     public Vector3 forwardVector;
+    [NonSerialized]
+    public Animator animator;
+    [NonSerialized]
+    public float timeSinceLastAttack;
 
 
     public Dictionary<EnemyState, EnemyBaseState> EnemyStates = new Dictionary<EnemyState, EnemyBaseState>()
@@ -56,6 +62,7 @@ public class EnemyStateManager : MonoBehaviour, IDamageableObject
 
     public virtual void Start()
     {
+        animator = GetComponent<Animator>();
         initialScale = transform.localScale;
         currentEnemyHealth = initialEnemyHealth;
         SwitchState(EnemyState.ROAMING);
@@ -63,6 +70,7 @@ public class EnemyStateManager : MonoBehaviour, IDamageableObject
 
     private void FixedUpdate()
     {
+        timeSinceLastAttack += Time.deltaTime;
         EnemyStates[currentEnemyState].UpdateState(this);
         if(movingRight)
         {
@@ -77,6 +85,7 @@ public class EnemyStateManager : MonoBehaviour, IDamageableObject
     public void SwitchState(EnemyState state)
     {
         previousEnemyState = currentEnemyState;
+        EnemyStates[currentEnemyState].ExitState(this);
         currentEnemyState = state;
         EnemyStates[currentEnemyState].EnterState(this);
     }

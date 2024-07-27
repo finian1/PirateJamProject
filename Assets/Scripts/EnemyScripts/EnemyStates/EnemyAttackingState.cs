@@ -10,6 +10,11 @@ public class EnemyAttackingState : EnemyBaseState
     public override void EnterState(EnemyStateManager enemy)
     {
         attackWindupTimer = 0.0f;
+        enemy.timeSinceLastAttack = 0.0f;
+    }
+
+    public override void ExitState(EnemyStateManager enemy)
+    {
     }
 
     public override void UpdateState(EnemyStateManager enemy)

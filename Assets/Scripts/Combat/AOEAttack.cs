@@ -28,7 +28,7 @@ public class AOEAttack : BaseAttack
         
         foreach(Collider2D target in objectsToAttack)
         {
-            ExecuteEvents.Execute<IDamageableObject>(target.gameObject, null, (message, data) => message.Damage(attackDamage, gameObject));
+            ExecuteEvents.Execute<IDamageableObject>(target.gameObject, null, (message, data) => message.Damage(attackDamage, /*weapon.player.*/gameObject));
         }
 
         areaOfEffect.enabled = false;
