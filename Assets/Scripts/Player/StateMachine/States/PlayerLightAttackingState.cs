@@ -55,6 +55,7 @@ public class PlayerLightAttackingState : PlayerBaseState
             if(player.lightAttackCooldown > 0.25f)
             {
                 player.lightAttackCooldown = 0f;
+                player.justLightAttacked = true;
                 player.anim.SetBool("IsLightAttacking", false);
                 player.SwitchState(PlayerState.JUMPING);
             }

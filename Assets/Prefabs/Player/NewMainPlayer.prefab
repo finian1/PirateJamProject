@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5167889585438127043}
   - component: {fileID: 764497585076670286}
   - component: {fileID: 5286653254899134755}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DoubleJumpParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,13 +27,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1677163992014939378}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -2.14, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.64000034, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5902104366774170540}
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &5167889585438127043
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -170,7 +170,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 30
+      scalar: 20
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -666,7 +666,7 @@ ParticleSystem:
     serializedVersion: 6
     enabled: 1
     type: 4
-    angle: 50
+    angle: 25
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
@@ -752,7 +752,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 1
+      value: 0.2
       mode: 0
       spread: 0
       speed:
@@ -887,7 +887,7 @@ ParticleSystem:
           outWeight: 0.33333334
         - serializedVersion: 3
           time: 1
-          value: 1
+          value: 0
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -981,7 +981,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 10
+        scalar: 50
         minScalar: 30
         maxCurve:
           serializedVersion: 2
@@ -3995,11 +3995,11 @@ ParticleSystem:
   TrailModule:
     enabled: 1
     mode: 0
-    ratio: 1
+    ratio: 0.25
     lifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0.125
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -4049,12 +4049,12 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    minVertexDistance: 0.2
+    minVertexDistance: 0
     textureMode: 0
     textureScale: {x: 1, y: 1}
     ribbonCount: 1
     shadowBias: 0.5
-    worldSpace: 0
+    worldSpace: 1
     dieWithParticles: 1
     sizeAffectsWidth: 1
     sizeAffectsLifetime: 0
@@ -4066,7 +4066,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 1}
+      maxColor: {r: 0, g: 0, b: 0, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -4130,7 +4130,7 @@ ParticleSystem:
     widthOverTrail:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0.5
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -4184,7 +4184,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 1}
+      maxColor: {r: 0, g: 0, b: 0, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -4909,6 +4909,37 @@ MonoBehaviour:
   doubleJumpParticleDuration: 0.5
   doubleJumpParticlesPlaying: 0
   emittedOnce: 0
+--- !u!1 &2309439564062288046
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8806779284837159206}
+  m_Layer: 6
+  m_Name: CeilingCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8806779284837159206
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2309439564062288046}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.25, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1345564175772636201}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2434146494349716377
 GameObject:
   m_ObjectHideFlags: 0
@@ -4919,7 +4950,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7668301027914852626}
   - component: {fileID: 1180680712657029548}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KnifeRangedAttack
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -4968,7 +4999,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1544907257145539884}
   - component: {fileID: 3985670332527343495}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5114,7 +5145,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5902104366774170540}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5149,7 +5180,7 @@ GameObject:
   - component: {fileID: 298911341766762635}
   - component: {fileID: 7463587702880761472}
   - component: {fileID: 9201533534106787130}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KnifeLightAttack
   m_TagString: LightAttack
   m_Icon: {fileID: 0}
@@ -5217,15 +5248,12 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.99818903, y: -0.011364877}
-      - {x: 1.002663, y: 0.57026374}
+    - - {x: 5.3081503, y: -0.038709104}
       - {x: 0.5242448, y: 0.8458544}
       - {x: 0, y: 0.5385702}
       - {x: -0.0013697147, y: 0.0031856}
       - {x: 0.0077812076, y: -0.5461095}
       - {x: 0.48047614, y: -0.77145875}
-      - {x: 1.014372, y: -0.5103862}
-      - {x: 1.0100765, y: -0.23826018}
   m_UseDelaunayMesh: 0
 --- !u!114 &9201533534106787130
 MonoBehaviour:
@@ -5253,7 +5281,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2399340300829638117}
   - component: {fileID: 446290965475557089}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Dash1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5339,7 +5367,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8754056359149286374}
   - component: {fileID: 5953252142432562490}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WeaponKnife
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -5389,7 +5417,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7898961976456447339}
   - component: {fileID: 1891868940723257878}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Dash3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5475,7 +5503,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8998835333098698363}
   - component: {fileID: 2492484657647368531}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Light 2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5558,7 +5586,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7628345716559241657}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GroundCheck
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -5594,7 +5622,7 @@ GameObject:
   - component: {fileID: 2538016098716021404}
   - component: {fileID: 7116130173986717328}
   - component: {fileID: 6218149251415532461}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Capsule
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -5615,6 +5643,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7628345716559241657}
+  - {fileID: 8806779284837159206}
   - {fileID: 1544907257145539884}
   - {fileID: 220904233644726094}
   - {fileID: 5902104366774170540}
@@ -5756,6 +5785,7 @@ MonoBehaviour:
   crouchingMovementSpeed: 0
   horizontalMovement: 0
   lightAttackCooldown: 0
+  justLightAttacked: 0
   velocityY: 0
   velocityX: 0
   jumpingPower: 0
@@ -5768,9 +5798,11 @@ MonoBehaviour:
   jumpBufferCounter: 0
   crouchFallingTime: 0
   crouchRisingTime: 0
+  canCrouchMoveTimer: 0
   isCrouchFalling: 0
   isCrouchRising: 0
   isCrouchMoving: 0
+  hasPressedCrouch: 0
   initialDashCounter: 0
   currentDashCounter: 0
   minDashCounter: 0
@@ -5783,15 +5815,18 @@ MonoBehaviour:
   groundedTimer: 0
   moveDirection: {x: 0, y: 0}
   currentScale: {x: 0, y: 0, z: 0}
+  ceilingCubeSize: {x: 0, y: 0, z: 0}
   originalScale: {x: 0, y: 0, z: 0}
   crouchScale: {x: 0, y: 0, z: 0}
   mousePosition: {x: 0, y: 0, z: 0}
   isGrounded: 0
   startGroundedTimer: 0
   canDoubleJump: 0
+  isUnderCeiling: 0
   isJumpBuffering: 0
   isFacingRight: 0
   isCrouching: 0
+  canCrouchMove: 0
   hasCrouchFlipReset: 0
   justDashed: 0
   isHidden: 0
@@ -5802,13 +5837,16 @@ MonoBehaviour:
   _playerDashParticle: {fileID: 8791247838260315335}
   mainCamera: {fileID: 0}
   groundCheck: {fileID: 7580116310437254679}
+  ceilingCheck: {fileID: 2309439564062288046}
   weapon: {fileID: 5953252142432562490}
   dash1: {fileID: 4261944396885507900}
   dash2: {fileID: 9184110831290469306}
   dash3: {fileID: 4696914935705484365}
+  currentHidingPlace: {fileID: 0}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  hits: []
   initialHealth: 100
   currentHealth: 100
   initialCorruption: 100
@@ -5845,7 +5883,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2363954893281562167}
   - component: {fileID: 5244928192193227589}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player Dashes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5893,7 +5931,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 925244836529145738}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NewMainPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5926,7 +5964,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 220904233644726094}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WeaponNode
   m_TagString: Player
   m_Icon: {fileID: 4162164826716764455, guid: 0000000000000000d000000000000000, type: 0}
@@ -5961,7 +5999,7 @@ GameObject:
   - component: {fileID: 2518932109789695605}
   - component: {fileID: 5403719631546626675}
   - component: {fileID: 8791247838260315335}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DashParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10799,8 +10837,8 @@ MonoBehaviour:
   dashParticleTimer: 0
   dashParticleDuration: 0.1
   dashParticlesPlaying: 0
-  dashMaterial: {fileID: 2100000, guid: 193f0db35a77a9f46afb7d1f7333e69f, type: 2}
-  dashMaterialFlipped: {fileID: 2100000, guid: d1f22b4ada44c12448e3c44d1e84b051, type: 2}
+  dashMaterial: {fileID: 2100000, guid: 8a43e00b0bfb455459baac358fbbbb42, type: 2}
+  dashMaterialFlipped: {fileID: 2100000, guid: 1e9f2eb9a8eae7846bbbb18efef495a8, type: 2}
 --- !u!1 &9184110831290469306
 GameObject:
   m_ObjectHideFlags: 0
@@ -10811,7 +10849,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3891968560926210334}
   - component: {fileID: 5003581932578404174}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Dash2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

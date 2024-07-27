@@ -9,10 +9,11 @@ public class PlayerDashingState : PlayerBaseState
     {
         Debug.Log("Player is dashing.");
 
-        //player.justDashed = true;
         player._playerDashParticle.dashParticlesPlaying = true;
         player.dashCooldownTimer = 0f;
         player.dashPower = 80f;
+
+        player.rb.velocity = new Vector2(player.rb.velocity.x, 0.0f);
 
         player.initialDashCounter = player.currentDashCounter;
 
@@ -21,7 +22,7 @@ public class PlayerDashingState : PlayerBaseState
             player.currentDashCounter--;
         }
 
-        player.anim.SetBool("IsRunning", true);
+        player.anim.SetBool("IsDashing", true);
 
     }
 
@@ -47,9 +48,15 @@ public class PlayerDashingState : PlayerBaseState
                     player.rb.velocity = new Vector2(-player.dashPower, airDeceleration);
                 }
 
+                if(player.dashCooldownTimer >= player.originalDashCooldownTimer && player.moveDirection.x != 0f)
+                {
+                    player.anim.SetBool("IsDashing", false);
+                    player.SwitchState(PlayerState.MOVING);
+                }
+
                 if (player.dashCooldownTimer >= player.originalDashCooldownTimer)
                 {
-                    player.anim.SetBool("IsRunning", false);
+                    player.anim.SetBool("IsDashing", false);
                     player.SwitchState(PlayerState.IDLE);
                 }
 
@@ -83,10 +90,16 @@ public class PlayerDashingState : PlayerBaseState
                     player.rb.velocity = new Vector2(-player.dashPower, airDeceleration);
                 }
 
+                if (player.dashCooldownTimer >= player.originalDashCooldownTimer && player.moveDirection.x != 0f)
+                {
+                    player.anim.SetBool("IsDashing", false);
+                    player.SwitchState(PlayerState.MOVING);
+                }
+
                 if (player.dashCooldownTimer >= player.originalDashCooldownTimer)
                 {
                     player.justDashed = true;
-                    player.anim.SetBool("IsRunning", false);
+                    player.anim.SetBool("IsDashing", false);
                     player.SwitchState(PlayerState.JUMPING);
                 }
             }

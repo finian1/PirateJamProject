@@ -10,6 +10,8 @@ public class PlayerCrouchingState : PlayerBaseState
         player.anim.SetBool("IsRunning", false);
 
         player.anim.SetBool("IsCrouchIdle", false);
+
+        player.rb.velocity = new Vector2(0.0f, 0.0f);
     }
 
     public override void UpdateState(PlayerStateManager player)
@@ -26,6 +28,11 @@ public class PlayerCrouchingState : PlayerBaseState
             player.rb.velocity = new Vector2(0.0f, player.rb.velocity.y);
             player.anim.SetBool("IsCrouchIdle", true);
         }
+
+        //if(!Input.GetKey(KeyCode.LeftControl) && !player.canStandUp && player.moveDirection.x != 0)
+        //{
+        //    player.SwitchState(PlayerState.CROUCHMOVING);
+        //}
 
         if (player.isFacingRight)
         {
@@ -65,24 +72,23 @@ public class PlayerCrouchingState : PlayerBaseState
             player.currentScale = localScale;
         }
             
-        if (!Input.GetKey(KeyCode.LeftControl) && player.isGrounded)
+        if (!Input.GetKey(KeyCode.LeftControl) && player.isGrounded && !player.isUnderCeiling)
         {
             player.anim.SetBool("IsCrouchIdle", false);
-
             player.SwitchState(PlayerState.IDLE);
         }
 
-        if (!player.isGrounded && player.moveDirection.x == 0)
+        if (!player.isGrounded && player.moveDirection.x == 0 && !player.isUnderCeiling)
         {
             player.SwitchState(PlayerState.IDLE);
         }
 
-        if (!player.isGrounded && player.moveDirection.x != 0)
+        if (!player.isGrounded && player.moveDirection.x != 0 && !player.isUnderCeiling)
         {
             player.SwitchState(PlayerState.MOVING);
         }
 
-        if (Input.GetKey(KeyCode.LeftControl) && player.moveDirection.x != 0f)
+        if (Input.GetKey(KeyCode.LeftControl) && player.moveDirection.x != 0f && player.canCrouchMove || !Input.GetKey(KeyCode.LeftControl) && player.isUnderCeiling && player.moveDirection.x != 0f && player.canCrouchMove)
         {
             player.SwitchState(PlayerState.CROUCHMOVING);
         }
