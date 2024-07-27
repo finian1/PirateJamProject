@@ -265,6 +265,7 @@ GameObject:
   - component: {fileID: 63035688476366665}
   - component: {fileID: 2797473602792890949}
   - component: {fileID: 8409613245917796208}
+  - component: {fileID: -799503084583333462}
   m_Layer: 7
   m_Name: SmallLightAlchemist
   m_TagString: LightAlchemist
@@ -370,6 +371,7 @@ MonoBehaviour:
   attackSpeed: 2.5
   attackDamage: 20
   attackRange: 2.5
+  attackAnimationLength: 1
   attackArea: {fileID: 7205368726352037587}
   maxInvestigationTime: 5
   minInvestigationTime: 2
@@ -449,6 +451,28 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!95 &-799503084583333462
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4929588292578879707}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6900188044861568832
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,6 +13,10 @@ public class SmallLightAlchemistInvestigatingState : EnemyBaseState
         currentInvestigationTime = Random.Range(((SmallLightAlchemistStateManager)enemy).minInvestigationTime, ((SmallLightAlchemistStateManager)enemy).maxInvestigationTime);
     }
 
+    public override void ExitState(EnemyStateManager enemy)
+    {
+    }
+
     public override void UpdateState(EnemyStateManager enemy)
     {
         visionFlipTimer += Time.deltaTime;

@@ -6,7 +6,12 @@ public class EnemyAggroState : EnemyBaseState
 {
     public override void EnterState(EnemyStateManager enemy)
     {
-        
+        enemy.animator.SetBool("Running", true);
+    }
+
+    public override void ExitState(EnemyStateManager enemy)
+    {
+        enemy.animator.SetBool("Running", false);
     }
 
     public override void UpdateState(EnemyStateManager enemy)
@@ -42,7 +47,7 @@ public class EnemyAggroState : EnemyBaseState
             {
                 enemy.movingRight = !enemy.movingRight;
             }
-            if(playerDist < enemy.attackRange)
+            if(playerDist < enemy.attackRange && enemy.timeSinceLastAttack >= enemy.attackCooldown)
             {
                 enemy.SwitchState(EnemyState.ATTACKING);
             }

@@ -8,7 +8,13 @@ public class ShadowRoamingState : EnemyRoamingState
 
     public override void EnterState(EnemyStateManager enemy)
     {
+        base.EnterState(enemy);
         enemy.GetComponent<SpriteRenderer>().enabled = true;
+    }
+
+    public override void ExitState(EnemyStateManager enemy)
+    {
+        base.ExitState(enemy);
     }
 
     public override void UpdateState(EnemyStateManager enemy)

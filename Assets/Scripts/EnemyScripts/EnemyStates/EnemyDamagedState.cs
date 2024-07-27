@@ -17,6 +17,10 @@ public class EnemyDamagedState : EnemyBaseState
         }
     }
 
+    public override void ExitState(EnemyStateManager enemy)
+    {
+    }
+
     public override void UpdateState(EnemyStateManager enemy)
     {
         if(animator != null)

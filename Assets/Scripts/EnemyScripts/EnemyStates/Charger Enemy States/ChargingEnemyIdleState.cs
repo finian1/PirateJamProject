@@ -9,6 +9,10 @@ public class ChargingEnemyIdleState : EnemyBaseState
 
     }
 
+    public override void ExitState(EnemyStateManager enemy)
+    {
+    }
+
     public override void UpdateState(EnemyStateManager enemy)
     {
         if(enemy.vision.canSeeTarget)
