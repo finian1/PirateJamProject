@@ -478,8 +478,8 @@ MonoBehaviour:
   vision: {fileID: 9193275624295936787}
   groundCheck: {fileID: 4477021528066883812}
   wallCheck: {fileID: 5370038387381552822}
-  movementSpeed: 10
-  aggroSpeed: 15
+  movementSpeed: 5
+  aggroSpeed: 10
   initialEnemyHealth: 25
   attackSpeed: 0.2
   attackDamage: 5
