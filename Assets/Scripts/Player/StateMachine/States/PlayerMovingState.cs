@@ -55,7 +55,7 @@ public class PlayerMovingState : PlayerBaseState
             player.rb.velocity = new Vector2(player.moveDirection.x * player.currentMovementSpeed, player.rb.velocity.y);
         }
 
-        if (player.rb.velocity.y < -0.0f)
+        if (player.rb.velocity.y < -0.0f && !player.isGrounded)
         {
             player.anim.SetBool("IsJumpFalling", true);
         }
