@@ -20,4 +20,9 @@ public class ShadowSpawnerScript : MonoBehaviour
         }
     }
 
+    public void ResetSpawn()
+    {
+        hasSpawned = false;
+    }
+
 }

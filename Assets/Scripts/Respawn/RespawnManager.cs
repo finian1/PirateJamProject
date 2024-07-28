@@ -26,6 +26,8 @@ public class RespawnManager : MonoBehaviour
         aliveEnemies = FindObjectsByType<EnemyStateManager>(FindObjectsSortMode.None);
         EnemySpawnPoint[] spawnPoints;
         spawnPoints = FindObjectsByType<EnemySpawnPoint>(FindObjectsSortMode.None);
+        ShadowSpawnerScript[] shadowSpawners;
+        shadowSpawners = FindObjectsByType<ShadowSpawnerScript>(FindObjectsSortMode.None);
 
         foreach (EnemyStateManager enemy in aliveEnemies)
         {
@@ -34,6 +36,10 @@ public class RespawnManager : MonoBehaviour
         foreach (EnemySpawnPoint spawnPoint in spawnPoints)
         {
             spawnPoint.SpawnEnemy();
+        }
+        foreach(ShadowSpawnerScript shadowSpawner in shadowSpawners)
+        {
+            shadowSpawner.ResetSpawn();
         }
 
         //Player reset stats

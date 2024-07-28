@@ -76,7 +76,10 @@ public class EnemyStateManager : MonoBehaviour, IDamageableObject
     public virtual void Awake()
     {
         enemyPrefab = AssetDatabase.LoadAssetAtPath(enemyPrefabPath, typeof(GameObject)) as GameObject;
-        animator = GetComponent<Animator>();
+        if(GetComponent<Animator>() != null)
+        {
+            animator = GetComponent<Animator>();
+        }
         initialScale = transform.localScale;
         currentEnemyHealth = initialEnemyHealth;
         SwitchState(EnemyState.ROAMING);
