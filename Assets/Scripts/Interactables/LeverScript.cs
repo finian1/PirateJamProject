@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class LeverScript : MonoBehaviour, IInteractableObject
 {
+    public Sprite inactiveSprite;
+    public Sprite activeSprite;
     public GateScript targetGate;
 
     bool triggered = false;
@@ -16,13 +18,13 @@ public class LeverScript : MonoBehaviour, IInteractableObject
         {
             targetGate.CloseGate();
             triggered = false;
-            gameObject.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            GetComponent<SpriteRenderer>().sprite = inactiveSprite;
         }
         else
         {
             targetGate.OpenGate();
             triggered = true;
-            gameObject.transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
+            GetComponent<SpriteRenderer>().sprite = activeSprite;
         }
     }
 }
