@@ -8,9 +8,10 @@ public class GroundCheckScript : MonoBehaviour
 
     public bool IsGroundPresent(string friendlyTag)
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, GetComponent<CircleCollider2D>().radius);
+        List<Collider2D> colliders = new List<Collider2D>();
+        GetComponent<Collider2D>().Overlap(colliders);
 
-        foreach(Collider2D collider in colliders)
+        foreach (Collider2D collider in colliders)
         {
             if (collider.gameObject.layer == LayerMask.NameToLayer("Ground") ||
                 collider.gameObject.CompareTag(friendlyTag) ||

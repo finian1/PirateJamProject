@@ -51,7 +51,6 @@ public class EnemyStateManager : MonoBehaviour, IDamageableObject
     public Vector3 initialScale;
     [NonSerialized]
     public Vector3 forwardVector;
-    [NonSerialized]
     public Animator animator;
     [NonSerialized]
     public float timeSinceLastAttack;
