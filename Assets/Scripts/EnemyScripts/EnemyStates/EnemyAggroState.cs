@@ -40,7 +40,7 @@ public class EnemyAggroState : EnemyBaseState
         //If player is behind enemy, turn around.
         if(enemy.vision.canSeeTarget)
         {
-            Vector3 targetDirection = enemy.vision.closestTarget.transform.position - enemy.transform.position;
+            Vector2 targetDirection = enemy.vision.closestTarget.transform.position - enemy.transform.position;
             float playerDist = targetDirection.magnitude;
             targetDirection.Normalize();
             if(Vector3.Dot(forwardVector, targetDirection) < 0)

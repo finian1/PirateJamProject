@@ -360,6 +360,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a27a8ec42eedcc44e881127324d8cf63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnPrefab: {fileID: 7604062778192810350, guid: 37345deab610692458fee933a655ea4b, type: 3}
+  enemyPrefabPath: Assets/Prefabs/Enemies/LightAlchemist_Light/SmallLightAlchemist.prefab
   previousEnemyState: 0
   currentEnemyState: 0
   vision: {fileID: 8053124828674157586}
@@ -369,7 +371,8 @@ MonoBehaviour:
   aggroSpeed: 7
   initialEnemyHealth: 25
   attackSpeed: 2.5
-  attackDamage: 20
+  attackCooldown: 2
+  attackDamage: 50
   attackRange: 2.5
   attackAnimationLength: 1
   attackArea: {fileID: 7205368726352037587}

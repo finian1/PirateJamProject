@@ -428,6 +428,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: def0357804bc90248b048d083ecbb2d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnPrefab: {fileID: 7604062778192810350, guid: 37345deab610692458fee933a655ea4b, type: 3}
+  enemyPrefabPath: Assets/Prefabs/Enemies/Shadow_Light/SmallShadow.prefab
   previousEnemyState: 0
   currentEnemyState: 0
   vision: {fileID: 9193275624295936787}
