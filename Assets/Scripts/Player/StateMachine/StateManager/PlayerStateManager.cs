@@ -128,6 +128,8 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
 
     private float redFlash = 0.0f;
 
+    private RespawnManager respawnManager;
+
 
     // ---------------STATES-------------------
 
@@ -149,6 +151,7 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
 
     void Start()
     {
+        respawnManager = FindFirstObjectByType<RespawnManager>();
         currentState = PlayerStates[PlayerState.IDLE];
 
         currentState.EnterState(this);
@@ -446,6 +449,10 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
     {
         redFlash = 1.0f;
         currentHealth -= amount;
+        if(currentHealth <= 0.0f)
+        {
+            respawnManager.RespawnPlayer();
+        }
     }
 
     public void Attack(int index)

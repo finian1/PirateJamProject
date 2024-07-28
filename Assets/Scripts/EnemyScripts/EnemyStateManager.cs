@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public enum EnemyState
@@ -18,6 +19,11 @@ public enum EnemyState
 
 public class EnemyStateManager : MonoBehaviour, IDamageableObject
 {
+    public GameObject spawnPrefab;
+
+    public string enemyPrefabPath;
+    private GameObject enemyPrefab;
+
     public EnemyState previousEnemyState;
     public EnemyState currentEnemyState;
     //Variables
@@ -62,6 +68,15 @@ public class EnemyStateManager : MonoBehaviour, IDamageableObject
 
     public virtual void Start()
     {
+        if (enemyPrefab != null && spawnPrefab != null)
+        {
+            Instantiate(spawnPrefab, transform.position, transform.rotation).GetComponent<EnemySpawnPoint>().enemyPrefab = enemyPrefab;
+        }
+    }
+
+    public virtual void Awake()
+    {
+        enemyPrefab = AssetDatabase.LoadAssetAtPath(enemyPrefabPath, typeof(GameObject)) as GameObject;
         animator = GetComponent<Animator>();
         initialScale = transform.localScale;
         currentEnemyHealth = initialEnemyHealth;
