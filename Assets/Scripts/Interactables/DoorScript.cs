@@ -10,6 +10,16 @@ public class DoorScript : MonoBehaviour, IInteractableObject
     public Sprite closedSprite;
     public Sprite openSprite;
 
+    public AudioClip openClip;
+    public AudioClip closeClip;
+
+    private AudioSource audioSource;
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
     public void Interact(GameObject origin)
     {
 
@@ -18,11 +28,19 @@ public class DoorScript : MonoBehaviour, IInteractableObject
         {
             doorCollider.enabled = false;
             doorCollider.gameObject.GetComponent<SpriteRenderer>().sprite = openSprite;
+            PlaySound(openClip);
         }
         else
         {
             doorCollider.enabled = true;
             doorCollider.gameObject.GetComponent<SpriteRenderer>().sprite = closedSprite;
+            PlaySound(closeClip);
         }
+    }
+
+    private void PlaySound(AudioClip clip)
+    {
+        audioSource.clip = clip;
+        audioSource.Play();
     }
 }
