@@ -27,6 +27,9 @@ public class LevelManager : MonoBehaviour
     [Header("bool")]
     private bool isLoading;
 
+
+    public GameObject menu;
+
     private void Awake()
     {
         // sets objects
@@ -61,6 +64,7 @@ public class LevelManager : MonoBehaviour
 
 
         loadingPanel.SetActive(true);
+        menu.SetActive(true);
         //mushroom.Play("Mushroom");
         Loading.Play("Loadings");
 
