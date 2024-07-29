@@ -8,25 +8,13 @@ public class UIController : MonoBehaviour
     public static UIController controller;
 
     [Header("Health")]
-    [Range(0,100)]
-    public float currentHealth;
-    [Range(0,100)]
-    public float maxHealth;
-    [Range(0,100)]
-    public float minHealth;
     public Image healthFill;
     [Range(0,100)]
     public float barSpeed = 2;
 
-    
+   public PlayerStateManager stm;
 
     [Header("Corruption")]
-    [Range(0,100)]
-    public float Corruption;
-     [Range(0,100)]
-    public float minCorruption;
-    [Range(0,100)]
-    public float maxCorruption;
     public Image corruptionFill;
      [Range(0,100)]
     public float bSpeed = 2;
@@ -37,50 +25,38 @@ public class UIController : MonoBehaviour
         controller = this;
     }
 
-
-   
-    void Start()
-    {
-        currentHealth = 100;
-     
-        maxHealth = 100;
-
-        Corruption = 100;
-        maxCorruption = 100;
-    }
-
     void Update()
     {
-        float fillAmount = currentHealth / maxHealth;
+        float fillAmount = stm.currentHealth / stm.initialHealth;
         healthFill.fillAmount = Mathf.Lerp(healthFill.fillAmount, fillAmount, Time.deltaTime * barSpeed);
 
-        float fillAmount2 = Corruption / maxCorruption;
+        float fillAmount2 = stm.currentCorruption /stm.initialCorruption;
         corruptionFill.fillAmount = Mathf.Lerp(corruptionFill.fillAmount, fillAmount2, Time.deltaTime * bSpeed);
     }
 
     public void TakeDamage(float damage)
     {
-        currentHealth -= damage;
-        if (currentHealth < 0) currentHealth = 0;
+        stm.currentHealth -= damage;
+        if (stm.currentHealth < 0) stm.currentHealth = 0;
     }
 
     public void Heal(float healAmount)
     {
-        currentHealth += healAmount;
-        if (currentHealth > maxHealth) currentHealth = maxHealth;
+        stm.currentHealth += healAmount;
+        if (stm.currentHealth > stm.initialHealth) stm.currentHealth = stm.initialHealth;
     }
 
 
        public void LooseCorruption(float damage)
     {
-        Corruption -= damage;
-        if (Corruption < 0) Corruption = 0;
+        stm.currentCorruption -= damage;
+        if (stm.currentCorruption < 0)  stm.currentCorruption = 0;
     }
 
     public void GainCorruption(float healAmount)
     {
-        Corruption += healAmount;
-        if (Corruption > maxCorruption) Corruption = maxCorruption;
+         stm.currentCorruption += healAmount;
+        if ( stm.currentCorruption > stm.initialCorruption)  stm.currentCorruption = stm.initialCorruption;
     }
 }
 

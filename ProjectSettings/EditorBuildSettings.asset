@@ -9,7 +9,16 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 04b3d37c65564534ab5511c8ab42aa99
   - enabled: 1
-    path: Assets/Scenes/Dungeon Tilemap Example.unity
-    guid: f68191f8f15e65b43a3de8d6e6691c2c
+    path: Assets/Scenes/LevelParts/Part1 - Infiltration.unity
+    guid: c8c924778fb311344a57f165191bb0fb
+  - enabled: 1
+    path: Assets/Scenes/LevelParts/Part2 - Castle.unity
+    guid: b936dd3bf571469458a028d42ee98e6c
+  - enabled: 1
+    path: Assets/Scenes/LevelParts/Part3 - Dungeon.unity
+    guid: fccfb8d3d307c03489f65115f9ccc4c2
+  - enabled: 1
+    path: Assets/Scenes/LevelParts/Part4 - Escape.unity
+    guid: c404fc2b6913fc2438af3d274e5c0ccd
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

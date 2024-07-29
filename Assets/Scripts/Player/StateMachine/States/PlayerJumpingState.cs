@@ -26,6 +26,11 @@ public class PlayerJumpingState : PlayerBaseState
             player.justLightAttacked = false;
             return;
         }
+        if(player.justLightShadowAttacked == true)
+        {
+            player.justLightShadowAttacked = false;
+            return;
+        }
     }
 
     public override void UpdateState(PlayerStateManager player)
@@ -108,10 +113,9 @@ public class PlayerJumpingState : PlayerBaseState
             player.SwitchState(PlayerState.LIGHTATTACKING);
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse1))
+        if (Input.GetKeyDown(KeyCode.Mouse1) && player.canLightShadowAttack)
         {
-            Debug.Log("Attacking");
-            player.weapon.Attack(1);
+            player.SwitchState(PlayerState.LIGHTSHADOWATTACKING);
         }
 
         if (Input.GetKeyDown(KeyCode.LeftShift) && player.currentDashCounter > player.minDashCounter)
@@ -121,7 +125,8 @@ public class PlayerJumpingState : PlayerBaseState
 
         if (player.isGrounded && !player.isJumpBuffering)
         {
-            Debug.Log("Going Idle.");
+            player.anim.SetBool("IsJumpRising", true);
+            player.anim.SetBool("IsJumpFalling", false);
             player.currentJumpCount = 0;
             player.SwitchState(PlayerState.IDLE);
         }

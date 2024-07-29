@@ -12,6 +12,7 @@ public enum PlayerState
     CROUCHMOVING,
     DASHING,
     LIGHTATTACKING,
+    LIGHTSHADOWATTACKING,
     HIDDEN,
 }
 
@@ -28,6 +29,12 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
     [Header("Attacking variables")]
     public float lightAttackCooldown;
     public bool justLightAttacked;
+
+    [Header("Shadow attacking variables")]
+    public float lightShadowAttackCooldown;
+    public bool lightShadowAttackStarted;
+    public bool justLightShadowAttacked;
+    public bool canLightShadowAttack;
 
     [Header("Jumping variables")]
     public float velocityY;
@@ -105,6 +112,10 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
     public PlayerDoubleJumpParticle _playerDoubleJumpParticle;
     public PlayerDashParticle _playerDashParticle;
 
+    [Header("Audio")]
+    public RandomAudioScript stepAudio;
+    public RandomAudioScript attackAudio;
+
     [Header("GameObjects")]
     public Camera mainCamera;
     public GameObject groundCheck;
@@ -145,6 +156,7 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
         {PlayerState.CROUCHMOVING, new PlayerCrouchMovingState()},
         {PlayerState.DASHING, new PlayerDashingState()},
         {PlayerState.LIGHTATTACKING, new PlayerLightAttackingState()},
+        {PlayerState.LIGHTSHADOWATTACKING, new PlayerLightShadowAttackingState()},
         {PlayerState.HIDDEN, new PlayerHiddenState()},
     };
 
@@ -163,6 +175,10 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
 
         //Attacking
         justLightAttacked = false;
+
+        //Shadow Attacking
+        justLightShadowAttacked = false;
+        canLightShadowAttack = true;
 
         //Dashing
         currentDashCounter = 3;
@@ -192,7 +208,7 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
         //Other
         isFacingRight = true;
         groundDistance = 0.02f;
-        ceilingCubeSize = new Vector3(1.0f, 1.35f, 1.0f);
+        ceilingCubeSize = new Vector3(0.6f, 1.0f, 1.0f);
         //ceilingDistance = 1f;
 
         originalScale = transform.localScale;
@@ -233,6 +249,21 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
         velocityY = rb.velocity.y;
 
         currentDashCounter = Mathf.Clamp(currentDashCounter, minDashCounter, maxDashCounter);
+
+        //------------------------
+
+        if(lightShadowAttackStarted)
+        {
+            canLightShadowAttack = false;
+            lightShadowAttackCooldown += Time.deltaTime;
+
+            if(lightShadowAttackCooldown > 0.5f)
+            {
+                canLightShadowAttack = true;
+                lightShadowAttackStarted = false;
+                lightShadowAttackCooldown = 0.0f;
+            }
+        }
 
         //------------------------
 
@@ -458,6 +489,16 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
     public void Attack(int index)
     {
         weapon.Attack(index);
+    }
+
+    public void PlayStepSound()
+    {
+        stepAudio.PlayRandomSound();
+    }
+
+    public void PlayAttackSound()
+    {
+        attackAudio.PlayRandomSound();
     }
 
     public void AttemptInteraction()

@@ -6,6 +6,9 @@ public class MainMenuController : MonoBehaviour
 {
 
     public menuScreens menuScreens;
+
+    public GameObject optionsscr;
+    public GameObject controlscrn;
     
     public void mainmenu(){
         menuScreens = menuScreens.main;
@@ -41,15 +44,19 @@ public class MainMenuController : MonoBehaviour
     {
     case menuScreens.main:
     Debug.Log(menuScreens);
+    controlscrn.SetActive(false);
     break;
     case menuScreens.settings:
     Debug.Log(menuScreens);
+    controlscrn.SetActive(false);
     break;
     case menuScreens.controls:
     Debug.Log(menuScreens);
+    controlscrn.SetActive(true);
     break;
     case menuScreens.credits:
     Debug.Log(menuScreens);
+    controlscrn.SetActive(false);
    break;
     }
 

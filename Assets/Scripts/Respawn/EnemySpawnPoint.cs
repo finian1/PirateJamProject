@@ -10,5 +10,6 @@ public class EnemySpawnPoint : MonoBehaviour
     public void SpawnEnemy()
     {
         enemy = Instantiate(enemyPrefab, transform.position, transform.rotation) as GameObject;
+        enemy.GetComponent<EnemyStateManager>().shouldPlaceSpawner = false;
     }
 }
