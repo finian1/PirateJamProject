@@ -9,6 +9,7 @@ public class SmallLightAlchemistRoamingState : EnemyRoamingState
 
     public override void EnterState(EnemyStateManager enemy)
     {
+        base.EnterState(enemy);
         timeUntilNextInvestigation = Random.Range(((SmallLightAlchemistStateManager)enemy).minTimeBetweenInvestigation, ((SmallLightAlchemistStateManager)enemy).maxTimeBetweenInvestigation);
     }
 
