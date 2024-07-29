@@ -112,6 +112,10 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
     public PlayerDoubleJumpParticle _playerDoubleJumpParticle;
     public PlayerDashParticle _playerDashParticle;
 
+    [Header("Audio")]
+    public RandomAudioScript stepAudio;
+    public RandomAudioScript attackAudio;
+
     [Header("GameObjects")]
     public Camera mainCamera;
     public GameObject groundCheck;
@@ -485,6 +489,16 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
     public void Attack(int index)
     {
         weapon.Attack(index);
+    }
+
+    public void PlayStepSound()
+    {
+        stepAudio.PlayRandomSound();
+    }
+
+    public void PlayAttackSound()
+    {
+        attackAudio.PlayRandomSound();
     }
 
     public void AttemptInteraction()

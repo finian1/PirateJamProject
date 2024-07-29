@@ -59,8 +59,6 @@ public class BGMusicManager : MonoBehaviour
                 playingCorruptedTracks = true;
                 yield break;
             }
-            Debug.Log(player.currentCorruption);
-            Debug.Log(timer);
         }
         musicSource.Pause();
         shouldPlayNextTrack = true;
