@@ -43,6 +43,7 @@ public class LevelManager : MonoBehaviour
     /// <param name="index"></param>
     public void LoadScene(int index)
     {
+        Destroy(menu);
         targetScene = index;
         StartCoroutine(LoadSceneRoutine());
  
@@ -58,13 +59,14 @@ public class LevelManager : MonoBehaviour
         isLoading = true;
 
         fade_Image.gameObject.SetActive(true);
+        
         fade_Image.canvasRenderer.SetAlpha(0);
         while (!Fade(1))
             yield return null;
 
 
         loadingPanel.SetActive(true);
-        menu.SetActive(true);
+        
         //mushroom.Play("Mushroom");
         Loading.Play("Loadings");
 
