@@ -576,7 +576,7 @@ GameObject:
   - component: {fileID: 6789095927947309823}
   - component: {fileID: 4263987808436600956}
   m_Layer: 5
-  m_Name: Dash2
+  m_Name: Dash1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -837,7 +837,7 @@ GameObject:
   - component: {fileID: 5754063307392984596}
   - component: {fileID: 5988525341158077218}
   m_Layer: 5
-  m_Name: Dash1
+  m_Name: Dash2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
