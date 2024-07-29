@@ -4934,7 +4934,7 @@ Transform:
   m_GameObject: {fileID: 2309439564062288046}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.25, z: 0}
+  m_LocalPosition: {x: 0.096, y: -0.05, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4986,7 +4986,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   essenceCost: 1
   attackDamage: 5
-  cooldownTime: 1
+  cooldownTime: 0.5
   weapon: {fileID: 0}
   projectile: {fileID: 704788552926570889, guid: c41a4e7b05bb3584aa6c1c8e25150335, type: 3}
 --- !u!1 &3400545044088210409
@@ -5693,7 +5693,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: ac43b80524223c74fab543c1d2515e29, type: 3}
+  m_Sprite: {fileID: 1119352271, guid: e00f92c6b58dbae4cb2f8ccc109f4047, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5786,6 +5786,10 @@ MonoBehaviour:
   horizontalMovement: 0
   lightAttackCooldown: 0
   justLightAttacked: 0
+  lightShadowAttackCooldown: 0
+  lightShadowAttackStarted: 0
+  justLightShadowAttacked: 0
+  canLightShadowAttack: 0
   velocityY: 0
   velocityX: 0
   jumpingPower: 0

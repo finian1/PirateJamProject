@@ -84,15 +84,6 @@ public class PlayerIdleState : PlayerBaseState
             }
         }
 
-        //if (player.rb.velocity.y < -1f)
-        //{
-        //    player.anim.SetBool("IsJumpFalling", true);
-        //}
-        //else
-        //{
-        //    player.anim.SetBool("IsJumpFalling", false);
-        //}
-
         if (Input.GetKey(KeyCode.LeftControl) && player.isGrounded)
         {
             player.SwitchState(PlayerState.CROUCHING);
@@ -108,10 +99,9 @@ public class PlayerIdleState : PlayerBaseState
             player.SwitchState(PlayerState.LIGHTATTACKING);
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse1))
+        if (Input.GetKeyDown(KeyCode.Mouse1) && player.canLightShadowAttack)
         {
-            Debug.Log("Attacking");
-            player.weapon.Attack(1);
+            player.SwitchState(PlayerState.LIGHTSHADOWATTACKING);
         }
 
         if (Input.GetKeyDown(KeyCode.LeftShift) && player.currentDashCounter > player.minDashCounter)

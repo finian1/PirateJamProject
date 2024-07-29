@@ -9,9 +9,7 @@ public class PlayerLightAttackingState : PlayerBaseState
     public override void EnterState(PlayerStateManager player)
     {
         Debug.Log("Player is light attacking.");
-        //player.justLightAttacked = true;
         player.anim.SetBool("IsLightAttacking", true);
-        //player.rb.velocity = new Vector2(0.0f, 0.0f);
 
         if (player.isFacingRight && player.mousePosition.x < player.transform.position.x || !player.isFacingRight && player.mousePosition.x > player.transform.position.x)
         {
@@ -24,9 +22,6 @@ public class PlayerLightAttackingState : PlayerBaseState
 
     public override void UpdateState(PlayerStateManager player)
     {
-        //float VelocityY = player.rb.velocity.y * 0.25f;
-        //float VelocityX = player.rb.velocity.x * 0.25f;
-
         player.lightAttackCooldown += Time.deltaTime;
 
         if(!player.isGrounded)
