@@ -86,8 +86,5 @@ public class PlayerLightAttackingState : PlayerBaseState
                 player.SwitchState(PlayerState.IDLE);
             }
         }
-
-        
     }
-
 }
