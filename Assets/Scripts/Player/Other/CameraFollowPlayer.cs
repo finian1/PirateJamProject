@@ -8,7 +8,10 @@ public class CameraFollowPlayer : MonoBehaviour
 
     private void LateUpdate()
     {
-        Vector3 playerTarget = mainPlayer.transform.position + cameraOffset;
-        transform.position = Vector3.Lerp(transform.position, playerTarget, cameraFollowSpeed * Time.deltaTime);
+        if (mainPlayer != null)
+        {
+            Vector3 playerTarget = mainPlayer.transform.position + cameraOffset;
+            transform.position = Vector3.Lerp(transform.position, playerTarget, cameraFollowSpeed * Time.deltaTime);
+        }
     }
 }
