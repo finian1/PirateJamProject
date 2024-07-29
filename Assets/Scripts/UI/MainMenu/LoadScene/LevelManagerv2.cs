@@ -33,8 +33,14 @@ public class LevelManager : MonoBehaviour
     private void Awake()
     {
         // sets objects
-        loadingPanel.SetActive(false);
-        fade_Image.gameObject.SetActive(false);
+        if (loadingPanel != null)
+        {
+            loadingPanel.SetActive(false);
+        }
+        if (fade_Image != null)
+        {
+            fade_Image.gameObject.SetActive(false);
+        }
     }
 
     /// <summary>
@@ -58,17 +64,26 @@ public class LevelManager : MonoBehaviour
 
         isLoading = true;
 
-        fade_Image.gameObject.SetActive(true);
-        
-        fade_Image.canvasRenderer.SetAlpha(0);
+        if (fade_Image != null)
+        {
+            fade_Image.gameObject.SetActive(true);
+
+            fade_Image.canvasRenderer.SetAlpha(0);
+        }
+
         while (!Fade(1))
             yield return null;
 
+        if (loadingPanel != null)
+        {
+            loadingPanel.SetActive(true);
+        }
 
-        loadingPanel.SetActive(true);
-        
         //mushroom.Play("Mushroom");
-        Loading.Play("Loadings");
+        if (Loading != null)
+        {
+            Loading.Play("Loadings");
+        }
 
         while (!Fade(0))
             yield return null;
@@ -93,8 +108,10 @@ public class LevelManager : MonoBehaviour
         while (!Fade(1))
             yield return null;
 
-
-        loadingPanel.SetActive(false);
+        if (loadingPanel != null)
+        {
+            loadingPanel.SetActive(false);
+        }
 
         while (!Fade(0))
             yield return null;
@@ -109,6 +126,9 @@ public class LevelManager : MonoBehaviour
     /// <returns></returns>
     private bool Fade(float target)
     {
+
+        if (fade_Image == null) return true;
+
         fade_Image.CrossFadeAlpha(target, fadeTime, true);
 
         if(Mathf.Abs(fade_Image.canvasRenderer.GetAlpha() - target) <= 0.05f)
