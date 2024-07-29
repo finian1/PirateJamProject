@@ -55,6 +55,8 @@ public class EnemyStateManager : MonoBehaviour, IDamageableObject
     [NonSerialized]
     public float timeSinceLastAttack;
 
+    public bool shouldPlaceSpawner = true;
+
 
     public Dictionary<EnemyState, EnemyBaseState> EnemyStates = new Dictionary<EnemyState, EnemyBaseState>()
     {
@@ -67,7 +69,7 @@ public class EnemyStateManager : MonoBehaviour, IDamageableObject
 
     public virtual void Start()
     {
-        if (enemyPrefab != null && spawnPrefab != null)
+        if (shouldPlaceSpawner && enemyPrefab != null && spawnPrefab != null)
         {
             Instantiate(spawnPrefab, transform.position, transform.rotation).GetComponent<EnemySpawnPoint>().enemyPrefab = enemyPrefab;
         }
