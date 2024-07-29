@@ -204,7 +204,7 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
         //Other
         isFacingRight = true;
         groundDistance = 0.02f;
-        ceilingCubeSize = new Vector3(1.0f, 1.35f, 1.0f);
+        ceilingCubeSize = new Vector3(0.6f, 1.0f, 1.0f);
         //ceilingDistance = 1f;
 
         originalScale = transform.localScale;
