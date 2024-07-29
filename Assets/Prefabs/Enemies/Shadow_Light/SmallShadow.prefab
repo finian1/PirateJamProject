@@ -445,7 +445,6 @@ MonoBehaviour:
   attackRange: 6
   attackAnimationLength: 1.5
   attackArea: {fileID: 5987007372493649999}
-  healthbar: {fileID: 0}
   animator: {fileID: 0}
   shouldPlaceSpawner: 1
   stepAudio: {fileID: 0}
@@ -720,7 +719,8 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -0.51209986
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6850322278585204476, guid: bc449b9a4cb69cc4eb40264d6ba9eb06, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -747,6 +747,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthFill: {fileID: 5955356999101570468}
   barSpeed: 2
+  timeToRevealFor: 4
   etm: {fileID: 3333657289540332460}
 --- !u!224 &2269664060876598672 stripped
 RectTransform:
