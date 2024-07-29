@@ -12,7 +12,7 @@ public class UIController : MonoBehaviour
     [Range(0,100)]
     public float barSpeed = 2;
 
-    PlayerStateManager stm;
+   public PlayerStateManager stm;
 
     [Header("Corruption")]
     public Image corruptionFill;
