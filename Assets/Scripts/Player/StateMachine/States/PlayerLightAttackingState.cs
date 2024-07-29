@@ -10,6 +10,7 @@ public class PlayerLightAttackingState : PlayerBaseState
     {
         Debug.Log("Player is light attacking.");
         player.anim.SetBool("IsLightAttacking", true);
+        player.PlayAttackSound();
 
         if (player.isFacingRight && player.mousePosition.x < player.transform.position.x || !player.isFacingRight && player.mousePosition.x > player.transform.position.x)
         {
