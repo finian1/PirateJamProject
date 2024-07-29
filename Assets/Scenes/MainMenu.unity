@@ -863,57 +863,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &860248403
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 860248404}
-  - component: {fileID: 860248405}
-  m_Layer: 0
-  m_Name: LevelManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &860248404
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 860248403}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &860248405
+--- !u!114 &860248405 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 3538079945809888697, guid: 2038ed15256e496488263fa869285b7c, type: 3}
+  m_PrefabInstance: {fileID: 7765948177895888288}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 860248403}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8d1ebf3c14a60cd43b019e0c4383b4ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loadingPanel: {fileID: 2026087408}
-  targetScene: 1
-  Loading: {fileID: 539385949}
-  MinLoadTime: 2
-  fadeTime: 0.3
-  fade_Image: {fileID: 653003854}
-  menu: {fileID: 1239064763}
 --- !u!1 &996931011
 GameObject:
   m_ObjectHideFlags: 0
@@ -1579,7 +1539,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1896,7 +1856,7 @@ PrefabInstance:
       objectReference: {fileID: 21300022, guid: 1750e30ac6e5f6f41b29cd0af912a3ce, type: 3}
     - target: {fileID: 3785675255811507911, guid: 065d818191cfbe84fb01eb54fd1c444a, type: 3}
       propertyPath: m_Name
-      value: transition
+      value: transition - Menu
       objectReference: {fileID: 0}
     - target: {fileID: 3785675255811507911, guid: 065d818191cfbe84fb01eb54fd1c444a, type: 3}
       propertyPath: m_IsActive
@@ -1915,14 +1875,91 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 065d818191cfbe84fb01eb54fd1c444a, type: 3}
+--- !u!1001 &7765948177895888288
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1586554871248661194, guid: 2038ed15256e496488263fa869285b7c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1586554871248661194, guid: 2038ed15256e496488263fa869285b7c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1586554871248661194, guid: 2038ed15256e496488263fa869285b7c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1586554871248661194, guid: 2038ed15256e496488263fa869285b7c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1586554871248661194, guid: 2038ed15256e496488263fa869285b7c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1586554871248661194, guid: 2038ed15256e496488263fa869285b7c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1586554871248661194, guid: 2038ed15256e496488263fa869285b7c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1586554871248661194, guid: 2038ed15256e496488263fa869285b7c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1586554871248661194, guid: 2038ed15256e496488263fa869285b7c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1586554871248661194, guid: 2038ed15256e496488263fa869285b7c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3538079945809888697, guid: 2038ed15256e496488263fa869285b7c, type: 3}
+      propertyPath: menu
+      value: 
+      objectReference: {fileID: 1239064763}
+    - target: {fileID: 3538079945809888697, guid: 2038ed15256e496488263fa869285b7c, type: 3}
+      propertyPath: Loading
+      value: 
+      objectReference: {fileID: 539385949}
+    - target: {fileID: 3538079945809888697, guid: 2038ed15256e496488263fa869285b7c, type: 3}
+      propertyPath: fade_Image
+      value: 
+      objectReference: {fileID: 653003854}
+    - target: {fileID: 3538079945809888697, guid: 2038ed15256e496488263fa869285b7c, type: 3}
+      propertyPath: targetScene
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3538079945809888697, guid: 2038ed15256e496488263fa869285b7c, type: 3}
+      propertyPath: loadingPanel
+      value: 
+      objectReference: {fileID: 2026087408}
+    - target: {fileID: 3813156828777101812, guid: 2038ed15256e496488263fa869285b7c, type: 3}
+      propertyPath: m_Name
+      value: LevelManager - MainMenu
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2038ed15256e496488263fa869285b7c, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1081624724}
   - {fileID: 1544775477}
-  - {fileID: 5950405825916697110}
   - {fileID: 1239064768}
+  - {fileID: 5950405825916697110}
   - {fileID: 18502045}
-  - {fileID: 860248404}
   - {fileID: 1336633295}
+  - {fileID: 7765948177895888288}
