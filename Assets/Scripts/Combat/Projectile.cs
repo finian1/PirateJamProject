@@ -25,10 +25,20 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Player")
+        if(collision.CompareTag("Ground"))
+        {
+            Destroy(gameObject);
+            return;
+        }
+        if(collision.CompareTag("Player"))
         {
             return;
         }
+        if(collision.GetComponent<SmallShadowStateManager>() != null)
+        {
+            return;
+        }
+
         ExecuteEvents.Execute<IDamageableObject>(collision.gameObject, null, (message, data) => message.Damage(damageToDeal, gameObject));
         Destroy(gameObject);
     }

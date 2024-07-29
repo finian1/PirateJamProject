@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -11,6 +12,9 @@ public class ShadowAttackState : EnemyBaseState
 
     private float startJumpTime = 0.16675f;
     private float endJumpTime = 0.80025f;
+
+    private float timeBetweenDamageTicks = 1.0f;
+    private float damageTickTimer = 1.0f;
 
 
     public override void EnterState(EnemyStateManager enemy)
@@ -51,12 +55,20 @@ public class ShadowAttackState : EnemyBaseState
             Vector3 newPos = Vector3.Lerp(initLocation, targetLocation, lerpVal);
             enemy.GetComponent<Rigidbody2D>().MovePosition(newPos);
 
-            List<Collider2D> targets = new List<Collider2D>();
-            enemy.attackArea.Overlap(targets);
-
-            foreach (Collider2D target in targets)
+            if (damageTickTimer >= timeBetweenDamageTicks)
             {
-                ExecuteEvents.Execute<IDamageableObject>(target.gameObject, null, (message, data) => message.Damage(enemy.attackDamage, enemy.gameObject));
+                List<Collider2D> targets = new List<Collider2D>();
+                enemy.attackArea.Overlap(targets);
+
+                if(targets.Count > 0) 
+                { 
+                    damageTickTimer = 0.0f; 
+                }
+
+                foreach (Collider2D target in targets)
+                {
+                    ExecuteEvents.Execute<IDamageableObject>(target.gameObject, null, (message, data) => message.Damage(enemy.attackDamage, enemy.gameObject));
+                }
             }
         }
 
@@ -67,5 +79,6 @@ public class ShadowAttackState : EnemyBaseState
         }
 
         attackTimer += Time.deltaTime;
+        damageTickTimer += Time.deltaTime;
     }
 }

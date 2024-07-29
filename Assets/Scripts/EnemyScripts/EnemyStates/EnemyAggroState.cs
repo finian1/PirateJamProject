@@ -38,7 +38,7 @@ public class EnemyAggroState : EnemyBaseState
         }
 
         //If player is behind enemy, turn around.
-        if(enemy.vision.canSeeTarget)
+        if(enemy.vision.canSeeTarget && enemy.vision.closestTarget != null)
         {
             Vector2 targetDirection = enemy.vision.closestTarget.transform.position - enemy.transform.position;
             float playerDist = targetDirection.magnitude;
@@ -53,7 +53,7 @@ public class EnemyAggroState : EnemyBaseState
             }
         }
 
-        if (!enemy.vision.canSeeTarget)
+        if (!enemy.vision.canSeeTarget || enemy.vision.closestTarget == null)
         {
             enemy.SwitchState(EnemyState.ROAMING);
         }

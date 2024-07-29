@@ -93,8 +93,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2440652388638070000}
-  - component: {fileID: 7466687172938301371}
   - component: {fileID: 4177105763219062996}
+  - component: {fileID: 8113566170746063395}
   m_Layer: 7
   m_Name: WallCheck
   m_TagString: Untagged
@@ -111,14 +111,29 @@ Transform:
   m_GameObject: {fileID: 1089731550768865059}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.6, y: -0.218, z: 0}
+  m_LocalPosition: {x: 1.51, y: -0.42, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7855084249924685714}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &7466687172938301371
-CircleCollider2D:
+--- !u!114 &4177105763219062996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1089731550768865059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb0872a8e55cc824593cacbf89d00ff9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+--- !u!70 &8113566170746063395
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -152,22 +167,8 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.1
---- !u!114 &4177105763219062996
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1089731550768865059}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb0872a8e55cc824593cacbf89d00ff9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
+  m_Size: {x: 0.5, y: 2.75}
+  m_Direction: 0
 --- !u!1 &3332323345803014050
 GameObject:
   m_ObjectHideFlags: 0
@@ -559,7 +560,6 @@ MonoBehaviour:
   attackRange: 5
   attackAnimationLength: 1
   attackArea: {fileID: 7205368726352037587}
-  healthbar: {fileID: 0}
   animator: {fileID: 0}
   shouldPlaceSpawner: 1
   stepAudio: {fileID: 4786828305835115809}

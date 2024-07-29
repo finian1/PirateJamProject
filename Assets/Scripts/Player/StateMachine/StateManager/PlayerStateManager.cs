@@ -233,7 +233,8 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
 
             if (groundedTimer > 0.1f)
             {
-                isGrounded = Physics2D.OverlapCircle(groundCheck.transform.position, groundDistance, groundLayer);
+                List<Collider2D> ground = new List<Collider2D>();
+                isGrounded = groundCheck.GetComponent<Collider2D>().Overlap(ground) > 0;
                 groundedTimer = 0f;
                 startGroundedTimer = false;
             }

@@ -24,7 +24,7 @@ public class EnemyAttackingState : EnemyBaseState
         {
             Attack(enemy);
             
-            if (enemy.vision.canSeeTarget)
+            if (enemy.vision.canSeeTarget && enemy.vision.closestTarget != null)
             {
                 Vector3 targetDirection = enemy.vision.closestTarget.transform.position - enemy.transform.position;
                 float targetDist = targetDirection.magnitude;

@@ -54,10 +54,9 @@ public class EnemyStateManager : MonoBehaviour, IDamageableObject
     public Animator animator;
     [NonSerialized]
     public float timeSinceLastAttack;
-
     public bool shouldPlaceSpawner = true;
-
     public RandomAudioScript stepAudio;
+    public Collider2D bodyCollider;
 
 
     public Dictionary<EnemyState, EnemyBaseState> EnemyStates = new Dictionary<EnemyState, EnemyBaseState>()
@@ -75,6 +74,8 @@ public class EnemyStateManager : MonoBehaviour, IDamageableObject
         {
             Instantiate(spawnPrefab, transform.position, transform.rotation).GetComponent<EnemySpawnPoint>().enemyPrefab = enemyPrefab;
         }
+
+        bodyCollider = GetComponent<Collider2D>();
     }
 
     public virtual void Awake()
@@ -101,6 +102,8 @@ public class EnemyStateManager : MonoBehaviour, IDamageableObject
         {
             forwardVector = -transform.right;
         }
+
+        GetComponent<Rigidbody2D>().velocity *= new Vector3(0.0f, 1.0f, 0.0f);
     }
 
     public void SwitchState(EnemyState state)

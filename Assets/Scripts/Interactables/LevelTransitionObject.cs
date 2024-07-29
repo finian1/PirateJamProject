@@ -8,10 +8,11 @@ public class LevelTransitionObject : MonoBehaviour, IInteractableObject
 
     public LevelManagerotherscenes levelManager;
 
-
     public void Interact(GameObject origin)
     {
         //FindFirstObjectByType<LevelManager>().LoadScene(levelIndex);
         levelManager.LoadScene(levelIndex);
     }
+
+    
 }
