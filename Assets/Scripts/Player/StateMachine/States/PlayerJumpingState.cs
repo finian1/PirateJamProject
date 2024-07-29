@@ -125,7 +125,8 @@ public class PlayerJumpingState : PlayerBaseState
 
         if (player.isGrounded && !player.isJumpBuffering)
         {
-            Debug.Log("Going Idle.");
+            player.anim.SetBool("IsJumpRising", true);
+            player.anim.SetBool("IsJumpFalling", false);
             player.currentJumpCount = 0;
             player.SwitchState(PlayerState.IDLE);
         }
