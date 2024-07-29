@@ -445,7 +445,10 @@ MonoBehaviour:
   attackRange: 6
   attackAnimationLength: 1.5
   attackArea: {fileID: 5987007372493649999}
+  healthbar: {fileID: 0}
   animator: {fileID: 0}
+  shouldPlaceSpawner: 1
+  stepAudio: {fileID: 0}
   player: {fileID: 0}
   timeBeforeHiding: 7.5
   timeBeforeAmbush: 1
@@ -742,7 +745,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2736df52ff22a5a41b57f33da95ce29b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healthbarSprite: {fileID: 5955356999101570468}
+  healthFill: {fileID: 5955356999101570468}
+  barSpeed: 2
+  etm: {fileID: 3333657289540332460}
 --- !u!224 &2269664060876598672 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2545390450405889425, guid: bc449b9a4cb69cc4eb40264d6ba9eb06, type: 3}

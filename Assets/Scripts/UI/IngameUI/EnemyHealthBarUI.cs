@@ -6,22 +6,14 @@ using UnityEngine.UI;
 
 public class EnemyHealthBarUI : MonoBehaviour
 {
-    [SerializeField] private Image _healthbarSprite;
+    public Image healthFill;
+    [Range(0,100)]
+    public float barSpeed = 2;
 
-    private Camera _cam;
-
-    void Start(){
-        _cam = Camera.main;
-    }
-
+    public EnemyStateManager etm;
     void Update(){
-        transform.rotation = Quaternion.LookRotation(transform.position - _cam.transform.position);
-    }
-
-    
-    public void HealthBar(float maxhealth, float currenthealth)
-    {
-        _healthbarSprite.fillAmount = currenthealth/maxhealth;
+    float fillAmount = etm.currentEnemyHealth/etm.initialEnemyHealth;
+        healthFill.fillAmount = Mathf.Lerp(healthFill.fillAmount, fillAmount, Time.deltaTime * barSpeed);
     }
 
     

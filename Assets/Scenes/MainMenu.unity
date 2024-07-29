@@ -1760,7 +1760,7 @@ PrefabInstance:
     - target: {fileID: 2155886263593719934, guid: d2b448b58ff83e74abd11c29f9c32c20, type: 3}
       propertyPath: m_Texture
       value: 
-      objectReference: {fileID: 2800000, guid: c6de3aaf53364314988a9358bb462695, type: 3}
+      objectReference: {fileID: 2800000, guid: fc94bcd5f780b924d9c01761602c3b73, type: 3}
     - target: {fileID: 6106765750125441083, guid: d2b448b58ff83e74abd11c29f9c32c20, type: 3}
       propertyPath: m_Texture
       value: 
@@ -1845,13 +1845,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7859407265880508111, guid: d2b448b58ff83e74abd11c29f9c32c20, type: 3}
+      propertyPath: m_Texture
+      value: 
+      objectReference: {fileID: 2800000, guid: c6de3aaf53364314988a9358bb462695, type: 3}
     - target: {fileID: 8454395854766145040, guid: d2b448b58ff83e74abd11c29f9c32c20, type: 3}
       propertyPath: m_Name
       value: Controls
       objectReference: {fileID: 0}
     - target: {fileID: 8454395854766145040, guid: d2b448b58ff83e74abd11c29f9c32c20, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8528117610491186315, guid: d2b448b58ff83e74abd11c29f9c32c20, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

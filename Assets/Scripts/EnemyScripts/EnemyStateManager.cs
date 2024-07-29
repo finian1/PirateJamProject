@@ -45,6 +45,8 @@ public class EnemyStateManager : MonoBehaviour, IDamageableObject
     public float attackAnimationLength = 1.0f;
     public Collider2D attackArea;
 
+    public GameObject healthbar;
+
     [NonSerialized]
     public bool movingRight = false;
     [NonSerialized]
@@ -75,6 +77,7 @@ public class EnemyStateManager : MonoBehaviour, IDamageableObject
         {
             Instantiate(spawnPrefab, transform.position, transform.rotation).GetComponent<EnemySpawnPoint>().enemyPrefab = enemyPrefab;
         }
+        healthbar.SetActive(false);
     }
 
     public virtual void Awake()
@@ -118,6 +121,7 @@ public class EnemyStateManager : MonoBehaviour, IDamageableObject
 
     public virtual void Damage(float amount, GameObject origin)
     {
+        StartCoroutine(turnHealthbarOn());
         currentEnemyHealth -= amount;
         SwitchState(EnemyState.DAMAGED);
     }
@@ -125,6 +129,12 @@ public class EnemyStateManager : MonoBehaviour, IDamageableObject
     public void PlayStepAudio()
     {
         stepAudio.PlayRandomSound();
+    }
+
+    IEnumerator turnHealthbarOn(){
+        healthbar.SetActive(true);
+       yield  return new WaitForSeconds(4f);
+       healthbar.SetActive(false);
     }
 
     public void Die()
