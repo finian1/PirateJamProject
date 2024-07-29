@@ -15,8 +15,6 @@ public class RandomAudioScript : MonoBehaviour
     public void PlayRandomSound()
     {
         int randomVal = Random.Range(0, potentialClips.Length);
-
-        audioSource.time = 0.0f;
         audioSource.clip = potentialClips[randomVal];
         audioSource.Play();
     }

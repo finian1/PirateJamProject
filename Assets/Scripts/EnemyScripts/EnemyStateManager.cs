@@ -57,6 +57,8 @@ public class EnemyStateManager : MonoBehaviour, IDamageableObject
 
     public bool shouldPlaceSpawner = true;
 
+    public RandomAudioScript stepAudio;
+
 
     public Dictionary<EnemyState, EnemyBaseState> EnemyStates = new Dictionary<EnemyState, EnemyBaseState>()
     {
@@ -118,6 +120,11 @@ public class EnemyStateManager : MonoBehaviour, IDamageableObject
     {
         currentEnemyHealth -= amount;
         SwitchState(EnemyState.DAMAGED);
+    }
+
+    public void PlayStepAudio()
+    {
+        stepAudio.PlayRandomSound();
     }
 
     public void Die()
