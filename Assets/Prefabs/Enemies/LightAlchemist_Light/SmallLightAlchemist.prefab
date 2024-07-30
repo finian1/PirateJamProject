@@ -477,7 +477,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: -1176014498, guid: 9798e1d4f9c11e745b619eb5138d8452, type: 3}
+  m_Sprite: {fileID: -780563891, guid: 9798e1d4f9c11e745b619eb5138d8452, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -552,17 +552,18 @@ MonoBehaviour:
   groundCheck: {fileID: 4381925109268670529}
   wallCheck: {fileID: 4177105763219062996}
   movementSpeed: 5
-  aggroSpeed: 15
+  aggroSpeed: 7.5
   initialEnemyHealth: 25
-  attackSpeed: 1
-  attackCooldown: 2
+  attackSpeed: 0.834
+  attackCooldown: 0
   attackDamage: 10
-  attackRange: 5
+  attackRange: 3.5
   attackAnimationLength: 1
   attackArea: {fileID: 7205368726352037587}
-  animator: {fileID: 0}
+  animator: {fileID: 5114532058465916633}
   shouldPlaceSpawner: 1
   stepAudio: {fileID: 4786828305835115809}
+  bodyCollider: {fileID: 0}
   maxInvestigationTime: 5
   minInvestigationTime: 2
   maxTimeBetweenInvestigation: 5

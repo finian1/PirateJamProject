@@ -11,10 +11,12 @@ public class EnemyAttackingState : EnemyBaseState
     {
         attackWindupTimer = 0.0f;
         enemy.timeSinceLastAttack = 0.0f;
+        enemy.animator.SetBool("Attacking", true);
     }
 
     public override void ExitState(EnemyStateManager enemy)
     {
+        enemy.animator.SetBool("Attacking", false);
     }
 
     public override void UpdateState(EnemyStateManager enemy)
@@ -22,8 +24,6 @@ public class EnemyAttackingState : EnemyBaseState
         attackWindupTimer += Time.deltaTime;
         if(attackWindupTimer >= enemy.attackSpeed)
         {
-            Attack(enemy);
-            
             if (enemy.vision.canSeeTarget && enemy.vision.closestTarget != null)
             {
                 Vector3 targetDirection = enemy.vision.closestTarget.transform.position - enemy.transform.position;
@@ -41,18 +41,6 @@ public class EnemyAttackingState : EnemyBaseState
             {
                 enemy.SwitchState(EnemyState.ROAMING);
             }
-        }
-    }
-
-    private void Attack(EnemyStateManager enemy)
-    {
-        Debug.DrawLine(enemy.transform.position, enemy.transform.position + enemy.forwardVector * enemy.attackRange, Color.cyan, 1.0f);
-        List<Collider2D> targets = new List<Collider2D>();
-        enemy.attackArea.Overlap(targets);
-
-        foreach (Collider2D target in targets)
-        {
-            ExecuteEvents.Execute<IDamageableObject>(target.gameObject, null, (message, data) => message.Damage(enemy.attackDamage, enemy.gameObject));
         }
     }
 }

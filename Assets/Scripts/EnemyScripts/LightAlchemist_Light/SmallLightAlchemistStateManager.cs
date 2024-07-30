@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class SmallLightAlchemistStateManager : EnemyStateManager
 {
@@ -17,5 +18,18 @@ public class SmallLightAlchemistStateManager : EnemyStateManager
         EnemyStates[EnemyState.INVESTIGATING] = new SmallLightAlchemistInvestigatingState();
 
         base.Awake();
+    }
+
+
+    public void Attack()
+    {
+        Debug.DrawLine(transform.position, transform.position + forwardVector * attackRange, Color.cyan, 1.0f);
+        List<Collider2D> targets = new List<Collider2D>();
+        attackArea.Overlap(targets);
+
+        foreach (Collider2D target in targets)
+        {
+            ExecuteEvents.Execute<IDamageableObject>(target.gameObject, null, (message, data) => message.Damage(attackDamage, gameObject));
+        }
     }
 }
