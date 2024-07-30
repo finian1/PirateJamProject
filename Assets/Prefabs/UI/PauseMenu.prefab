@@ -38,7 +38,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 15}
+  m_AnchoredPosition: {x: 4, y: -91}
   m_SizeDelta: {x: 429.8204, y: 123.5086}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6310853219717735377
@@ -165,7 +165,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - eventID: 2
+  - eventID: 1
     callback:
       m_PersistentCalls:
         m_Calls:
@@ -219,8 +219,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 38.21631, y: 0}
-  m_SizeDelta: {x: -1196.6204, y: 0}
+  m_AnchoredPosition: {x: 35, y: 0}
+  m_SizeDelta: {x: -1196.6204, y: -238.8518}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3735671975762554313
 CanvasRenderer:
@@ -564,7 +564,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 412}
+  m_AnchoredPosition: {x: 4, y: 306}
   m_SizeDelta: {x: 515.9731, y: 140.7106}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8757173510690877115
@@ -704,7 +704,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 161}
+  m_AnchoredPosition: {x: 4, y: 55}
   m_SizeDelta: {x: 429.8204, y: 123.5086}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7965049997499403375
@@ -831,7 +831,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - eventID: 2
+  - eventID: 1
     callback:
       m_PersistentCalls:
         m_Calls:
@@ -885,7 +885,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -141}
+  m_AnchoredPosition: {x: 4, y: -247}
   m_SizeDelta: {x: 429.8204, y: 123.5086}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2191425565670080791
@@ -1012,7 +1012,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - eventID: 2
+  - eventID: 1
     callback:
       m_PersistentCalls:
         m_Calls:

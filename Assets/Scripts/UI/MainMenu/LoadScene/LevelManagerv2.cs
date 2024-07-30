@@ -28,7 +28,7 @@ public class LevelManager : MonoBehaviour
     private bool isLoading;
 
 
-    public GameObject menu;
+
 
     private void Awake()
     {
@@ -49,7 +49,7 @@ public class LevelManager : MonoBehaviour
     /// <param name="index"></param>
     public void LoadScene(int index)
     {
-        Destroy(menu);
+
         targetScene = index;
         StartCoroutine(LoadSceneRoutine());
  

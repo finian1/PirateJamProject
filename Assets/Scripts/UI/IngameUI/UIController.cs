@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UI;
+
 
 public class UIController : MonoBehaviour
 {
@@ -12,7 +14,7 @@ public class UIController : MonoBehaviour
     [Range(0,100)]
     public float barSpeed = 2;
 
-   public PlayerStateManager stm;
+   public Stats stm;
 
     [Header("Corruption")]
     public Image corruptionFill;
@@ -27,13 +29,13 @@ public class UIController : MonoBehaviour
 
     void Update()
     {
-        float fillAmount = Stats.instance.currentHealth /Stats.instance.initialHealth;
+        float fillAmount = stm.currentHealth /stm.initialHealth;
         healthFill.fillAmount = Mathf.Lerp(healthFill.fillAmount, fillAmount, Time.deltaTime * barSpeed);
 
-        float fillAmount2 = Stats.instance.currentCorruption /Stats.instance.initialCorruption;
+        float fillAmount2 = stm.currentCorruption /stm.initialCorruption;
         corruptionFill.fillAmount = Mathf.Lerp(corruptionFill.fillAmount, fillAmount2, Time.deltaTime * bSpeed);
     }
 
-  
+
 }
 

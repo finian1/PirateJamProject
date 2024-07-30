@@ -17,7 +17,7 @@ public class Pause : MonoBehaviour
     }
 
     public void UnPause(){
-         screen.SetActive(false);
+        screen.SetActive(false);
         Time.timeScale = 1;
         paused = false;
     }
@@ -26,13 +26,13 @@ public class Pause : MonoBehaviour
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.Escape)){
-            
-            // run pause
-            PauseGame();
+
             if(paused == true){
                 UnPause();
             }
-            
+            else{
+                PauseGame();
+            }
         }
     }
 }
