@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2100717466475112853}
   - component: {fileID: 8809534809630094643}
   - component: {fileID: 6551650131622955606}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: LightShadowAttack
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -165,7 +165,7 @@ GameObject:
   - component: {fileID: 12060139148405467}
   - component: {fileID: 2669610378298498749}
   - component: {fileID: 8724796468513816290}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
