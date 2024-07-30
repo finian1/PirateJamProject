@@ -502,4 +502,9 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
             }
         }
     }
+
+    public void Heal(float amount)
+    {
+        Stats.currentHealth = Mathf.Clamp(Stats.currentHealth + amount, 0, Stats.initialHealth);
+    }
 }
