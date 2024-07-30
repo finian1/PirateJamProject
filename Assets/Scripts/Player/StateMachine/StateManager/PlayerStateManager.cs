@@ -400,7 +400,7 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
         redFlash = Mathf.Clamp(redFlash, 0.0f, 1.0f);
         unhiding = false;
 
-         PlayerPrefs.SetFloat("Health",  Stats.instance.currentHealth);
+         PlayerPrefs.SetFloat("Health",  Stats.currentHealth);
     }
 
     private void FixedUpdate()
@@ -455,9 +455,9 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
     public void Damage(float amount, GameObject source)
     {
         redFlash = 1.0f;
-        Stats.instance.currentHealth -= amount;
-        PlayerPrefs.SetFloat("Health",  Stats.instance.currentHealth);
-        if(Stats.instance.currentHealth <= 0.0f)
+        Stats.currentHealth -= amount;
+        PlayerPrefs.SetFloat("Health",  Stats.currentHealth);
+        if(Stats.currentHealth <= 0.0f)
         {
             respawnManager.RespawnPlayer();
         }
