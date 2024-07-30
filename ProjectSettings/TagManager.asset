@@ -7,6 +7,7 @@ TagManager:
   - LightAttack
   - LightAlchemist
   - Shadow
+  - Ground
   layers:
   - Default
   - TransparentFX

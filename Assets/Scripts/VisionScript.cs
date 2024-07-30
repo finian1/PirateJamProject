@@ -43,7 +43,7 @@ public class VisionScript : MonoBehaviour
     {
         Vector2 currentForwardVector;
 
-        if(canSeeTarget)
+        if(canSeeTarget && closestTarget)
         {
             currentForwardVector = closestTarget.transform.position - transform.position;
             currentForwardVector.Normalize();

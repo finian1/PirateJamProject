@@ -22,14 +22,14 @@ public class PlayerCrouchingState : PlayerBaseState
         //player.transform.position = new Vector3(player.transform.position.x, player.transform.position.y - heightDifference * 0.8f, player.transform.position.z);
         player.currentMovementSpeed = player.originalMovementSpeed;
 
-        if(Input.GetKey(KeyCode.LeftControl) && player.moveDirection.x == 0)
+        if(Input.GetKey(KeyCode.S) && player.moveDirection.x == 0)
         {
             player.anim.SetBool("IsMoving", false);
             player.rb.velocity = new Vector2(0.0f, player.rb.velocity.y);
             player.anim.SetBool("IsCrouchIdle", true);
         }
 
-        //if(!Input.GetKey(KeyCode.LeftControl) && !player.canStandUp && player.moveDirection.x != 0)
+        //if(!Input.GetKey(KeyCode.S) && !player.canStandUp && player.moveDirection.x != 0)
         //{
         //    player.SwitchState(PlayerState.CROUCHMOVING);
         //}
@@ -44,7 +44,7 @@ public class PlayerCrouchingState : PlayerBaseState
             player.anim.SetBool("IsJumpFalling", false);
         }
 
-        if(Input.GetKey(KeyCode.LeftControl) && !player.isGrounded)
+        if(Input.GetKey(KeyCode.S) && !player.isGrounded)
         {
             player.anim.SetBool("IsJumpFalling", true);
         }
@@ -72,7 +72,7 @@ public class PlayerCrouchingState : PlayerBaseState
             player.currentScale = localScale;
         }
             
-        if (!Input.GetKey(KeyCode.LeftControl) && player.isGrounded && !player.isUnderCeiling)
+        if (!Input.GetKey(KeyCode.S) && player.isGrounded && !player.isUnderCeiling)
         {
             player.anim.SetBool("IsCrouchIdle", false);
             player.SwitchState(PlayerState.IDLE);
@@ -88,7 +88,7 @@ public class PlayerCrouchingState : PlayerBaseState
             player.SwitchState(PlayerState.MOVING);
         }
 
-        if (Input.GetKey(KeyCode.LeftControl) && player.moveDirection.x != 0f && player.canCrouchMove || !Input.GetKey(KeyCode.LeftControl) && player.isUnderCeiling && player.moveDirection.x != 0f && player.canCrouchMove)
+        if (Input.GetKey(KeyCode.S) && player.moveDirection.x != 0f && player.canCrouchMove || !Input.GetKey(KeyCode.S) && player.isUnderCeiling && player.moveDirection.x != 0f && player.canCrouchMove)
         {
             player.SwitchState(PlayerState.CROUCHMOVING);
         }

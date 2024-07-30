@@ -337,7 +337,7 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
 
         //------------------------
 
-        if (Input.GetKey(KeyCode.LeftControl) && moveDirection.x == 0 && isGrounded)
+        if (Input.GetKey(KeyCode.S) && moveDirection.x == 0 && isGrounded)
         {
             crouchRisingTime = 0f;
 
@@ -355,7 +355,7 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
             }
         }
 
-        else if (Input.GetKey(KeyCode.LeftControl) && moveDirection.x != 0 && isGrounded)
+        else if (Input.GetKey(KeyCode.S) && moveDirection.x != 0 && isGrounded)
         {
             anim.SetBool("IsCrouchIdle", true);
             anim.SetBool("IsRunning", false);
@@ -363,7 +363,7 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
             isCrouchMoving = true;
         }
 
-        if (!Input.GetKey(KeyCode.LeftControl) && isGrounded)
+        if (!Input.GetKey(KeyCode.S) && isGrounded)
         {
             crouchFallingTime = 0f;
 
@@ -377,7 +377,7 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
             }
         }
 
-        if (Input.GetKey(KeyCode.LeftControl) && isGrounded)
+        if (Input.GetKey(KeyCode.S) && isGrounded)
         {
             anim.SetBool("IsCrouchHeld", true);
         }

@@ -84,7 +84,7 @@ public class PlayerIdleState : PlayerBaseState
             }
         }
 
-        if (Input.GetKey(KeyCode.LeftControl) && player.isGrounded)
+        if (Input.GetKey(KeyCode.S) && player.isGrounded)
         {
             player.SwitchState(PlayerState.CROUCHING);
         }
