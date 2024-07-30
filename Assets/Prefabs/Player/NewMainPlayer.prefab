@@ -4987,7 +4987,7 @@ MonoBehaviour:
   essenceCost: 1
   attackDamage: 5
   cooldownTime: 0.5
-  weapon: {fileID: 0}
+  weapon: {fileID: 5953252142432562490}
   projectile: {fileID: 704788552926570889, guid: c41a4e7b05bb3584aa6c1c8e25150335, type: 3}
 --- !u!1 &3400545044088210409
 GameObject:
@@ -5406,7 +5406,7 @@ MonoBehaviour:
   attacks:
   - {fileID: 9201533534106787130}
   - {fileID: 1180680712657029548}
-  player: {fileID: 7116130173986717328}
+  player: {fileID: 9035077601566555575}
 --- !u!1 &4696914935705484365
 GameObject:
   m_ObjectHideFlags: 0
@@ -5658,9 +5658,9 @@ GameObject:
   - component: {fileID: 7386753548147657053}
   - component: {fileID: 7132530679109616298}
   - component: {fileID: 2538016098716021404}
-  - component: {fileID: 7116130173986717328}
   - component: {fileID: 6218149251415532461}
   - component: {fileID: 5833063650433296216}
+  - component: {fileID: 9035077601566555575}
   m_Layer: 6
   m_Name: Capsule
   m_TagString: Player
@@ -5808,95 +5808,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &7116130173986717328
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7801788705675434407}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05df49354be61dd49b4c71d711d7a94c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentMovementSpeed: 0
-  originalMovementSpeed: 0
-  crouchingMovementSpeed: 0
-  horizontalMovement: 0
-  lightAttackCooldown: 0
-  justLightAttacked: 0
-  lightShadowAttackCooldown: 0
-  lightShadowAttackStarted: 0
-  justLightShadowAttacked: 0
-  canLightShadowAttack: 0
-  velocityY: 0
-  velocityX: 0
-  jumpingPower: 0
-  originalJumpingPower: 0
-  currentJumpCount: 0
-  maxJumpCount: 0
-  coyoteTime: 0
-  coyoteTimeCounter: 0
-  jumpBufferTime: 0
-  jumpBufferCounter: 0
-  crouchFallingTime: 0
-  crouchRisingTime: 0
-  canCrouchMoveTimer: 0
-  isCrouchFalling: 0
-  isCrouchRising: 0
-  isCrouchMoving: 0
-  hasPressedCrouch: 0
-  initialDashCounter: 0
-  currentDashCounter: 0
-  minDashCounter: 0
-  maxDashCounter: 0
-  dashPower: 0
-  dashResetTimer: 0
-  originalDashCooldownTimer: 0
-  dashCooldownTimer: 0
-  groundDistance: 0
-  groundedTimer: 0
-  moveDirection: {x: 0, y: 0}
-  currentScale: {x: 0, y: 0, z: 0}
-  ceilingCubeSize: {x: 0, y: 0, z: 0}
-  originalScale: {x: 0, y: 0, z: 0}
-  crouchScale: {x: 0, y: 0, z: 0}
-  mousePosition: {x: 0, y: 0, z: 0}
-  isGrounded: 0
-  startGroundedTimer: 0
-  canDoubleJump: 0
-  isUnderCeiling: 0
-  isJumpBuffering: 0
-  isFacingRight: 0
-  isCrouching: 0
-  canCrouchMove: 0
-  hasCrouchFlipReset: 0
-  justDashed: 0
-  isHidden: 0
-  unhiding: 0
-  rb: {fileID: 2538016098716021404}
-  anim: {fileID: 6218149251415532461}
-  _playerDoubleJumpParticle: {fileID: 5286653254899134755}
-  _playerDashParticle: {fileID: 8791247838260315335}
-  stepAudio: {fileID: 7732397122932750279}
-  attackAudio: {fileID: 1730973613761620011}
-  mainCamera: {fileID: 0}
-  groundCheck: {fileID: 7580116310437254679}
-  ceilingCheck: {fileID: 2309439564062288046}
-  weapon: {fileID: 5953252142432562490}
-  dash1: {fileID: 0}
-  dash2: {fileID: 0}
-  dash3: {fileID: 0}
-  currentHidingPlace: {fileID: 0}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  hits: []
-  initialHealth: 100
-  currentHealth: 100
-  initialCorruption: 100
-  currentCorruption: 100
 --- !u!95 &6218149251415532461
 Animator:
   serializedVersion: 7
@@ -5927,6 +5838,76 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7801788705675434407}
   m_Enabled: 1
+--- !u!114 &9035077601566555575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7801788705675434407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05df49354be61dd49b4c71d711d7a94c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentMovementSpeed: 0
+  originalMovementSpeed: 12
+  crouchingSpeedPercent: 0.2
+  lightAttackCooldown: 0.25
+  lightShadowAttackCooldown: 0.5
+  canLightShadowAttack: 1
+  originalJumpingPower: 25
+  maxJumpCount: 2
+  coyoteTime: 0.2
+  jumpBufferTime: 0.2
+  canCrouchMoveTimer: 0
+  initialDashCounter: 0
+  currentDashCounter: 3
+  minDashCounter: 0
+  maxDashCounter: 3
+  dashPower: 80
+  dashResetTime: 1
+  originalDashCooldownTimer: 0.1
+  moveDirection: {x: 0, y: 0}
+  currentScale: {x: 0, y: 0, z: 0}
+  ceilingCubeSize: {x: 0.6, y: 1, z: 1}
+  originalScale: {x: 0, y: 0, z: 0}
+  crouchScale: {x: 0, y: 0, z: 0}
+  mousePosition: {x: 0, y: 0, z: 0}
+  isGrounded: 0
+  startGroundedTimer: 0
+  canDoubleJump: 0
+  isUnderCeiling: 0
+  isJumpBuffering: 0
+  isFacingRight: 1
+  isCrouching: 0
+  canCrouchMove: 1
+  hasCrouchFlipReset: 1
+  justDashed: 0
+  isHidden: 0
+  unhiding: 0
+  rb: {fileID: 2538016098716021404}
+  anim: {fileID: 6218149251415532461}
+  _playerDoubleJumpParticle: {fileID: 5286653254899134755}
+  _playerDashParticle: {fileID: 8791247838260315335}
+  stepAudio: {fileID: 7732397122932750279}
+  attackAudio: {fileID: 1730973613761620011}
+  mainCamera: {fileID: 0}
+  groundCheck: {fileID: 7580116310437254679}
+  ceilingCheck: {fileID: 2309439564062288046}
+  weapon: {fileID: 5953252142432562490}
+  dash1: {fileID: 0}
+  dash2: {fileID: 0}
+  dash3: {fileID: 0}
+  currentHidingPlace: {fileID: 0}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  hits: []
+  initialHealth: 100
+  currentHealth: 100
+  initialCorruption: 100
+  currentCorruption: 100
 --- !u!1 &8236135162403273344
 GameObject:
   m_ObjectHideFlags: 0

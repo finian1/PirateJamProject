@@ -23,7 +23,7 @@ public class PlayerLightAttackingState : PlayerBaseState
 
     public override void UpdateState(PlayerStateManager player)
     {
-        player.lightAttackCooldown += Time.deltaTime;
+        player.lightAttackCooldownTimer += Time.deltaTime;
 
         if(!player.isGrounded)
         {
@@ -48,9 +48,9 @@ public class PlayerLightAttackingState : PlayerBaseState
                 player.rb.velocity = new Vector2(player.moveDirection.x * player.currentMovementSpeed, player.rb.velocity.y);
             }
 
-            if(player.lightAttackCooldown > 0.25f)
+            if(player.lightAttackCooldownTimer > player.lightAttackCooldown)
             {
-                player.lightAttackCooldown = 0f;
+                player.lightAttackCooldownTimer = 0f;
                 player.justLightAttacked = true;
                 player.anim.SetBool("IsLightAttacking", false);
                 player.SwitchState(PlayerState.JUMPING);
@@ -80,9 +80,9 @@ public class PlayerLightAttackingState : PlayerBaseState
                 player.rb.velocity = new Vector2(player.moveDirection.x * player.currentMovementSpeed, player.rb.velocity.y);
             }
 
-            if (player.lightAttackCooldown > 0.25f)
+            if (player.lightAttackCooldownTimer > player.lightAttackCooldown)
             {
-                player.lightAttackCooldown = 0f;
+                player.lightAttackCooldownTimer = 0f;
                 player.anim.SetBool("IsLightAttacking", false);
                 player.SwitchState(PlayerState.IDLE);
             }

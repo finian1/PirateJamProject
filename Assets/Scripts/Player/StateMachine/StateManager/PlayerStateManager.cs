@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -22,63 +23,88 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
 
     [Header("Movement variables")]
     public float currentMovementSpeed;
-    public float originalMovementSpeed;
+    public float originalMovementSpeed = 12.0f;
+    public float crouchingSpeedPercent = 0.2f;
+    [NonSerialized]
     public float crouchingMovementSpeed;
+    [NonSerialized]
     public float horizontalMovement;
 
     [Header("Attacking variables")]
-    public float lightAttackCooldown;
-    public bool justLightAttacked;
+    public float lightAttackCooldown = 0.25f;
+    [NonSerialized]
+    public float lightAttackCooldownTimer;
+    [NonSerialized]
+    public bool justLightAttacked = false;
 
     [Header("Shadow attacking variables")]
-    public float lightShadowAttackCooldown;
+    public float lightShadowAttackCooldown = 0.5f;
+    [NonSerialized]
+    public float lightShadowAttackCooldownTimer;
+    [NonSerialized]
     public bool lightShadowAttackStarted;
+    [NonSerialized]
     public bool justLightShadowAttacked;
-    public bool canLightShadowAttack;
+    public bool canLightShadowAttack = true;
 
     [Header("Jumping variables")]
+    [NonSerialized]
     public float velocityY;
+    [NonSerialized]
     public float velocityX;
+    [NonSerialized]
     public float jumpingPower;
-    public float originalJumpingPower;
+    public float originalJumpingPower = 25.0f;
+    [NonSerialized]
     public int currentJumpCount;
-    public int maxJumpCount;
+    public int maxJumpCount = 2;
 
-    public float coyoteTime;
+    public float coyoteTime = 0.2f;
+    [NonSerialized]
     public float coyoteTimeCounter;
-    public float jumpBufferTime;
+    public float jumpBufferTime = 0.2f;
+    [NonSerialized]
     public float jumpBufferCounter;
 
     [Header("Crouching variables")]
+    [NonSerialized]
     public float crouchFallingTime;
+    [NonSerialized]
     public float crouchRisingTime;
-    public float canCrouchMoveTimer;
+    public float canCrouchMoveTimer = 0.0f;
+    [NonSerialized]
     public bool isCrouchFalling;
+    [NonSerialized]
     public bool isCrouchRising;
+    [NonSerialized]
     public bool isCrouchMoving;
+    [NonSerialized]
     public bool hasPressedCrouch;
 
 
     [Header("Dashing variables")]
     public int initialDashCounter;
-    public int currentDashCounter;
-    public int minDashCounter;
-    public int maxDashCounter;
-    public float dashPower;
+    public int currentDashCounter = 3;
+    public int minDashCounter = 0;
+    public int maxDashCounter = 3;
+    public float dashPower = 80.0f;
+    public float dashResetTime = 1.0f;
+    [NonSerialized]
     public float dashResetTimer;
-    public float originalDashCooldownTimer;
+    public float originalDashCooldownTimer = 0.1f;
+    [NonSerialized]
     public float dashCooldownTimer;
 
     [Header("Other variables")]
-    public float groundDistance;
     //public float ceilingDistance;
+    [NonSerialized]
     public float groundedTimer;
 
 
     [Header("Vectors")]
     public Vector2 moveDirection;
     public Vector3 currentScale;
-    public Vector3 ceilingCubeSize;
+    public Vector3 ceilingCubeSize = new Vector3(0.6f, 1.0f, 1.0f);
     public Vector3 originalScale;
     public Vector3 crouchScale;
     public Vector3 mousePosition;
@@ -87,21 +113,14 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
     [Header("Booleans")]
     public bool isGrounded;
     public bool startGroundedTimer;
-
     public bool canDoubleJump;
-
     public bool isUnderCeiling;
-
     public bool isJumpBuffering;
-
-    public bool isFacingRight;
-
+    public bool isFacingRight = true;
     public bool isCrouching;
-    public bool canCrouchMove;
-    public bool hasCrouchFlipReset;
-
+    public bool canCrouchMove = true;
+    public bool hasCrouchFlipReset = true;
     public bool justDashed;
-
     public bool isHidden;
     public bool unhiding;
 
@@ -167,49 +186,8 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
         currentState = PlayerStates[PlayerState.IDLE];
 
         currentState.EnterState(this);
-
-
         //Movespeed
-        originalMovementSpeed = 12f;
-        crouchingMovementSpeed = originalMovementSpeed * 0.2f;
-
-        //Attacking
-        justLightAttacked = false;
-
-        //Shadow Attacking
-        justLightShadowAttacked = false;
-        canLightShadowAttack = true;
-
-        //Dashing
-        currentDashCounter = 3;
-        minDashCounter = 0;
-        maxDashCounter = 3;
-        dashResetTimer = 0f;
-        originalDashCooldownTimer = 0.1f;
-        justDashed = false;
-
-        //Jumping
-        originalJumpingPower = 25f;
-        currentJumpCount = 0;
-        maxJumpCount = 2;
-        coyoteTime = 0.2f;
-        jumpBufferTime = 0.2f;
-        isJumpBuffering = false;
-
-        //Crouching
-        hasCrouchFlipReset = true;
-        isCrouching = false;
-        isCrouchRising = false;
-        canCrouchMove = true;
-        canCrouchMoveTimer = 0f;
-        hasPressedCrouch = false;
-        isUnderCeiling = false;
-
-        //Other
-        isFacingRight = true;
-        groundDistance = 0.02f;
-        ceilingCubeSize = new Vector3(0.6f, 1.0f, 1.0f);
-        //ceilingDistance = 1f;
+        crouchingMovementSpeed = originalMovementSpeed * crouchingSpeedPercent;
 
         originalScale = transform.localScale;
         currentScale = transform.localScale;
@@ -256,13 +234,13 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
         if(lightShadowAttackStarted)
         {
             canLightShadowAttack = false;
-            lightShadowAttackCooldown += Time.deltaTime;
+            lightShadowAttackCooldownTimer += Time.deltaTime;
 
-            if(lightShadowAttackCooldown > 0.5f)
+            if(lightShadowAttackCooldownTimer > lightShadowAttackCooldown)
             {
                 canLightShadowAttack = true;
                 lightShadowAttackStarted = false;
-                lightShadowAttackCooldown = 0.0f;
+                lightShadowAttackCooldownTimer = 0.0f;
             }
         }
 
@@ -304,7 +282,8 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
 
         if (!startGroundedTimer)
         {
-            isGrounded = Physics2D.OverlapCircle(groundCheck.transform.position, groundDistance, groundLayer);
+            List<Collider2D> ground = new List<Collider2D>();
+            isGrounded = groundCheck.GetComponent<Collider2D>().Overlap(ground) > 0;
         }
 
         //------------------------
@@ -446,7 +425,7 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
         {
             dashResetTimer += Time.deltaTime;
 
-            if (dashResetTimer >= 1f)
+            if (dashResetTimer >= dashResetTime)
             {
                 currentDashCounter++;
                 dashResetTimer = 0f;
@@ -473,7 +452,6 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
     {
         //Groundcheck gameobject visual circle
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(groundCheck.transform.position, groundDistance);
         Gizmos.DrawWireCube(ceilingCheck.transform.position, ceilingCubeSize);
     }
 
