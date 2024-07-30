@@ -59,6 +59,13 @@ public class BGMusicManager : MonoBehaviour
                 playingCorruptedTracks = true;
                 yield break;
             }
+            else if(Stats.currentCorruption > 50.0f && playingCorruptedTracks)
+            {
+                musicSource.Pause();
+                shouldPlayNextTrack = true;
+                playingCorruptedTracks = false;
+                yield break;
+            }
         }
         musicSource.Pause();
         shouldPlayNextTrack = true;

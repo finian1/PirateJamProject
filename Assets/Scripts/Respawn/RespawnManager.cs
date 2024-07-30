@@ -20,6 +20,10 @@ public class RespawnManager : MonoBehaviour
         //TODO: If not checkpoint, restart level.
         if (currentCheckpoint == null) return;
 
+        //Player reset stats
+        Stats.currentHealth = Stats.initialHealth;
+        Stats.currentCorruption = currentCheckpoint.corruptionValue;
+
         player.transform.position = currentCheckpoint.spawnPoint.position;
 
         EnemyStateManager[] aliveEnemies;
@@ -31,7 +35,10 @@ public class RespawnManager : MonoBehaviour
 
         foreach (EnemyStateManager enemy in aliveEnemies)
         {
-            Destroy(enemy.gameObject);
+            if (enemy != null)
+            {
+                Destroy(enemy.gameObject);
+            }
         }
         foreach (EnemySpawnPoint spawnPoint in spawnPoints)
         {
@@ -42,9 +49,7 @@ public class RespawnManager : MonoBehaviour
             shadowSpawner.ResetSpawn();
         }
 
-        //Player reset stats
-        Stats.currentHealth = Stats.initialHealth;
-        Stats.currentCorruption = currentCheckpoint.corruptionValue;
+
 
     }
 }

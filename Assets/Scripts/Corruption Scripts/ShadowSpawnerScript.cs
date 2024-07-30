@@ -27,7 +27,10 @@ public class ShadowSpawnerScript : MonoBehaviour
         if (hasSpawned)
         {
             hasSpawned = false;
-            Destroy(spawnedShadow);
+            if (spawnedShadow != null)
+            {
+                Destroy(spawnedShadow);
+            }
         }
     }
 

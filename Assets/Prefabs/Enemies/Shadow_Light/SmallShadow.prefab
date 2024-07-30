@@ -430,7 +430,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPrefab: {fileID: 7604062778192810350, guid: 37345deab610692458fee933a655ea4b, type: 3}
-  enemyPrefabPath: Assets/Prefabs/Enemies/Shadow_Light/SmallShadow.prefab
   previousEnemyState: 0
   currentEnemyState: 0
   vision: {fileID: 9193275624295936787}
@@ -446,8 +445,9 @@ MonoBehaviour:
   attackAnimationLength: 1.5
   attackArea: {fileID: 5987007372493649999}
   animator: {fileID: 0}
-  shouldPlaceSpawner: 1
+  shouldPlaceSpawner: 0
   stepAudio: {fileID: 0}
+  bodyCollider: {fileID: 0}
   player: {fileID: 0}
   timeBeforeHiding: 7.5
   timeBeforeAmbush: 1
