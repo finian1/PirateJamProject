@@ -4984,7 +4984,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a73ca7befef23d6448295eeb0f013650, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  essenceCost: 5
+  essenceCost: 10
   attackDamage: 10
   cooldownTime: 0.5
   weapon: {fileID: 5953252142432562490}
@@ -5267,7 +5267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53750e11d7751ed458b1e387351a3f4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  essenceCost: 1
+  essenceCost: 2
   attackDamage: 5
   cooldownTime: 0.1
   weapon: {fileID: 5953252142432562490}

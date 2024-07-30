@@ -26,6 +26,8 @@ public class PlayerDashingState : PlayerBaseState
 
         player.anim.SetBool("IsDashing", true);
 
+        Stats.currentCorruption -= 2.5f;
+
     }
 
     public override void UpdateState(PlayerStateManager player)
