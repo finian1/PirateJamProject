@@ -544,8 +544,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a27a8ec42eedcc44e881127324d8cf63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPrefab: {fileID: 7604062778192810350, guid: 37345deab610692458fee933a655ea4b, type: 3}
-  enemyPrefabPath: Assets/Prefabs/Enemies/LightAlchemist_Light/SmallLightAlchemist.prefab
+  spawnPrefab: {fileID: 8232074703820031917, guid: a50dcb11279738948b08412ec877fbf9, type: 3}
   previousEnemyState: 0
   currentEnemyState: 0
   vision: {fileID: 8053124828674157586}

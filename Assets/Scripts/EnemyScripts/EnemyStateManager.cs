@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEditor;
 using UnityEngine;
 
@@ -20,9 +21,6 @@ public enum EnemyState
 public class EnemyStateManager : MonoBehaviour, IDamageableObject
 {
     public GameObject spawnPrefab;
-
-    public string enemyPrefabPath;
-    private GameObject enemyPrefab;
 
     public EnemyState previousEnemyState;
     public EnemyState currentEnemyState;
@@ -70,9 +68,9 @@ public class EnemyStateManager : MonoBehaviour, IDamageableObject
 
     public virtual void Start()
     {
-        if (shouldPlaceSpawner && enemyPrefab != null && spawnPrefab != null)
+        if (shouldPlaceSpawner && spawnPrefab != null)
         {
-            Instantiate(spawnPrefab, transform.position, transform.rotation).GetComponent<EnemySpawnPoint>().enemyPrefab = enemyPrefab;
+            Instantiate(spawnPrefab, transform.position, transform.rotation);
         }
 
         bodyCollider = GetComponent<Collider2D>();
@@ -80,7 +78,6 @@ public class EnemyStateManager : MonoBehaviour, IDamageableObject
 
     public virtual void Awake()
     {
-        enemyPrefab = AssetDatabase.LoadAssetAtPath(enemyPrefabPath, typeof(GameObject)) as GameObject;
         if(GetComponent<Animator>() != null)
         {
             animator = GetComponent<Animator>();

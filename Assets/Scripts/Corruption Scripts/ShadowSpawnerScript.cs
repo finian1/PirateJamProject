@@ -9,20 +9,26 @@ public class ShadowSpawnerScript : MonoBehaviour
     public GameObject shadowToSpawn;
     public GameObject spawnPosition;
 
+    private GameObject spawnedShadow;
+
     private bool hasSpawned = false;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(!hasSpawned && collision.CompareTag("Player") && player.currentCorruption <= corruptionRequiredForSpawn)
         {
-            Instantiate(shadowToSpawn, spawnPosition.transform.position, spawnPosition.transform.rotation);
+            spawnedShadow = Instantiate(shadowToSpawn, spawnPosition.transform.position, spawnPosition.transform.rotation);
             hasSpawned = true;
         }
     }
 
     public void ResetSpawn()
     {
-        hasSpawned = false;
+        if (hasSpawned)
+        {
+            hasSpawned = false;
+            Destroy(spawnedShadow);
+        }
     }
 
 }
