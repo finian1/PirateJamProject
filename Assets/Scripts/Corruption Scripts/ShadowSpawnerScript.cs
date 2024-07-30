@@ -15,7 +15,7 @@ public class ShadowSpawnerScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(!hasSpawned && collision.CompareTag("Player") && player.currentCorruption <= corruptionRequiredForSpawn)
+        if(!hasSpawned && collision.CompareTag("Player") && Stats.instance.currentCorruption <= corruptionRequiredForSpawn)
         {
             spawnedShadow = Instantiate(shadowToSpawn, spawnPosition.transform.position, spawnPosition.transform.rotation);
             hasSpawned = true;

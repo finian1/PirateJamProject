@@ -43,8 +43,8 @@ public class RespawnManager : MonoBehaviour
         }
 
         //Player reset stats
-        player.currentHealth = player.initialHealth;
-        player.currentCorruption = currentCheckpoint.corruptionValue;
+        Stats.instance.currentHealth = Stats.instance.initialHealth;
+        Stats.instance.currentCorruption = currentCheckpoint.corruptionValue;
 
     }
 }
