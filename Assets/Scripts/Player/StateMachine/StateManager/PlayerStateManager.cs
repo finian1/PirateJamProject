@@ -415,6 +415,8 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
         redFlash -= Time.deltaTime;
         redFlash = Mathf.Clamp(redFlash, 0.0f, 1.0f);
         unhiding = false;
+
+         PlayerPrefs.SetFloat("Health",  Stats.instance.currentHealth);
     }
 
     private void FixedUpdate()
@@ -470,6 +472,7 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
     {
         redFlash = 1.0f;
         Stats.instance.currentHealth -= amount;
+        PlayerPrefs.SetFloat("Health",  Stats.instance.currentHealth);
         if(Stats.instance.currentHealth <= 0.0f)
         {
             respawnManager.RespawnPlayer();

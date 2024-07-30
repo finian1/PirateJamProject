@@ -27,6 +27,8 @@ public class MainMenuController : MonoBehaviour
 
     public void play(){
 
+        PlayerPrefs.DeleteAll();
+
     }
 
     public void credit(){

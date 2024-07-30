@@ -7,9 +7,9 @@ public class Stats : MonoBehaviour
     public static Stats instance;
 
     [Header("Player Stats")]
-    public float initialHealth = 100.0f;
+    public float initialHealth ;
     public float currentHealth ;
-    public float initialCorruption = 100.0f;
+    public float initialCorruption ;
     public float currentCorruption ;
 
 
@@ -17,14 +17,25 @@ public class Stats : MonoBehaviour
         instance = this;
 
     }
-    // Start is called before the first frame update
+
     void Start()
     {
-        currentHealth = 50;
-        currentCorruption = 50;
+        if(PlayerPrefs.HasKey("Health") &&PlayerPrefs.HasKey("Corruption")) {
+            currentHealth = PlayerPrefs.GetFloat("Health");
+            currentCorruption = PlayerPrefs.GetFloat("Corruption");
+            Debug.Log("yes");
+
+            
+        }
+        else{
+        currentHealth = 100;
+        currentCorruption = 100;
+        Debug.Log("no");
+
+        }
+       
     }
 
-    // Update is called once per frame
     void Update()
     {
         
