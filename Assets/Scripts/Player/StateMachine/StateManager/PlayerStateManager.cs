@@ -212,7 +212,15 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
             if (groundedTimer > 0.1f)
             {
                 List<Collider2D> ground = new List<Collider2D>();
-                isGrounded = groundCheck.GetComponent<Collider2D>().Overlap(ground) > 0;
+                groundCheck.GetComponent<Collider2D>().Overlap(ground);
+                foreach (Collider2D collider in ground)
+                {
+                    if(collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
+                    {
+                        isGrounded = true;
+                    }
+                }
+                
                 groundedTimer = 0f;
                 startGroundedTimer = false;
             }
@@ -283,7 +291,14 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
         if (!startGroundedTimer)
         {
             List<Collider2D> ground = new List<Collider2D>();
-            isGrounded = groundCheck.GetComponent<Collider2D>().Overlap(ground) > 0;
+            groundCheck.GetComponent<Collider2D>().Overlap(ground);
+            foreach (Collider2D collider in ground)
+            {
+                if (collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
+                {
+                    isGrounded = true;
+                }
+            }
         }
 
         //------------------------
