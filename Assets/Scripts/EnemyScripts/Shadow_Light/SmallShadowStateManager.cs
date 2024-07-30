@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
+using UnityEngine.EventSystems;
 
 public class SmallShadowStateManager : EnemyStateManager
 {
@@ -12,12 +14,21 @@ public class SmallShadowStateManager : EnemyStateManager
 
     public float lungeDistance = 1.0f;
 
+    public float timeBetweenBodyDamage = 0.1f;
+    private float bodyDamageTimer = 0.0f;
+
     public override void Awake()
     {
         EnemyStates[EnemyState.HIDING] = new ShadowHiddenState();
         EnemyStates[EnemyState.ROAMING] = new ShadowRoamingState();
         EnemyStates[EnemyState.ATTACKING] = new ShadowAttackState();
         base.Awake();
+    }
+
+    public override void FixedUpdate()
+    {
+        bodyDamageTimer += Time.deltaTime;
+        base.FixedUpdate();
     }
 
     public override void Damage(float amount, GameObject source)
@@ -28,4 +39,12 @@ public class SmallShadowStateManager : EnemyStateManager
             base.Damage(amount, source);
         }
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            ExecuteEvents.Execute<IDamageableObject>(collision.gameObject, null, (message, data) => message.Damage(attackDamage / 2.0f, gameObject));
+        }
+       }
 }

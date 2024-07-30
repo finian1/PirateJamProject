@@ -87,7 +87,7 @@ public class EnemyStateManager : MonoBehaviour, IDamageableObject
         SwitchState(EnemyState.ROAMING);
     }
 
-    private void FixedUpdate()
+    public virtual void FixedUpdate()
     {
         timeSinceLastAttack += Time.deltaTime;
         EnemyStates[currentEnemyState].UpdateState(this);
