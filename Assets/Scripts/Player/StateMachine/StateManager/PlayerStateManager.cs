@@ -150,11 +150,7 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
     public LayerMask groundLayer;
     public Collider2D[] hits;
 
-    [Header("Player Stats")]
-    public float initialHealth = 100.0f;
-    public float currentHealth = 100.0f;
-    public float initialCorruption = 100.0f;
-    public float currentCorruption = 100.0f;
+
 
     private float redFlash = 0.0f;
 
@@ -473,8 +469,8 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
     public void Damage(float amount, GameObject source)
     {
         redFlash = 1.0f;
-        currentHealth -= amount;
-        if(currentHealth <= 0.0f)
+        Stats.instance.currentHealth -= amount;
+        if(Stats.instance.currentHealth <= 0.0f)
         {
             respawnManager.RespawnPlayer();
         }

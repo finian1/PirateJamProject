@@ -26,7 +26,7 @@ public class BGMusicManager : MonoBehaviour
     {
         if(shouldPlayNextTrack)
         {
-            if(player.currentCorruption <= 50.0f)
+            if(Stats.instance.currentCorruption <= 50.0f)
             {
                 int randomClip = Random.Range(0, corruptedClips.Length);
                 StartCoroutine(PlayClip(corruptedClips[randomClip].length, corruptedClips[randomClip]));
@@ -51,7 +51,7 @@ public class BGMusicManager : MonoBehaviour
         {
             yield return new WaitForSeconds(1.0f);
             timer += 1.0f;
-            if(player.currentCorruption <= 50.0f && !playingCorruptedTracks)
+            if(Stats.instance.currentCorruption <= 50.0f && !playingCorruptedTracks)
             {
                 
                 musicSource.Pause();

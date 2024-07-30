@@ -11,6 +11,8 @@ public class BaseWeapon : MonoBehaviour
 
     public PlayerStateManager player;
 
+    public Stats st;
+
     // Start is called before the first frame update
     void Start()
     {
