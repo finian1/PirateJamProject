@@ -48,18 +48,22 @@ public class MainMenuController : MonoBehaviour
     case menuScreens.main:
     Debug.Log(menuScreens);
     controlscrn.SetActive(false);
+    optionsscr.SetActive(false);
     break;
     case menuScreens.settings:
     Debug.Log(menuScreens);
     controlscrn.SetActive(false);
+    optionsscr.SetActive(true);
     break;
     case menuScreens.controls:
     Debug.Log(menuScreens);
     controlscrn.SetActive(true);
+    optionsscr.SetActive(false);
     break;
     case menuScreens.credits:
     Debug.Log(menuScreens);
     controlscrn.SetActive(false);
+    optionsscr.SetActive(false);
    break;
     }
 
