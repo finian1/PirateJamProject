@@ -35,7 +35,7 @@ public class CheckpointScript : MonoBehaviour
         {
             triggered = true;
             checkpointSprite.sprite = triggeredSprite;
-            corruptionValue = Stats.instance.currentCorruption;
+            corruptionValue = Stats.currentCorruption;
             litLight.SetActive(true);
             respawnManager.currentCheckpoint = this;
         }

@@ -14,7 +14,6 @@ public class UIController : MonoBehaviour
     [Range(0,100)]
     public float barSpeed = 2;
 
-   public Stats stm;
 
     [Header("Corruption")]
     public Image corruptionFill;
@@ -29,10 +28,10 @@ public class UIController : MonoBehaviour
 
     void Update()
     {
-        float fillAmount = stm.currentHealth /stm.initialHealth;
+        float fillAmount = Stats.currentHealth /Stats.initialHealth;
         healthFill.fillAmount = Mathf.Lerp(healthFill.fillAmount, fillAmount, Time.deltaTime * barSpeed);
 
-        float fillAmount2 = stm.currentCorruption /stm.initialCorruption;
+        float fillAmount2 = Stats.currentCorruption /Stats.initialCorruption;
         corruptionFill.fillAmount = Mathf.Lerp(corruptionFill.fillAmount, fillAmount2, Time.deltaTime * bSpeed);
     }
 

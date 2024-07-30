@@ -2,42 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Stats : MonoBehaviour
+public static class Stats 
 {
-    public static Stats instance;
+   
 
     [Header("Player Stats")]
-    public float initialHealth ;
-    public float currentHealth ;
-    public float initialCorruption ;
-    public float currentCorruption ;
+    public static float initialHealth =100.0f;
+    public static float currentHealth  = 100.0f;
+    public static float initialCorruption  = 100.0f;
+    public static float currentCorruption =  100.0f;
 
 
-    void Awake(){
-        instance = this;
+    
 
-    }
-
-    void Start()
-    {
-        if(PlayerPrefs.HasKey("Health") &&PlayerPrefs.HasKey("Corruption")) {
-            currentHealth = PlayerPrefs.GetFloat("Health");
-            currentCorruption = PlayerPrefs.GetFloat("Corruption");
-            Debug.Log("yes");
-
-            
-        }
-        else{
-        currentHealth = 100;
-        currentCorruption = 100;
-        Debug.Log("no");
-
-        }
-       
-    }
-
-    void Update()
-    {
-        
-    }
+    
 }

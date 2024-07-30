@@ -22,6 +22,6 @@ public class CorruptionLighting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        lighting.intensity = Mathf.Clamp(initLightLevel * (Stats.instance.currentCorruption / 100.0f), minimumLightingIntensity, 1.0f);
+        lighting.intensity = Mathf.Clamp(initLightLevel * (Stats.currentCorruption / 100.0f), minimumLightingIntensity, 1.0f);
     }
 }

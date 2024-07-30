@@ -27,7 +27,8 @@ public class MainMenuController : MonoBehaviour
 
     public void play(){
 
-        PlayerPrefs.DeleteAll();
+       Stats.currentCorruption = Stats.initialCorruption;
+       Stats.currentHealth = Stats.initialHealth;
 
     }
 

@@ -28,8 +28,8 @@ public class BaseAttack : MonoBehaviour
         }
         cooldownTimer = 0.0f;
 
-        weapon.st.currentCorruption -= essenceCost;
-        PlayerPrefs.SetFloat("Corruption", Stats.instance.currentCorruption);
+        Stats.currentCorruption -= essenceCost;
+        PlayerPrefs.SetFloat("Corruption", Stats.currentCorruption);
         return true;
     }
 }
