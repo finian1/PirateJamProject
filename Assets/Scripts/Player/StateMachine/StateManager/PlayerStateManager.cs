@@ -146,10 +146,12 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
     public GameObject currentHidingPlace;
 
 
-    [Header("Layers")]
+    [Header("Layers & Colliders")]
     public LayerMask groundLayer;
     public Collider2D[] hits;
 
+    public int playerLayer;
+    public int enemyLayer;
 
 
     private float redFlash = 0.0f;
@@ -190,6 +192,8 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
         //crouchScale = new Vector3(originalScale.x, originalScale.y * 0.5f, originalScale.z);
         crouchScale = new Vector3(originalScale.x, originalScale.y, originalScale.z);
 
+        playerLayer = LayerMask.NameToLayer("Player");
+        enemyLayer = LayerMask.NameToLayer("Enemy");
     }
 
     void Update()
@@ -506,5 +510,23 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
     public void Heal(float amount)
     {
         Stats.currentHealth = Mathf.Clamp(Stats.currentHealth + amount, 0, Stats.initialHealth);
+    }
+
+    public void SetLayerCollision(int layer1, int layer2, bool enableCollision)
+    {
+        int mask = Physics2D.GetLayerCollisionMask(layer1);
+
+        int layer2BitValue = 1 << layer2;
+
+        if (enableCollision)
+        {
+            mask |= layer2BitValue;
+        }
+        else
+        {
+            mask &= ~layer2BitValue;
+        }
+
+        Physics2D.SetLayerCollisionMask(layer1, mask);
     }
 }

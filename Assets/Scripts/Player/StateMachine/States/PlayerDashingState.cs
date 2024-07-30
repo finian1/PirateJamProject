@@ -22,6 +22,8 @@ public class PlayerDashingState : PlayerBaseState
             player.currentDashCounter--;
         }
 
+        player.SetLayerCollision(player.playerLayer, player.enemyLayer, false);
+
         player.anim.SetBool("IsDashing", true);
 
     }
@@ -50,12 +52,14 @@ public class PlayerDashingState : PlayerBaseState
 
                 if(player.dashCooldownTimer >= player.originalDashCooldownTimer && player.moveDirection.x != 0f)
                 {
+                    player.SetLayerCollision(player.playerLayer, player.enemyLayer, true);
                     player.anim.SetBool("IsDashing", false);
                     player.SwitchState(PlayerState.MOVING);
                 }
 
                 if (player.dashCooldownTimer >= player.originalDashCooldownTimer)
                 {
+                    player.SetLayerCollision(player.playerLayer, player.enemyLayer, true);
                     player.anim.SetBool("IsDashing", false);
                     player.SwitchState(PlayerState.IDLE);
                 }
@@ -92,12 +96,14 @@ public class PlayerDashingState : PlayerBaseState
 
                 if (player.dashCooldownTimer >= player.originalDashCooldownTimer && player.moveDirection.x != 0f)
                 {
+                    player.SetLayerCollision(player.playerLayer, player.enemyLayer, true);
                     player.anim.SetBool("IsDashing", false);
                     player.SwitchState(PlayerState.MOVING);
                 }
 
                 if (player.dashCooldownTimer >= player.originalDashCooldownTimer)
                 {
+                    player.SetLayerCollision(player.playerLayer, player.enemyLayer, true);
                     player.justDashed = true;
                     player.anim.SetBool("IsDashing", false);
                     player.SwitchState(PlayerState.JUMPING);
