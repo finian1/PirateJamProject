@@ -488,9 +488,9 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
 
     public void UpdateIsGrounded()
     {
-        List<Collider2D> ground = new List<Collider2D>();
-        groundCheck.GetComponent<Collider2D>().Overlap(ground);
-        foreach (Collider2D collider in ground)
+        List<Collider2D> collidersFound = new List<Collider2D>();
+        groundCheck.GetComponent<Collider2D>().Overlap(collidersFound);
+        foreach (Collider2D collider in collidersFound)
         {
             if (collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
             {
