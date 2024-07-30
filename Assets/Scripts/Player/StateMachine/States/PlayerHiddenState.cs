@@ -9,7 +9,7 @@ public class PlayerHiddenState : PlayerBaseState
         Collider2D[] colliders = player.GetComponents<Collider2D>();
         foreach (Collider2D collider in colliders)
         {
-            collider.enabled = true;
+            collider.enabled = false;
         }
         player.GetComponent<SpriteRenderer>().enabled = false;
         player.GetComponent<Rigidbody2D>().Sleep();
