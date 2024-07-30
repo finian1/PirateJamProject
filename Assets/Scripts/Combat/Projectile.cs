@@ -25,7 +25,7 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Ground"))
+        if(collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             Destroy(gameObject);
             return;
@@ -40,6 +40,5 @@ public class Projectile : MonoBehaviour
         }
 
         ExecuteEvents.Execute<IDamageableObject>(collision.gameObject, null, (message, data) => message.Damage(damageToDeal, gameObject));
-        Destroy(gameObject);
     }
 }
