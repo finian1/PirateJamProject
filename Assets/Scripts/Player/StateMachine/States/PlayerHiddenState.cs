@@ -13,6 +13,7 @@ public class PlayerHiddenState : PlayerBaseState
         }
         player.GetComponent<SpriteRenderer>().enabled = false;
         player.GetComponent<Rigidbody2D>().Sleep();
+        player.anim.SetBool("IsRunning", false);
         player.isHidden = true;
     }
 
