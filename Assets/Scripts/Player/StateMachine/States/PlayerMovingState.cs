@@ -76,7 +76,7 @@ public class PlayerMovingState : PlayerBaseState
             player.SwitchState(PlayerState.JUMPING);
         }
 
-        if (Input.GetKey(KeyCode.LeftControl) && player.isGrounded && player.moveDirection.x == 0f)
+        if (Input.GetKey(KeyCode.S) && player.isGrounded && player.moveDirection.x == 0f)
         {
             player.SwitchState(PlayerState.CROUCHING);
         }
@@ -86,7 +86,7 @@ public class PlayerMovingState : PlayerBaseState
             player.SwitchState(PlayerState.CROUCHING);
         }
 
-        if (Input.GetKey(KeyCode.LeftControl) && player.isGrounded && player.moveDirection.x != 0f)
+        if (Input.GetKey(KeyCode.S) && player.isGrounded && player.moveDirection.x != 0f)
         {
             player.SwitchState(PlayerState.CROUCHMOVING);
         }
