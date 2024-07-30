@@ -38,6 +38,7 @@ public class CheckpointScript : MonoBehaviour
             corruptionValue = Stats.currentCorruption;
             litLight.SetActive(true);
             respawnManager.currentCheckpoint = this;
+            player.Heal(20.0f);
         }
     }
 
