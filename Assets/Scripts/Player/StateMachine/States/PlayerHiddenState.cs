@@ -6,7 +6,11 @@ public class PlayerHiddenState : PlayerBaseState
 {
     public override void EnterState(PlayerStateManager player)
     {
-        player.GetComponent<Collider2D>().enabled = false;
+        Collider2D[] colliders = player.GetComponents<Collider2D>();
+        foreach (Collider2D collider in colliders)
+        {
+            collider.enabled = true;
+        }
         player.GetComponent<SpriteRenderer>().enabled = false;
         player.GetComponent<Rigidbody2D>().Sleep();
         player.isHidden = true;
@@ -16,7 +20,11 @@ public class PlayerHiddenState : PlayerBaseState
     {
         if(Input.GetKeyDown(KeyCode.E))
         {
-            player.GetComponent<Collider2D>().enabled = true;
+            Collider2D[] colliders = player.GetComponents<Collider2D>();
+            foreach(Collider2D collider in colliders)
+            {
+                collider.enabled = true;
+            }
             player.GetComponent<SpriteRenderer>().enabled = true;
             player.GetComponent<Rigidbody2D>().WakeUp();
             player.isHidden = false;
