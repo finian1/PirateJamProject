@@ -27,7 +27,7 @@ public class LevelManagerotherscenes : MonoBehaviour
     [Header("bool")]
     private bool isLoading;
 
-    public GameObject[] stuff;
+
 
 
 
@@ -51,9 +51,7 @@ public class LevelManagerotherscenes : MonoBehaviour
     /// <param name="index"></param>
     public void LoadScene(int index)
     {
-       for(int i = 0; i< stuff.Length; i++){
-        Destroy(stuff[i]);
-       }
+       
         targetScene = index;
         StartCoroutine(LoadSceneRoutine());
  
