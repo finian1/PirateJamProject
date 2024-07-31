@@ -13,6 +13,11 @@ public class ShadowSpawnerScript : MonoBehaviour
 
     private bool hasSpawned = false;
 
+    private void Start()
+    {
+        spawnPosition.GetComponent<SpriteRenderer>().enabled = false;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(!hasSpawned && collision.CompareTag("Player") && Stats.currentCorruption <= corruptionRequiredForSpawn)
