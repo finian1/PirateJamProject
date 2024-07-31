@@ -69,6 +69,7 @@ public class EnemyStateManager : MonoBehaviour, IDamageableObject
 
     public virtual void Start()
     {
+        movingRight = true;
         if (shouldPlaceSpawner && spawnPrefab != null)
         {
             Instantiate(spawnPrefab, transform.position, transform.rotation);

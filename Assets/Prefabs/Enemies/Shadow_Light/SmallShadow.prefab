@@ -369,7 +369,7 @@ MonoBehaviour:
   timeBeforeAmbush: 1
   lungeDistance: 3
   timeBetweenBodyDamage: 0.1
-  timeToSpawn: 1
+  timeToSpawn: 1.25
 --- !u!95 &2214814614881729929
 Animator:
   serializedVersion: 7
