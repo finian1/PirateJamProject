@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using static UnityEngine.GraphicsBuffer;
@@ -152,6 +153,9 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
 
     public int playerLayer;
     public int enemyLayer;
+
+    public bool layerActive = false;
+    public float layerTimer = 0f;
 
 
     private float redFlash = 0.0f;
@@ -407,6 +411,22 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
         unhiding = false;
 
          PlayerPrefs.SetFloat("Health",  Stats.currentHealth);
+
+        //------------------------
+
+        if(layerActive)
+        {
+            SetLayerCollision(playerLayer, enemyLayer, false);
+            layerTimer += Time.deltaTime;
+
+            if(layerTimer > 0.35f)
+            {
+                SetLayerCollision(playerLayer, enemyLayer, true);
+                layerTimer = 0f;
+                layerActive = false;
+            }
+        }
+
     }
 
     private void FixedUpdate()
