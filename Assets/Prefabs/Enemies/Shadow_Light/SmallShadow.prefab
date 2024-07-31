@@ -367,6 +367,7 @@ MonoBehaviour:
   player: {fileID: 0}
   timeBeforeHiding: 7.5
   timeBeforeAmbush: 1
+  timeToHide: 0.666
   lungeDistance: 3
   timeBetweenBodyDamage: 0.1
   timeToSpawn: 1.25
