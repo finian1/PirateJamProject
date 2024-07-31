@@ -201,6 +201,8 @@ public class PlayerStateManager : MonoBehaviour, IDamageableObject
 
         currentState.UpdateState(this);
 
+        //Time.timeScale = 0.333333f;
+
         //------------------------
 
         if (startGroundedTimer)
