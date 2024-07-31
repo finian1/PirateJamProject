@@ -24,6 +24,7 @@ public class UIController : MonoBehaviour
     void awake()
     {
         controller = this;
+        Time.timeScale = 1;
     }
 
     void Update()

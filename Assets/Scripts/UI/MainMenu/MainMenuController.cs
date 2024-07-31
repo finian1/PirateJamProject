@@ -37,7 +37,9 @@ public class MainMenuController : MonoBehaviour
 
     }
 
-
+    void start(){
+        Time.timeScale = 1;
+    }
 
     void Update()
     {
