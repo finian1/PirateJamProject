@@ -12,6 +12,8 @@ public class SmallShadowStateManager : EnemyStateManager
     //Amount of time to spot player before coming out of hiding.
     public float timeBeforeAmbush = 1.0f;
 
+    public float timeToHide = 0.666f;
+
     public float lungeDistance = 1.0f;
 
     public float timeBetweenBodyDamage = 0.1f;
@@ -21,7 +23,9 @@ public class SmallShadowStateManager : EnemyStateManager
 
     public override void Awake()
     {
-        EnemyStates[EnemyState.HIDING] = new ShadowHiddenState();
+        EnemyStates[EnemyState.HIDDEN] = new ShadowHiddenState();
+        EnemyStates[EnemyState.HIDING] = new ShadowHidingState();
+        EnemyStates[EnemyState.UNHIDING] = new ShadowUnhidingState();
         EnemyStates[EnemyState.ROAMING] = new ShadowRoamingState();
         EnemyStates[EnemyState.ATTACKING] = new ShadowAttackState();
         EnemyStates[EnemyState.SPAWNING] = new ShadowSpawningState();

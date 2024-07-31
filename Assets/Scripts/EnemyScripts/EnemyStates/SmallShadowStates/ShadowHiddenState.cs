@@ -9,10 +9,6 @@ public class ShadowHiddenState : EnemyBaseState
     public override void EnterState(EnemyStateManager enemy)
     {
         targetSpottedTimer = 0.0f;
-        enemy.GetComponent<SpriteRenderer>().enabled = false;
-        enemy.GetComponent<Rigidbody2D>().simulated = false;
-        enemy.bodyCollider.isTrigger = true;
-        enemy.gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
     }
 
     public override void ExitState(EnemyStateManager enemy)
@@ -27,7 +23,7 @@ public class ShadowHiddenState : EnemyBaseState
             if(targetSpottedTimer >= ((SmallShadowStateManager)enemy).timeBeforeAmbush)
             {
                 enemy.GetComponent<SpriteRenderer>().enabled = true;
-                enemy.SwitchState(EnemyState.SPAWNING);
+                enemy.SwitchState(EnemyState.UNHIDING);
             }
         }
         else
