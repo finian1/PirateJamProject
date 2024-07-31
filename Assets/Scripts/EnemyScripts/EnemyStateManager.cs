@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public enum EnemyState
 {
@@ -123,7 +124,11 @@ public class EnemyStateManager : MonoBehaviour, IDamageableObject
     public virtual void Damage(float amount, GameObject origin)
     {
         currentEnemyHealth -= amount;
-        SwitchState(EnemyState.DAMAGED);
+        if (currentEnemyHealth <= 0.0f)
+        {
+            Die();
+        }
+        //SwitchState(EnemyState.DAMAGED);
     }
 
     public void PlayStepAudio()
