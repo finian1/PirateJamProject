@@ -15,7 +15,8 @@ public enum EnemyState
     DISTRACTED,
     INVESTIGATING,
     DAMAGED,
-    HIDING
+    HIDING,
+    SPAWNING
 }
 
 public class EnemyStateManager : MonoBehaviour, IDamageableObject

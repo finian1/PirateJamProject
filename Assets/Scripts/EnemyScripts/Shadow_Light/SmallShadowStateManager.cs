@@ -17,12 +17,16 @@ public class SmallShadowStateManager : EnemyStateManager
     public float timeBetweenBodyDamage = 0.1f;
     private float bodyDamageTimer = 0.0f;
 
+    public float timeToSpawn = 1.0f;
+
     public override void Awake()
     {
         EnemyStates[EnemyState.HIDING] = new ShadowHiddenState();
         EnemyStates[EnemyState.ROAMING] = new ShadowRoamingState();
         EnemyStates[EnemyState.ATTACKING] = new ShadowAttackState();
+        EnemyStates[EnemyState.SPAWNING] = new ShadowSpawningState();
         base.Awake();
+        SwitchState(EnemyState.SPAWNING);
     }
 
     public override void FixedUpdate()
@@ -46,5 +50,5 @@ public class SmallShadowStateManager : EnemyStateManager
         {
             ExecuteEvents.Execute<IDamageableObject>(collision.gameObject, null, (message, data) => message.Damage(attackDamage / 2.0f, gameObject));
         }
-       }
+    }
 }

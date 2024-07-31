@@ -27,10 +27,7 @@ public class ShadowHiddenState : EnemyBaseState
             if(targetSpottedTimer >= ((SmallShadowStateManager)enemy).timeBeforeAmbush)
             {
                 enemy.GetComponent<SpriteRenderer>().enabled = true;
-                enemy.GetComponent<Rigidbody2D>().simulated = true;
-                enemy.bodyCollider.isTrigger = false;
-                enemy.gameObject.layer = LayerMask.NameToLayer("Enemy");
-                enemy.SwitchState(EnemyState.ROAMING);
+                enemy.SwitchState(EnemyState.SPAWNING);
             }
         }
         else
