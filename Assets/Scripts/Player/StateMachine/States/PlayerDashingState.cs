@@ -72,12 +72,12 @@ public class PlayerDashingState : PlayerBaseState
             {
                 if (player.rb.velocity.y < 0)
                 {
-                    player.rb.velocity = new Vector2(player.rb.velocity.x, player.rb.velocity.y * 1.005f);
+                    player.rb.velocity = new Vector2(player.rb.velocity.x, player.rb.velocity.y * 1.002f);
                 }
 
-                if (player.rb.velocity.y < -30f)
+                if (player.rb.velocity.y < -60f)
                 {
-                    player.rb.velocity = new Vector2(player.rb.velocity.x, -30f);
+                    player.rb.velocity = new Vector2(player.rb.velocity.x, -60f);
                 }
 
                 if (player.isFacingRight && player.dashCooldownTimer < player.originalDashCooldownTimer)

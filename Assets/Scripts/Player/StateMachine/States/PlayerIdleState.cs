@@ -58,8 +58,13 @@ public class PlayerIdleState : PlayerBaseState
         {
             player.SwitchState(PlayerState.JUMPING);
         }
-            
-        if(!player.isGrounded)
+
+        if (player.rb.velocity.y < -40f)
+        {
+            player.rb.velocity = new Vector2(player.rb.velocity.x, -40f);
+        }
+
+        if (!player.isGrounded)
         {
 
             player.rb.velocity = new Vector2(0.0f, player.rb.velocity.y);

@@ -45,12 +45,12 @@ public class PlayerJumpingState : PlayerBaseState
         {
             player.anim.SetBool("IsJumpRising", false);
             player.anim.SetBool("IsJumpFalling", true);
-            player.rb.velocity = new Vector2(player.rb.velocity.x, player.rb.velocity.y * 1.005f);
+            player.rb.velocity = new Vector2(player.rb.velocity.x, player.rb.velocity.y * 1.002f);
         }
 
-        if(player.rb.velocity.y < -40f)
+        if(player.rb.velocity.y < -50f)
         {
-            player.rb.velocity = new Vector2(player.rb.velocity.x, -40f);
+            player.rb.velocity = new Vector2(player.rb.velocity.x, -50f);
         }
 
         if (Input.GetKeyDown(KeyCode.Space) && player.currentJumpCount == 0)

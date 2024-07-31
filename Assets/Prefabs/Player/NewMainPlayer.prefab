@@ -5916,6 +5916,8 @@ MonoBehaviour:
   hits: []
   playerLayer: 0
   enemyLayer: 0
+  layerActive: 0
+  layerTimer: 0
 --- !u!61 &7037763282619049533
 BoxCollider2D:
   m_ObjectHideFlags: 0
