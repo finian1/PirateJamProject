@@ -41,6 +41,7 @@ public class LevelManager : MonoBehaviour
         {
             fade_Image.gameObject.SetActive(false);
         }
+        Time.timeScale = 1;
     }
 
     /// <summary>

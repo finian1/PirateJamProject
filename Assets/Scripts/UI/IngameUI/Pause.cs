@@ -29,9 +29,11 @@ public class Pause : MonoBehaviour
 
             if(paused == true){
                 UnPause();
+                Time.timeScale = 1;
             }
             else{
                 PauseGame();
+                Time.timeScale = 1;
             }
         }
     }
