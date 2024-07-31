@@ -559,7 +559,7 @@ MonoBehaviour:
   attackRange: 3.5
   attackAnimationLength: 1
   attackArea: {fileID: 7205368726352037587}
-  animator: {fileID: 5114532058465916633}
+  animator: {fileID: 0}
   shouldPlaceSpawner: 1
   stepAudio: {fileID: 4786828305835115809}
   bodyCollider: {fileID: 0}
@@ -738,7 +738,7 @@ Transform:
   m_GameObject: {fileID: 7668278202494949044}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.86, y: -0.46, z: 0}
+  m_LocalPosition: {x: 1.55, y: -0.46, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
